@@ -382,6 +382,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
         <tr>
           <th data-k="nome">Giocatore <span class="arrow"></span></th>
           <th data-k="ruolo">Ruolo <span class="arrow"></span></th>
+          <th data-k="cls">Cls <span class="arrow"></span></th>
           <th data-k="eta">Età <span class="arrow"></span></th>
           <th data-k="altezza">Alt. <span class="arrow"></span></th>
           <th data-k="ppg">PPG <span class="arrow"></span></th>
@@ -448,6 +449,9 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       </div>
       <div><label for="iNaz">Nazionalità</label><input id="iNaz" placeholder="USA"></div>
       <div><label for="iEta">Età</label><input id="iEta" type="number" min="14" max="45"></div>
+      <div><label for="iCls">Classe (NCAA)</label>
+        <select id="iCls"><option value=""></option><option>Fr</option><option>So</option><option>Jr</option><option>Sr</option><option>Gr</option></select>
+      </div>
       <div><label for="iAltezza">Altezza (cm)</label><input id="iAltezza" type="number" min="150" max="240"></div>
       <div><label for="iCotonou">Passaporto</label>
         <select id="iCotonou"><option value="">Straniero</option><option value="cotonou">Cotonou / non-foreign</option><option value="ita">Italiano / formato</option></select>
@@ -576,6 +580,13 @@ function saveAll(data){
 
 /* ---------- stato ---------- */
 let players=loadAll()||seed();
+// migrazione: ricava la classe dai dati avanzati già importati
+players.forEach(p=>{
+  if(!p.cls&&p.hs&&Array.isArray(p.hs.stats)){
+    const c=p.hs.stats.find(s=>s.k==='Cls');
+    if(c)p.cls=c.raw;
+  }
+});
 saveAll(players);
 let editingId=null;
 let currentVerdict='';
@@ -633,9 +644,12 @@ function applyFilters(list){
 }
 function sorted(list){
   const k=sortKey;
+  const CLS_ORD={'FR':1,'RS FR':1.5,'SO':2,'RS SO':2.5,'JR':3,'RS JR':3.5,'SR':4,'RS SR':4.5,'GR':5,'GS':5};
   return [...list].sort((a,b)=>{
     let va=a[k],vb=b[k];
     if(k==='verdetto'){const ord={sign:0,monitor:1,pass:2,'':3};va=ord[a.verdetto||''];vb=ord[b.verdetto||''];}
+    if(k==='cls'){va=CLS_ORD[(a.cls||'').toUpperCase()]??99;vb=CLS_ORD[(b.cls||'').toUpperCase()]??99;
+      if(va===99&&!a.cls)va=null;if(vb===99&&!b.cls)vb=null;}
     if(va===null||va===undefined||va==='')return 1;
     if(vb===null||vb===undefined||vb==='')return -1;
     if(typeof va==='string')return va.localeCompare(vb)*sortDir;
@@ -657,6 +671,7 @@ function render(){
     <tr data-id="${p.id}" tabindex="0" aria-label="Apri scheda ${esc(p.nome)}">
       <td><div class="player-name">${esc(p.nome)}</div><div class="player-sub">${esc(p.squadra||'')}${p.squadra&&p.lega?' · ':''}${esc(p.lega||'')}</div></td>
       <td>${esc(p.ruolo||'—')}</td>
+      <td>${esc(p.cls||'—')}</td>
       <td class="num">${fmt(p.eta)}</td>
       <td class="num">${fmt(p.altezza)}</td>
       <td class="num">${fmt(p.ppg)}</td>
@@ -689,6 +704,11 @@ function openModal(id){
   }
   $('#iNaz').value=p?.naz||'';
   $('#iEta').value=p?.eta??'';
+  $('#iCls').value=p?.cls||'';
+  if(p?.cls&&$('#iCls').value!==p.cls){
+    const o=document.createElement('option');o.textContent=p.cls;o.selected=true;
+    $('#iCls').appendChild(o);
+  }
   $('#iAltezza').value=p?.altezza??'';
   $('#iCotonou').value=p?.cotonou||'';
   $('#iPpg').value=p?.ppg??'';
@@ -733,6 +753,7 @@ function save(){
     nome,squadra:$('#iSquadra').value.trim(),lega:$('#iLega').value.trim(),
     ruolo:$('#iRuolo').value,naz:$('#iNaz').value.trim(),
     eta:numOrNull($('#iEta').value),altezza:numOrNull($('#iAltezza').value),
+    cls:$('#iCls').value,
     cotonou:$('#iCotonou').value,
     ppg:numOrNull($('#iPpg').value),rpg:numOrNull($('#iRpg').value),apg:numOrNull($('#iApg').value),
     tre:numOrNull($('#iTre').value),ts:numOrNull($('#iTs').value),usg:numOrNull($('#iUsg').value),min:numOrNull($('#iMin').value),
@@ -896,6 +917,11 @@ $('#hsParse').addEventListener('click',()=>{
     if(cm&&!$('#iAltezza').value)$('#iAltezza').value=cm;
     const role=btVal(stats,'Role');const ru=role?btRuolo(role.raw):'';
     if(ru&&!$('#iRuolo').value)$('#iRuolo').value=ru;
+    const cls=btVal(stats,'Cls');
+    if(cls&&!$('#iCls').value){
+      $('#iCls').value=cls.raw;
+      if($('#iCls').value!==cls.raw){const o=document.createElement('option');o.textContent=cls.raw;o.selected=true;$('#iCls').appendChild(o)}
+    }
     paintHs();
     toast(stats.length+' voci importate da Barttorvik');
     return;
@@ -1218,7 +1244,7 @@ $('#rosterGo').addEventListener('click',()=>{
   rows.forEach(r=>{
     if(players.some(p=>p.nome.toLowerCase()===r.nome.toLowerCase())){skipped++;return}
     players.push({
-      id:uid(),nome:r.nome,squadra:team,lega,ruolo:'',naz:'',
+      id:uid(),nome:r.nome,squadra:team,lega,ruolo:'',naz:'',cls:r.cls,
       eta:null,altezza:htToCm(r.ht),cotonou:'',
       ppg:null,rpg:null,apg:null,tre:null,ts:null,usg:+r.usg||null,min:null,
       verdetto:'',conf:'',why:'',fit:'',ruoloReale:'',rischio:'',
@@ -1257,7 +1283,7 @@ function openReport(id){
     ['5 · Ruolo e fit',p.fw5],
     ['6 · Benchmark e comparabili',p.fw6]
   ].filter(x=>x[1]);
-  const meta=[p.squadra,p.lega,p.ruolo,p.eta?p.eta+' anni':'',p.altezza?p.altezza+' cm':'',p.naz,
+  const meta=[p.squadra,p.lega,p.ruolo,p.cls?('classe '+p.cls):'',p.eta?p.eta+' anni':'',p.altezza?p.altezza+' cm':'',p.naz,
     p.cotonou==='cotonou'?'Cotonou / non-foreign':p.cotonou==='ita'?'Italiano / formato':''
   ].filter(Boolean).join(' · ');
   const adat=[
