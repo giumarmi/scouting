@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match Notes · Taccuino di Scouting</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F2F4F1;--card:#FFFFFF;--ink:#14212B;--ink-soft:#4A5B68;--line:#D8DEDA;
+  --sign:#1F7A5C;--sign-bg:#E3F1EB;--monitor:#C07A1B;--monitor-bg:#F8EEDC;
+  --pass:#B0382E;--pass-bg:#F6E4E1;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--paper);color:var(--ink);font-family:'Public Sans',system-ui,sans-serif;line-height:1.4;padding-bottom:4rem}
+button{font-family:inherit;cursor:pointer}
+input,textarea{font-family:inherit;font-size:16px;color:var(--ink)} /* 16px evita lo zoom iOS */
+:focus-visible{outline:2px solid var(--ink);outline-offset:2px}
+
+header{background:var(--ink);color:#F2F4F1;padding:.9rem 1rem;display:flex;align-items:center;gap:.8rem}
+.brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:.05em;text-transform:uppercase}
+.brand small{display:block;font-family:'Public Sans',sans-serif;font-weight:400;font-size:.62rem;letter-spacing:.12em;opacity:.7;text-transform:uppercase}
+.header-btns{margin-left:auto;display:flex;gap:.4rem}
+.btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:.5rem .8rem;font-size:.82rem;font-weight:600}
+.btn-ghost{background:transparent;color:#F2F4F1;border-color:rgba(242,244,241,.35)}
+.btn-primary{background:var(--ink);color:#F2F4F1;border-color:var(--ink);width:100%;padding:.8rem;font-size:1rem;border-radius:10px}
+.btn-primary:active{background:#22333F}
+
+section{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:.8rem;padding:.9rem}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:var(--ink-soft);margin-bottom:.6rem}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
+label{font-size:.7rem;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:.15rem}
+input[type=text],input[type=date],textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:.55rem .65rem;background:var(--paper)}
+.span2{grid-column:span 2}
+
+/* quarto + cronometro */
+.qrow{display:flex;gap:.4rem;align-items:center}
+.qbtn{flex:1;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:.6rem 0;font-weight:700;font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:var(--ink-soft)}
+.qbtn.active{background:var(--ink);color:#F2F4F1;border-color:var(--ink)}
+.clock{width:5.2rem;text-align:center;font-variant-numeric:tabular-nums;font-weight:700}
+
+/* tag chips */
+.filter{margin-bottom:.5rem}
+.cat{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:.6rem 0 .3rem}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:.4rem .7rem;font-size:.8rem;font-weight:500;color:var(--ink)}
+.chip.on{background:var(--ink);color:#F2F4F1;border-color:var(--ink)}
+
+/* rating */
+.rates{display:flex;gap:.4rem}
+.rate{flex:1;font-size:1.3rem;border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:.45rem 0}
+.rate.on{border-width:2px;border-color:var(--ink);background:#E9EDE8}
+
+/* composer riepilogo */
+.newnote-head{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.5rem}
+.newnote-head b{font-family:'Barlow Condensed',sans-serif;font-size:1.05rem}
+.newnote-meta{font-size:.75rem;color:var(--ink-soft)}
+.seltags{font-size:.75rem;color:var(--ink-soft);margin:.4rem 0;min-height:1em}
+
+/* lista note */
+.note{border-left:3px solid var(--ink);background:var(--paper);border-radius:0 8px 8px 0;padding:.5rem .7rem;margin-bottom:.5rem}
+.note-top{display:flex;gap:.5rem;align-items:baseline;flex-wrap:wrap}
+.note-q{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem}
+.note-player{font-weight:700;font-size:.85rem}
+.note-rate{margin-left:auto}
+.note-del{background:none;border:none;color:var(--ink-soft);font-size:1rem;padding:0 .2rem}
+.note-tags{font-size:.75rem;color:var(--ink-soft);margin-top:.15rem}
+.note-text{font-size:.85rem;margin-top:.15rem}
+.empty-note{font-size:.85rem;color:var(--ink-soft);font-style:italic}
+.recent{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.35rem}
+.recent .chip{padding:.3rem .6rem;font-size:.75rem}
+
+#toast{position:fixed;bottom:1rem;left:50%;transform:translateX(-50%);background:var(--ink);color:#F2F4F1;padding:.6rem 1rem;border-radius:8px;font-size:.85rem;opacity:0;pointer-events:none;transition:opacity .25s;z-index:99;white-space:nowrap}
+#toast.show{opacity:1}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">Match Notes<small>cattura live · offline</small></div>
+  <div class="header-btns">
+    <button class="btn btn-ghost" id="btnReset">Nuova partita</button>
+    <button class="btn btn-ghost" id="btnExport">Esporta</button>
+  </div>
+</header>
+
+<section>
+  <div class="sec-label">Partita</div>
+  <div class="grid2">
+    <div class="span2"><label for="mLega">Lega / competizione</label><input type="text" id="mLega" placeholder="LBA, EuroLeague, FIBA WC Qualifiers…"></div>
+    <div><label for="mCasa">Casa</label><input type="text" id="mCasa" placeholder="Trento"></div>
+    <div><label for="mOspite">Ospite</label><input type="text" id="mOspite" placeholder="Milano"></div>
+    <div class="span2"><label for="mData">Data</label><input type="date" id="mData"></div>
+  </div>
+</section>
+
+<section>
+  <div class="newnote-head"><b>Nuova nota</b><span class="newnote-meta" id="noteMeta"></span></div>
+
+  <label for="nPlayer">Giocatore osservato</label>
+  <input type="text" id="nPlayer" placeholder="Nome del giocatore…">
+  <div class="recent" id="recentPlayers"></div>
+
+  <div style="margin-top:.7rem">
+    <label>Momento (quarto + cronometro)</label>
+    <div class="qrow">
+      <button class="qbtn" data-q="1">1</button>
+      <button class="qbtn" data-q="2">2</button>
+      <button class="qbtn" data-q="3">3</button>
+      <button class="qbtn" data-q="4">4</button>
+      <button class="qbtn" data-q="OT">OT</button>
+      <input type="text" class="clock" id="nClock" placeholder="07:42" inputmode="numeric">
+    </div>
+  </div>
+
+  <div style="margin-top:.7rem">
+    <input type="text" class="filter" id="tagFilter" placeholder="Filtra frasi…">
+    <div id="tagArea"></div>
+  </div>
+
+  <div style="margin-top:.7rem">
+    <label>Valutazione</label>
+    <div class="rates">
+      <button class="rate" data-r="🔥">🔥</button>
+      <button class="rate" data-r="👍">👍</button>
+      <button class="rate" data-r="−">−</button>
+      <button class="rate" data-r="👎">👎</button>
+    </div>
+  </div>
+
+  <div class="seltags" id="selTags"></div>
+  <textarea id="nText" rows="2" placeholder="Testo libero — cosa hai visto (facoltativo se hai taggato)…"></textarea>
+  <div style="margin-top:.6rem">
+    <button class="btn-primary" id="btnAdd">+ Aggiungi nota</button>
+  </div>
+</section>
+
+<section>
+  <div class="sec-label">Note della sessione · <span id="noteCount">0</span></div>
+  <div id="noteList"><div class="empty-note">Ancora nessuna nota.</div></div>
+</section>
+
+<div id="toast" role="status"></div>
+
+<script>
+(function(){
+'use strict';
+const KEY='taccuino_matchnotes_v1';
+let memStore=null;
+function load(){try{const r=localStorage.getItem(KEY);return r?JSON.parse(r):null}catch(e){return memStore}}
+function save(){memStore=S;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+
+const TAGS={
+  'Attacco':['PnR palleggiatore','PnR rollante','PnR pop','Isolamento','Post basso','Spot-up','Catch & shoot','Dal palleggio','Arresto e tiro','Consegnato (DHO)','Taglio','Penetrazione','Attacco al closeout','Scarico','Passaggio in più','Transizione','Putback','Floater','And-1','Palla persa viva','Palla persa morta'],
+  'Difesa':['Difesa sull\u2019uomo','Drop','Cambio (switch)','Hedge / show','Aiuto e recupero','Rotazione','Closeout','Taglia-fuori','Recupero','Stoppata','Battuto dal palleggio','Fallo commesso'],
+  'Fisico / mentale':['Motore','Comunicazione','Linguaggio del corpo','Letture','QI cestistico','Condizione fisica','Mani','Reattività']
+};
+
+let S=load()||{match:{lega:'',casa:'',ospite:'',data:new Date().toISOString().slice(0,10)},notes:[],recent:[]};
+let curQ='',curRate='',curTags=[];
+
+const $=s=>document.querySelector(s);
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function uid(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36)}
+
+/* ---------- init partita ---------- */
+['mLega','mCasa','mOspite','mData'].forEach(id=>{
+  const el=document.getElementById(id);
+  const k={mLega:'lega',mCasa:'casa',mOspite:'ospite',mData:'data'}[id];
+  el.value=S.match[k]||'';
+  el.addEventListener('input',()=>{S.match[k]=el.value.trim();save();paintMeta()});
+});
+function paintMeta(){
+  const m=S.match;
+  const label=[m.casa,m.ospite].filter(Boolean).join(' – ');
+  $('#noteMeta').textContent=[label,m.data].filter(Boolean).join(' · ');
+}
+
+/* ---------- tag chips ---------- */
+function paintTags(){
+  const f=$('#tagFilter').value.trim().toLowerCase();
+  $('#tagArea').innerHTML=Object.entries(TAGS).map(([cat,list])=>{
+    const vis=list.filter(t=>!f||t.toLowerCase().includes(f));
+    if(!vis.length)return '';
+    return `<div class="cat">${esc(cat)}</div><div class="chips">${vis.map(t=>
+      `<button class="chip${curTags.includes(t)?' on':''}" data-t="${esc(t)}">${esc(t)}</button>`).join('')}</div>`;
+  }).join('');
+}
+$('#tagArea').addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  const t=b.dataset.t;
+  const i=curTags.indexOf(t);
+  if(i>=0)curTags.splice(i,1);else curTags.push(t);
+  paintTags();paintSel();
+});
+$('#tagFilter').addEventListener('input',paintTags);
+function paintSel(){
+  $('#selTags').textContent=curTags.length?('Tag: '+curTags.join(', ')):'';
+}
+
+/* ---------- quarto + rating ---------- */
+document.querySelectorAll('.qbtn').forEach(b=>{
+  b.addEventListener('click',()=>{
+    curQ=curQ===b.dataset.q?'':b.dataset.q;
+    document.querySelectorAll('.qbtn').forEach(x=>x.classList.toggle('active',x.dataset.q===curQ));
+  });
+});
+document.querySelectorAll('.rate').forEach(b=>{
+  b.addEventListener('click',()=>{
+    curRate=curRate===b.dataset.r?'':b.dataset.r;
+    document.querySelectorAll('.rate').forEach(x=>x.classList.toggle('on',x.dataset.r===curRate));
+  });
+});
+$('#nClock').addEventListener('input',e=>{
+  let v=e.target.value.replace(/[^\d]/g,'').slice(0,4);
+  if(v.length>2)v=v.slice(0,v.length-2)+':'+v.slice(-2);
+  e.target.value=v;
+});
+
+/* ---------- giocatori recenti ---------- */
+function paintRecent(){
+  $('#recentPlayers').innerHTML=S.recent.map(p=>`<button class="chip" data-p="${esc(p)}">${esc(p)}</button>`).join('');
+}
+$('#recentPlayers').addEventListener('click',e=>{
+  const b=e.target.closest('.chip');if(!b)return;
+  $('#nPlayer').value=b.dataset.p;
+});
+
+/* ---------- aggiungi nota ---------- */
+$('#btnAdd').addEventListener('click',()=>{
+  const player=$('#nPlayer').value.trim();
+  const text=$('#nText').value.trim();
+  if(!player){toast('Serve il nome del giocatore');$('#nPlayer').focus();return}
+  if(!curTags.length&&!text){toast('Tagga una frase o scrivi cosa hai visto');return}
+  S.notes.push({id:uid(),player,q:curQ,clock:$('#nClock').value.trim(),tags:[...curTags],rating:curRate,text,ts:Date.now()});
+  if(!S.recent.includes(player)){S.recent.unshift(player);S.recent=S.recent.slice(0,8)}
+  save();
+  curTags=[];curRate='';
+  document.querySelectorAll('.rate').forEach(x=>x.classList.remove('on'));
+  $('#nText').value='';
+  paintTags();paintSel();paintNotes();paintRecent();
+  toast('Nota registrata');
+});
+
+/* ---------- lista note ---------- */
+function paintNotes(){
+  $('#noteCount').textContent=S.notes.length;
+  const box=$('#noteList');
+  if(!S.notes.length){box.innerHTML='<div class="empty-note">Ancora nessuna nota.</div>';return}
+  box.innerHTML=[...S.notes].reverse().map(n=>`
+    <div class="note">
+      <div class="note-top">
+        <span class="note-q">${n.q?('Q'+n.q):''}${n.clock?' '+esc(n.clock):''}</span>
+        <span class="note-player">${esc(n.player)}</span>
+        <span class="note-rate">${esc(n.rating||'')}</span>
+        <button class="note-del" data-id="${n.id}" aria-label="Elimina">×</button>
+      </div>
+      ${n.tags.length?`<div class="note-tags">${esc(n.tags.join(', '))}</div>`:''}
+      ${n.text?`<div class="note-text">${esc(n.text)}</div>`:''}
+    </div>`).join('');
+}
+$('#noteList').addEventListener('click',e=>{
+  const b=e.target.closest('.note-del');if(!b)return;
+  S.notes=S.notes.filter(n=>n.id!==b.dataset.id);
+  save();paintNotes();
+});
+
+/* ---------- export / reset ---------- */
+$('#btnExport').addEventListener('click',()=>{
+  if(!S.notes.length){toast('Nessuna nota da esportare');return}
+  const payload={type:'taccuino-match-notes',v:1,exported:new Date().toISOString(),match:S.match,notes:S.notes};
+  const blob=new Blob([JSON.stringify(payload,null,2)],{type:'application/json'});
+  const name='match-notes-'+(S.match.data||'sessione')+'.json';
+  const file=new File([blob],name,{type:'application/json'});
+  if(navigator.canShare&&navigator.canShare({files:[file]})){
+    navigator.share({files:[file],title:name}).catch(()=>{});
+  }else{
+    const a=document.createElement('a');
+    a.href=URL.createObjectURL(blob);a.download=name;a.click();
+    URL.revokeObjectURL(a.href);
+  }
+  toast('Export pronto: importalo nel taccuino');
+});
+$('#btnReset').addEventListener('click',()=>{
+  if(!confirm('Nuova partita? Le note attuali verranno cancellate (esportale prima, se ti servono).'))return;
+  S={match:{lega:'',casa:'',ospite:'',data:new Date().toISOString().slice(0,10)},notes:[],recent:S.recent};
+  save();
+  ['mLega','mCasa','mOspite'].forEach(id=>document.getElementById(id).value='');
+  $('#mData').value=S.match.data;
+  curQ='';curTags=[];curRate='';
+  document.querySelectorAll('.qbtn').forEach(x=>x.classList.remove('active'));
+  document.querySelectorAll('.rate').forEach(x=>x.classList.remove('on'));
+  paintTags();paintSel();paintNotes();paintMeta();
+  toast('Sessione azzerata');
+});
+
+let toastTimer;
+function toast(msg){const t=$('#toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2200)}
+
+paintMeta();paintTags();paintNotes();paintRecent();
+})();
+</script>
+</body>
+</html>
