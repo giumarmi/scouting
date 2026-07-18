@@ -372,6 +372,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
     <option value="none">Senza verdetto</option>
   </select>
   <span class="count-chip" id="count"></span>
+  <button class="btn" id="btnRoster">Incolla roster</button>
 </div>
 
 <main>
@@ -517,6 +518,32 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       <button class="btn" id="btnReport" type="button">📄 Report</button>
       <button class="btn" id="btnCancel" type="button">Annulla</button>
       <button class="btn btn-primary" id="btnSave" type="button">Salva scheda</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="rosterModal">
+  <div class="modal-head">
+    <div>
+      <h2>Importa roster</h2>
+      <div class="meta">Tabella «Projected Contributors» da barttorvik.com o simili</div>
+    </div>
+    <button class="close-x" id="rosterClose" aria-label="Chiudi">×</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-grid">
+      <div class="span2"><label for="rosterTeam">Squadra</label><input id="rosterTeam" placeholder="Abilene Christian"></div>
+      <div class="span2"><label for="rosterLega">Lega</label><input id="rosterLega" value="NCAA"></div>
+    </div>
+    <div class="section-label">Tabella incollata</div>
+    <textarea class="hs-paste" id="rosterPaste" style="min-height:140px" placeholder="Copia la tabella (nome squadra compreso, se vuoi) e incollala qui:
+Yaniel Rivera	Sr	6-4	86	103	19
+Evan Boisdur	So	6-1	82	98	22
+…"></textarea>
+    <div class="modal-footer">
+      <span class="spacer"></span>
+      <button class="btn" id="rosterCancel" type="button">Annulla</button>
+      <button class="btn btn-primary" id="rosterGo" type="button">Crea giocatori</button>
     </div>
   </div>
 </dialog>
@@ -1092,6 +1119,67 @@ function importMatchNotes(data){
   saveAll(players);render();
   toast('Match-notes: '+added+' note importate'+(created?(', '+created+' giocatori nuovi'):''));
 }
+
+/* ---------- import roster (tabella squadra Barttorvik) ---------- */
+const CLS_TOKENS=['FR','SO','JR','SR','GR','RS FR','RS SO','RS JR','RS SR'];
+function parseRosterLine(line){
+  // via tab (copia diretta della tabella)
+  if(line.includes('\t')){
+    const f=line.split('\t').map(s=>s.trim()).filter(s=>s!=='');
+    if(f.length>=6&&CLS_TOKENS.includes(f[1].toUpperCase())&&/^\d+-\d+$/.test(f[2])){
+      return {nome:f[0],cls:f[1],ht:f[2],minp:f[3],ortg:f[4],usg:f[5]};
+    }
+    return null;
+  }
+  // via spazi (copia senza tab)
+  const m=/^(.+?)\s+(Fr|So|Jr|Sr|Gr)\s+(\d+-\d+)\s+(\d+)\s+(\d+)\s+(\d+)$/i.exec(line);
+  if(m)return {nome:m[1].trim(),cls:m[2],ht:m[3],minp:m[4],ortg:m[5],usg:m[6]};
+  return null;
+}
+$('#btnRoster').addEventListener('click',()=>{
+  $('#rosterPaste').value='';
+  document.getElementById('rosterModal').showModal();
+});
+$('#rosterClose').addEventListener('click',()=>document.getElementById('rosterModal').close());
+$('#rosterCancel').addEventListener('click',()=>document.getElementById('rosterModal').close());
+$('#rosterGo').addEventListener('click',()=>{
+  const lines=$('#rosterPaste').value.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  let team=$('#rosterTeam').value.trim();
+  const lega=$('#rosterLega').value.trim()||'NCAA';
+  const rows=[];
+  lines.forEach(l=>{
+    if(/PLAYER/i.test(l)&&/USAGE|USG/i.test(l))return; // intestazione
+    const r=parseRosterLine(l);
+    if(r){rows.push(r);return}
+    // riga senza numeri né tab: probabile nome squadra o titolo
+    if(!team&&!/\d/.test(l)&&!/contributors/i.test(l)&&l.length<40)team=l;
+  });
+  if(!rows.length){toast('Nessuna riga giocatore riconosciuta');return}
+  const d=new Date().toISOString().slice(0,10);
+  let created=0,skipped=0;
+  rows.forEach(r=>{
+    if(players.some(p=>p.nome.toLowerCase()===r.nome.toLowerCase())){skipped++;return}
+    players.push({
+      id:uid(),nome:r.nome,squadra:team,lega,ruolo:'',naz:'',
+      eta:null,altezza:htToCm(r.ht),cotonou:'',
+      ppg:null,rpg:null,apg:null,tre:null,ts:null,usg:+r.usg||null,min:null,
+      verdetto:'',conf:'',why:'',fit:'',ruoloReale:'',rischio:'',
+      fw1:'',fw2:'',fw3:'',fw4:'',fw5:'',fw6:'',
+      obs:[],
+      hs:{d,src:'barttorvik',stats:[
+        {k:'Cls',raw:r.cls,v:null,pct:null},
+        {k:'Ht',raw:r.ht,v:null,pct:null},
+        {k:'Min%',raw:r.minp,v:+r.minp||null,pct:null},
+        {k:'ORtg',raw:r.ortg,v:+r.ortg||null,pct:null},
+        {k:'Usg',raw:r.usg,v:+r.usg||null,pct:null}
+      ]}
+    });
+    created++;
+  });
+  saveAll(players);render();
+  document.getElementById('rosterModal').close();
+  toast(created+' giocatori creati'+(skipped?(', '+skipped+' già presenti saltati'):''));
+});
 
 /* ---------- report generator ---------- */
 const FKEY='taccuino_firma_v1';
