@@ -362,7 +362,6 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   <select id="fLega" aria-label="Filtra per lega"><option value="">Tutte le leghe</option></select>
   <select id="fRuolo" aria-label="Filtra per ruolo">
     <option value="">Tutti i ruoli</option>
-    <option>Playmaker</option><option>Guardia</option><option>Ala</option><option>Ala grande</option><option>Centro</option>
   </select>
   <select id="fVerdetto" aria-label="Filtra per verdetto">
     <option value="">Tutti i verdetti</option>
@@ -445,7 +444,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       <div class="span2"><label for="iSquadra">Squadra</label><input id="iSquadra"></div>
       <div class="span2"><label for="iLega">Lega</label><input id="iLega" list="legheList" placeholder="LBA, EuroLeague, NCAA…"><datalist id="legheList"></datalist></div>
       <div><label for="iRuolo">Ruolo</label>
-        <select id="iRuolo"><option></option><option>Playmaker</option><option>Guardia</option><option>Ala</option><option>Ala grande</option><option>Centro</option></select>
+        <select id="iRuolo"><option></option></select>
       </div>
       <div><label for="iNaz">Nazionalità</label><input id="iNaz" placeholder="USA"></div>
       <div><label for="iEta">Età</label><input id="iEta" type="number" min="14" max="45"></div>
@@ -594,6 +593,17 @@ function seed(){
 }
 function uid(){return Math.random().toString(36).slice(2,10)+Date.now().toString(36)}
 
+/* ---------- ruoli (tassonomia Barttorvik) ---------- */
+const ROLES=['Pure PG','Scoring PG','Combo G','Wing G','Wing F','Stretch 4','PF/CF','Center'];
+function allRoles(){
+  const extra=[...new Set(players.map(p=>p.ruolo).filter(r=>r&&!ROLES.includes(r)))];
+  return [...ROLES,...extra];
+}
+function fillRoleSelect(sel,current){
+  sel.innerHTML='<option value=""></option>'+allRoles().map(r=>
+    `<option${r===current?' selected':''}>${esc(r)}</option>`).join('');
+}
+
 /* ---------- riferimenti DOM ---------- */
 const $=s=>document.querySelector(s);
 const rows=$('#rows'),empty=$('#empty'),count=$('#count');
@@ -638,6 +648,9 @@ function render(){
   const cur=fLega.value;
   fLega.innerHTML='<option value="">Tutte le leghe</option>'+leghe.map(l=>`<option${l===cur?' selected':''}>${esc(l)}</option>`).join('');
   $('#legheList').innerHTML=leghe.map(l=>`<option value="${esc(l)}">`).join('');
+  const curR=$('#fRuolo').value;
+  $('#fRuolo').innerHTML='<option value="">Tutti i ruoli</option>'+allRoles().map(r=>
+    `<option${r===curR?' selected':''}>${esc(r)}</option>`).join('');
 
   const list=sorted(applyFilters(players));
   rows.innerHTML=list.map(p=>`
@@ -669,7 +682,11 @@ function openModal(id){
   $('#iNome').value=p?.nome||'';
   $('#iSquadra').value=p?.squadra||'';
   $('#iLega').value=p?.lega||'';
-  $('#iRuolo').value=p?.ruolo||'';
+  fillRoleSelect($('#iRuolo'),p?.ruolo||'');
+  if(p?.ruolo&&![...$('#iRuolo').options].some(o=>o.value===p.ruolo)){
+    const o=document.createElement('option');o.textContent=p.ruolo;o.selected=true;
+    $('#iRuolo').appendChild(o);
+  }
   $('#iNaz').value=p?.naz||'';
   $('#iEta').value=p?.eta??'';
   $('#iAltezza').value=p?.altezza??'';
@@ -807,13 +824,13 @@ function htToCm(raw){
   return Math.round(+m[1]*30.48+ +m[2]*2.54);
 }
 function btRuolo(role){
-  const r=(role||'').toLowerCase();
-  if(r.includes('pg'))return 'Playmaker';
-  if(r.includes('cg')||r.includes('combo')||r.includes('wing g'))return 'Guardia';
-  if(r.includes('wing f'))return 'Ala';
-  if(r.includes('pf')||r.includes('stretch 4'))return 'Ala grande';
-  if(r==='c'||r.includes('big')||r.includes(' c'))return 'Centro';
-  return '';
+  const r=(role||'').trim();
+  const hit=ROLES.find(R=>R.toLowerCase()===r.toLowerCase());
+  if(hit)return hit;
+  const rl=r.toLowerCase();
+  if(rl==='c'||rl==='big')return 'Center';
+  if(rl==='pf'||rl==='cf')return 'PF/CF';
+  return r; // conserva comunque quello che arriva
 }
 
 /* ---------- import unificato ---------- */
