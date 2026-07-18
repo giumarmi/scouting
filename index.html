@@ -179,6 +179,32 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .modal-footer{display:flex;gap:.6rem;margin-top:1.4rem;flex-wrap:wrap}
 .modal-footer .spacer{flex:1}
 
+/* hackastat import + advanced stats */
+.hs-paste{
+  width:100%;border:1px dashed var(--ink-soft);border-radius:8px;
+  padding:.6rem .7rem;background:var(--paper);min-height:70px;
+  font-size:.85rem;resize:vertical;
+}
+.hs-actions{display:flex;gap:.6rem;align-items:center;margin-top:.5rem;flex-wrap:wrap}
+.hs-info{font-size:.78rem;color:var(--ink-soft)}
+.adv-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+  gap:.45rem;margin-top:.8rem;
+}
+.adv-cell{
+  background:var(--paper);border:1px solid var(--line);border-radius:8px;
+  padding:.4rem .6rem;display:flex;align-items:baseline;gap:.4rem;
+}
+.adv-label{font-size:.68rem;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;flex:1}
+.adv-val{font-weight:700;font-size:.9rem;font-variant-numeric:tabular-nums}
+.pct{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;
+  border-radius:5px;padding:.05rem .32rem;min-width:1.6rem;text-align:center;
+}
+.pct.hi{background:var(--sign-bg);color:var(--sign)}
+.pct.mid{background:var(--monitor-bg);color:var(--monitor)}
+.pct.lo{background:var(--pass-bg);color:var(--pass)}
+
 /* toast */
 #toast{
   position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);
@@ -283,6 +309,14 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       <div class="span2"><label for="iMin">MIN</label><input id="iMin" type="number" step="0.1"></div>
     </div>
 
+    <div class="section-label">Importa da Hackastat</div>
+    <textarea class="hs-paste" id="hsPaste" placeholder="Apri il Dettaglio giocatore su hackastat.eu, seleziona il blocco statistiche, copia e incolla qui…"></textarea>
+    <div class="hs-actions">
+      <button class="btn" id="hsParse" type="button">Leggi dati incollati</button>
+      <span class="hs-info" id="hsInfo"></span>
+    </div>
+    <div class="adv-grid" id="advPanel"></div>
+
     <div class="section-label">Verdetto</div>
     <div class="verdict-row">
       <button type="button" class="verdict-btn sign" data-v="sign">✓ Sign</button>
@@ -345,6 +379,7 @@ saveAll(players);
 let editingId=null;
 let currentVerdict='';
 let currentObs=[];
+let currentHs=null;
 let sortKey='nome',sortDir=1;
 
 function seed(){
@@ -451,7 +486,9 @@ function openModal(id){
   $('#iRuoloReale').value=p?.ruoloReale||'';
   $('#iRischio').value=p?.rischio||'';
   currentObs=p?structuredClone(p.obs||[]):[];
-  paintVerdict();paintObs();
+  currentHs=p?.hs?structuredClone(p.hs):null;
+  $('#hsPaste').value='';
+  paintVerdict();paintObs();paintHs();
   $('#btnDelete').style.display=p?'':'none';
   modal.showModal();
 }
@@ -481,7 +518,7 @@ function save(){
     tre:numOrNull($('#iTre').value),ts:numOrNull($('#iTs').value),usg:numOrNull($('#iUsg').value),min:numOrNull($('#iMin').value),
     verdetto:currentVerdict,conf:$('#iConf').value,why:$('#iWhy').value.trim(),
     fit:$('#iFit').value.trim(),ruoloReale:$('#iRuoloReale').value.trim(),rischio:$('#iRischio').value.trim(),
-    obs:currentObs
+    obs:currentObs,hs:currentHs
   };
   if(editingId){
     const i=players.findIndex(x=>x.id===editingId);
@@ -510,6 +547,59 @@ document.querySelectorAll('.verdict-btn').forEach(b=>{
     paintVerdict();
   });
 });
+/* ---------- import Hackastat ---------- */
+const HS_LABELS=['MIN','POSS','USG%','PTS','PPP','FG%','2P%','3P%','FT%','EFG%','TS%','ORB%','ORB','DRB%','DRB','TRB%','TRB','AST%','AST RATIO','AST','TOV%','TOV RATIO','TOV','ST%','ST','BLK% (2P)','BLK%','BLK','PER','WS','BPM','VORP','IND OFF RTG','IND DEF RTG','IND NET RTG','OFF RTG','DEF RTG','NET RTG'];
+function parseHs(text){
+  const lines=text.split(/\r?\n/).map(l=>l.trim()).filter(l=>l!=='');
+  const found=[];
+  const isNum=s=>/^[+\-]?\d+([.,]\d+)?%?$/.test(s)||s==='–'||s==='-';
+  for(let i=0;i<lines.length;i++){
+    const label=HS_LABELS.find(L=>lines[i].toUpperCase()===L);
+    if(!label)continue;
+    const next=lines[i+1];
+    if(next===undefined||!isNum(next))continue;
+    let pct=null;
+    const after=lines[i+2];
+    if(after!==undefined&&/^\d{1,3}$/.test(after)&&+after<=100){pct=+after;i++}
+    const raw=next.replace(',','.');
+    const val=parseFloat(raw.replace('%','').replace('+',''));
+    found.push({k:label,raw:next,v:isNaN(val)?null:val,pct});
+    i++; // salta la riga del valore
+  }
+  return found;
+}
+function stat(hs,k){const s=hs?.stats?.find(x=>x.k===k);return s?s.v:null}
+function pctClass(p){return p===null?'':p>=67?'hi':p>=34?'mid':'lo'}
+function paintHs(){
+  const box=$('#advPanel'),info=$('#hsInfo');
+  if(!currentHs||!currentHs.stats?.length){box.innerHTML='';info.textContent='';return}
+  info.textContent='Dati Hackastat del '+currentHs.d+' · '+currentHs.stats.length+' voci';
+  box.innerHTML=currentHs.stats.map(s=>`
+    <div class="adv-cell">
+      <span class="adv-label">${esc(s.k)}</span>
+      <span class="adv-val">${esc(s.raw)}</span>
+      ${s.pct!==null?`<span class="pct ${pctClass(s.pct)}">${s.pct}</span>`:''}
+    </div>`).join('');
+}
+$('#hsParse').addEventListener('click',()=>{
+  const txt=$('#hsPaste').value;
+  if(!txt.trim()){toast('Incolla prima il blocco statistiche');return}
+  const stats=parseHs(txt);
+  if(!stats.length){toast('Formato non riconosciuto: copia il blocco dal Dettaglio giocatore');return}
+  currentHs={d:new Date().toISOString().slice(0,10),stats};
+  // travaso nei campi rapidi
+  const map={MIN:'iMin',PTS:'iPpg','USG%':'iUsg','3P%':'iTre','TS%':'iTs',AST:'iApg'};
+  Object.entries(map).forEach(([k,id])=>{
+    const v=stat(currentHs,k);
+    if(v!==null)document.getElementById(id).value=v;
+  });
+  const orb=stat(currentHs,'ORB'),drb=stat(currentHs,'DRB'),trb=stat(currentHs,'TRB');
+  if(trb!==null)$('#iRpg').value=trb;
+  else if(orb!==null&&drb!==null)$('#iRpg').value=(orb+drb).toFixed(1);
+  paintHs();
+  toast(stats.length+' statistiche importate');
+});
+
 $('#obsAdd').addEventListener('click',addObs);
 $('#obsInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addObs()}});
 function addObs(){
