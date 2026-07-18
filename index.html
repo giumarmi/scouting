@@ -833,15 +833,42 @@ function btRuolo(role){
   return r; // conserva comunque quello che arriva
 }
 
-/* ---------- import unificato ---------- */
+/* ---------- import Sports Reference (blocco Summary) ---------- */
+const SR_LABELS=['G','GS','MP','PTS','TRB','ORB','DRB','AST','STL','BLK','TOV','PF','FG%','2P%','FG2%','FG3%','3P%','FT%','EFG%','TS%','PER','WS','BPM'];
+function looksLikeSR(text){
+  const lines=text.split(/\r?\n/).map(l=>l.trim());
+  return lines.some((l,i)=>/^\d{4}-\d{2}$/.test(l)&&(lines[i+1]||'').toLowerCase()==='career');
+}
+function parseSR(text){
+  const lines=text.split(/\r?\n/).map(l=>l.trim()).filter(l=>l!=='');
+  let season='';
+  const found=[];
+  const num=s=>/^-?\d+(\.\d+)?$/.test(s);
+  for(let i=0;i<lines.length;i++){
+    if(/^\d{4}-\d{2}$/.test(lines[i])&&!season){season=lines[i];continue}
+    const label=SR_LABELS.find(L=>L.toLowerCase()===lines[i].toLowerCase());
+    if(!label)continue;
+    const v1=lines[i+1],v2=lines[i+2];
+    if(v1===undefined||!num(v1))continue;
+    const hasCareer=v2!==undefined&&num(v2);
+    found.push({
+      k:label==='EFG%'?'eFG%':label,
+      raw:hasCareer?(v1+' · car. '+v2):v1,
+      v:parseFloat(v1),pct:null
+    });
+    i+=hasCareer?2:1;
+  }
+  return {season,stats:found};
+}
 function looksLikeBt(text){
   return text.split(/\r?\n/).some(l=>l.split('\t').length>=25&&/^(19|20)\d{2}\t/.test(l));
 }
 function paintHs(){
   const box=$('#advPanel'),info=$('#hsInfo');
   if(!currentHs||!currentHs.stats?.length){box.innerHTML='';info.textContent='';return}
-  const srcName=currentHs.src==='barttorvik'?'Barttorvik':'Hackastat';
-  info.textContent='Dati '+srcName+' del '+currentHs.d+' · '+currentHs.stats.length+' voci';
+  const srcName={barttorvik:'Barttorvik',sportsreference:'Sports Reference',hackastat:'Hackastat'}[currentHs.src]||'Hackastat';
+  const seas=currentHs.season?(' ('+currentHs.season+')'):'';
+  info.textContent='Dati '+srcName+seas+' del '+currentHs.d+' · '+currentHs.stats.length+' voci';
   box.innerHTML=currentHs.stats.map(s=>`
     <div class="adv-cell">
       <span class="adv-label">${esc(s.k)}</span>
@@ -871,6 +898,20 @@ $('#hsParse').addEventListener('click',()=>{
     if(ru&&!$('#iRuolo').value)$('#iRuolo').value=ru;
     paintHs();
     toast(stats.length+' voci importate da Barttorvik');
+    return;
+  }
+  if(looksLikeSR(txt)){
+    const {season,stats}=parseSR(txt);
+    if(!stats.length){toast('Blocco Sports Reference non riconosciuto');return}
+    currentHs={d:new Date().toISOString().slice(0,10),src:'sportsreference',season,stats};
+    const first=k=>{const s=stats.find(x=>x.k===k);return s?s.v:null};
+    const map={PTS:'iPpg',TRB:'iRpg',AST:'iApg','3P%':'iTre','FG3%':'iTre','TS%':'iTs',MP:'iMin'};
+    Object.entries(map).forEach(([k,id])=>{
+      const v=first(k);
+      if(v!==null)document.getElementById(id).value=v;
+    });
+    paintHs();
+    toast(stats.length+' voci importate da Sports Reference'+(season?(' · '+season):''));
     return;
   }
   const stats=parseHs(txt);
@@ -1224,7 +1265,7 @@ function openReport(id){
     p.ruoloReale?`<p><b>Ruolo realistico:</b> ${esc(p.ruoloReale)}</p>`:'',
     p.rischio?`<p><b>Rischio principale:</b> ${esc(p.rischio)}</p>`:''
   ].join('');
-  const srcName=p.hs?(p.hs.src==='barttorvik'?'Barttorvik':'Hackastat'):'';
+  const srcName=p.hs?({barttorvik:'Barttorvik',sportsreference:'Sports Reference',hackastat:'Hackastat'}[p.hs.src]||'Hackastat'):'';
   $('#repPage').innerHTML=`
     <div class="rep-band"><span class="b1">Taccuino di Scouting · Report</span><span class="b2">${oggi}</span></div>
     <div class="rep-name">${esc(p.nome)}</div>
