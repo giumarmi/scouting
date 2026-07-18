@@ -179,32 +179,6 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .modal-footer{display:flex;gap:.6rem;margin-top:1.4rem;flex-wrap:wrap}
 .modal-footer .spacer{flex:1}
 
-/* hackastat import + advanced stats */
-.hs-paste{
-  width:100%;border:1px dashed var(--ink-soft);border-radius:8px;
-  padding:.6rem .7rem;background:var(--paper);min-height:70px;
-  font-size:.85rem;resize:vertical;
-}
-.hs-actions{display:flex;gap:.6rem;align-items:center;margin-top:.5rem;flex-wrap:wrap}
-.hs-info{font-size:.78rem;color:var(--ink-soft)}
-.adv-grid{
-  display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-  gap:.45rem;margin-top:.8rem;
-}
-.adv-cell{
-  background:var(--paper);border:1px solid var(--line);border-radius:8px;
-  padding:.4rem .6rem;display:flex;align-items:baseline;gap:.4rem;
-}
-.adv-label{font-size:.68rem;font-weight:600;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em;flex:1}
-.adv-val{font-weight:700;font-size:.9rem;font-variant-numeric:tabular-nums}
-.pct{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.72rem;
-  border-radius:5px;padding:.05rem .32rem;min-width:1.6rem;text-align:center;
-}
-.pct.hi{background:var(--sign-bg);color:var(--sign)}
-.pct.mid{background:var(--monitor-bg);color:var(--monitor)}
-.pct.lo{background:var(--pass-bg);color:var(--pass)}
-
 /* toast */
 #toast{
   position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);
@@ -309,14 +283,6 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       <div class="span2"><label for="iMin">MIN</label><input id="iMin" type="number" step="0.1"></div>
     </div>
 
-    <div class="section-label">Importa statistiche (Hackastat / Barttorvik)</div>
-    <textarea class="hs-paste" id="hsPaste" placeholder="Incolla il blocco dal Dettaglio giocatore di hackastat.eu oppure la riga (con intestazione) da barttorvik.com — riconosco il formato da solo…"></textarea>
-    <div class="hs-actions">
-      <button class="btn" id="hsParse" type="button">Leggi dati incollati</button>
-      <span class="hs-info" id="hsInfo"></span>
-    </div>
-    <div class="adv-grid" id="advPanel"></div>
-
     <div class="section-label">Verdetto</div>
     <div class="verdict-row">
       <button type="button" class="verdict-btn sign" data-v="sign">✓ Sign</button>
@@ -379,7 +345,6 @@ saveAll(players);
 let editingId=null;
 let currentVerdict='';
 let currentObs=[];
-let currentHs=null;
 let sortKey='nome',sortDir=1;
 
 function seed(){
@@ -486,9 +451,7 @@ function openModal(id){
   $('#iRuoloReale').value=p?.ruoloReale||'';
   $('#iRischio').value=p?.rischio||'';
   currentObs=p?structuredClone(p.obs||[]):[];
-  currentHs=p?.hs?structuredClone(p.hs):null;
-  $('#hsPaste').value='';
-  paintVerdict();paintObs();paintHs();
+  paintVerdict();paintObs();
   $('#btnDelete').style.display=p?'':'none';
   modal.showModal();
 }
@@ -518,7 +481,7 @@ function save(){
     tre:numOrNull($('#iTre').value),ts:numOrNull($('#iTs').value),usg:numOrNull($('#iUsg').value),min:numOrNull($('#iMin').value),
     verdetto:currentVerdict,conf:$('#iConf').value,why:$('#iWhy').value.trim(),
     fit:$('#iFit').value.trim(),ruoloReale:$('#iRuoloReale').value.trim(),rischio:$('#iRischio').value.trim(),
-    obs:currentObs,hs:currentHs
+    obs:currentObs
   };
   if(editingId){
     const i=players.findIndex(x=>x.id===editingId);
@@ -547,121 +510,6 @@ document.querySelectorAll('.verdict-btn').forEach(b=>{
     paintVerdict();
   });
 });
-/* ---------- import Hackastat ---------- */
-const HS_LABELS=['MIN','POSS','USG%','PTS','PPP','FG%','2P%','3P%','FT%','EFG%','TS%','ORB%','ORB','DRB%','DRB','TRB%','TRB','AST%','AST RATIO','AST','TOV%','TOV RATIO','TOV','ST%','ST','BLK% (2P)','BLK%','BLK','PER','WS','BPM','VORP','IND OFF RTG','IND DEF RTG','IND NET RTG','OFF RTG','DEF RTG','NET RTG'];
-function parseHs(text){
-  const lines=text.split(/\r?\n/).map(l=>l.trim()).filter(l=>l!=='');
-  const found=[];
-  const isNum=s=>/^[+\-]?\d+([.,]\d+)?%?$/.test(s)||s==='–'||s==='-';
-  for(let i=0;i<lines.length;i++){
-    const label=HS_LABELS.find(L=>lines[i].toUpperCase()===L);
-    if(!label)continue;
-    const next=lines[i+1];
-    if(next===undefined||!isNum(next))continue;
-    let pct=null;
-    const after=lines[i+2];
-    if(after!==undefined&&/^\d{1,3}$/.test(after)&&+after<=100){pct=+after;i++}
-    const raw=next.replace(',','.');
-    const val=parseFloat(raw.replace('%','').replace('+',''));
-    found.push({k:label,raw:next,v:isNaN(val)?null:val,pct});
-    i++; // salta la riga del valore
-  }
-  return found;
-}
-function stat(hs,k){const s=hs?.stats?.find(x=>x.k===k);return s?s.v:null}
-function pctClass(p){return p===null?'':p>=67?'hi':p>=34?'mid':'lo'}
-/* ---------- import Barttorvik (T-Rank) ---------- */
-const BT_COLS=['Yr','Cls','Ht','Player','Team','Conf','Role','G','Min%','PRPG!','BPM','OBPM','DBPM','ORtg','Usg','eFG','TS','OR%','DR%','Ast%','TO%','Blk%','Stl%','FTR','FC/40','FT M-A','FT%','2P M-A','2P%','3P M-A','3P%'];
-function parseBt(text){
-  const lines=text.split(/\r?\n/);
-  for(const line of lines){
-    const f=line.split('\t').map(s=>s.trim());
-    if(f.length>=25&&/^(19|20)\d{2}$/.test(f[0])){
-      const stats=[];
-      BT_COLS.forEach((k,i)=>{
-        if(f[i]===undefined||f[i]==='')return;
-        const raw=f[i];
-        let v=parseFloat(raw.replace(',','.'));
-        if(/^\.\d+$/.test(raw))v=Math.round(parseFloat(raw)*1000)/10; // .814 → 81.4
-        if(/^\d+-\d+$/.test(raw))v=null; // made-attempts e altezza piedi-pollici
-        stats.push({k,raw,v:(v===null||isNaN(v))?null:v,pct:null});
-      });
-      return stats;
-    }
-  }
-  return [];
-}
-function btVal(stats,k){const s=stats.find(x=>x.k===k);return s?s:null}
-function htToCm(raw){
-  const m=/^(\d+)-(\d+)$/.exec(raw||'');
-  if(!m)return null;
-  return Math.round(+m[1]*30.48+ +m[2]*2.54);
-}
-function btRuolo(role){
-  const r=(role||'').toLowerCase();
-  if(r.includes('pg'))return 'Playmaker';
-  if(r.includes('cg')||r.includes('combo')||r.includes('wing g'))return 'Guardia';
-  if(r.includes('wing f'))return 'Ala';
-  if(r.includes('pf')||r.includes('stretch 4'))return 'Ala grande';
-  if(r==='c'||r.includes('big')||r.includes(' c'))return 'Centro';
-  return '';
-}
-
-/* ---------- import unificato ---------- */
-function looksLikeBt(text){
-  return text.split(/\r?\n/).some(l=>l.split('\t').length>=25&&/^(19|20)\d{2}\t/.test(l));
-}
-function paintHs(){
-  const box=$('#advPanel'),info=$('#hsInfo');
-  if(!currentHs||!currentHs.stats?.length){box.innerHTML='';info.textContent='';return}
-  const srcName=currentHs.src==='barttorvik'?'Barttorvik':'Hackastat';
-  info.textContent='Dati '+srcName+' del '+currentHs.d+' · '+currentHs.stats.length+' voci';
-  box.innerHTML=currentHs.stats.map(s=>`
-    <div class="adv-cell">
-      <span class="adv-label">${esc(s.k)}</span>
-      <span class="adv-val">${esc(s.raw)}</span>
-      ${s.pct!==null&&s.pct!==undefined?`<span class="pct ${pctClass(s.pct)}">${s.pct}</span>`:''}
-    </div>`).join('');
-}
-$('#hsParse').addEventListener('click',()=>{
-  const txt=$('#hsPaste').value;
-  if(!txt.trim()){toast('Incolla prima il blocco statistiche');return}
-  if(looksLikeBt(txt)){
-    const stats=parseBt(txt);
-    if(!stats.length){toast('Riga Barttorvik non riconosciuta: copia anche l\'intestazione');return}
-    currentHs={d:new Date().toISOString().slice(0,10),src:'barttorvik',stats};
-    // campi rapidi
-    const qmap={'Usg':'iUsg','TS':'iTs','3P%':'iTre','Min%':null};
-    const usg=btVal(stats,'Usg');if(usg?.v!==null&&usg)$('#iUsg').value=usg.v;
-    const ts=btVal(stats,'TS');if(ts?.v!==null&&ts)$('#iTs').value=ts.v;
-    const tre=btVal(stats,'3P%');if(tre?.v!==null&&tre)$('#iTre').value=tre.v;
-    // anagrafica (solo se i campi sono vuoti: non sovrascrivo il tuo lavoro)
-    const nome=btVal(stats,'Player');if(nome&&!$('#iNome').value.trim())$('#iNome').value=nome.raw;
-    const team=btVal(stats,'Team');if(team&&!$('#iSquadra').value.trim())$('#iSquadra').value=team.raw;
-    if(!$('#iLega').value.trim())$('#iLega').value='NCAA';
-    const ht=btVal(stats,'Ht');const cm=ht?htToCm(ht.raw):null;
-    if(cm&&!$('#iAltezza').value)$('#iAltezza').value=cm;
-    const role=btVal(stats,'Role');const ru=role?btRuolo(role.raw):'';
-    if(ru&&!$('#iRuolo').value)$('#iRuolo').value=ru;
-    paintHs();
-    toast(stats.length+' voci importate da Barttorvik');
-    return;
-  }
-  const stats=parseHs(txt);
-  if(!stats.length){toast('Formato non riconosciuto: copia il blocco dal Dettaglio giocatore');return}
-  currentHs={d:new Date().toISOString().slice(0,10),src:'hackastat',stats};
-  const map={MIN:'iMin',PTS:'iPpg','USG%':'iUsg','3P%':'iTre','TS%':'iTs',AST:'iApg'};
-  Object.entries(map).forEach(([k,id])=>{
-    const v=stat(currentHs,k);
-    if(v!==null)document.getElementById(id).value=v;
-  });
-  const orb=stat(currentHs,'ORB'),drb=stat(currentHs,'DRB'),trb=stat(currentHs,'TRB');
-  if(trb!==null)$('#iRpg').value=trb;
-  else if(orb!==null&&drb!==null)$('#iRpg').value=(orb+drb).toFixed(1);
-  paintHs();
-  toast(stats.length+' statistiche importate da Hackastat');
-});
-
 $('#obsAdd').addEventListener('click',addObs);
 $('#obsInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addObs()}});
 function addObs(){
