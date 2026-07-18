@@ -268,6 +268,65 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .cal-empty{color:var(--ink-soft);font-style:italic;padding:1rem 0}
 .past-toggle{font-size:.8rem;color:var(--ink-soft);margin-top:1rem;display:inline-flex;align-items:center;gap:.35rem;cursor:pointer}
 
+/* report */
+.fw-grid{display:grid;grid-template-columns:1fr;gap:.6rem}
+.fw-grid label{font-size:.75rem;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:.15rem}
+.fw-grid textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem;background:var(--paper);min-height:52px;resize:vertical;font-size:.9rem}
+#reportView{
+  position:fixed;inset:0;background:rgba(20,33,43,.55);z-index:50;
+  overflow-y:auto;padding:2rem 1rem;display:none;
+}
+#reportView.open{display:block}
+.rep-toolbar{max-width:800px;margin:0 auto .6rem;display:flex;gap:.5rem;justify-content:flex-end}
+.rep-page{
+  max-width:800px;margin:0 auto;background:#fff;border-radius:8px;
+  padding:2.2rem 2.4rem;box-shadow:0 20px 60px rgba(20,33,43,.4);
+}
+.rep-band{
+  background:var(--ink);color:#F2F4F1;margin:-2.2rem -2.4rem 1.4rem;
+  padding:1rem 2.4rem;display:flex;align-items:baseline;gap:1rem;border-radius:8px 8px 0 0;
+}
+.rep-band .b1{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase}
+.rep-band .b2{margin-left:auto;font-size:.75rem;opacity:.75}
+.rep-name{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:2.2rem;line-height:1.05}
+.rep-meta{color:var(--ink-soft);font-size:.9rem;margin-top:.2rem}
+.rep-verdict{display:flex;align-items:center;gap:.7rem;margin:1rem 0 .3rem;flex-wrap:wrap}
+.rep-verdict .stamp{font-size:1.05rem;padding:.2rem .8rem}
+.rep-why{font-size:.95rem;font-style:italic}
+.rep-sec{
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;
+  letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--ink);
+  margin:1.3rem 0 .5rem;padding-bottom:.15rem;
+}
+.rep-stats{display:flex;flex-wrap:wrap;gap:.45rem}
+.rep-stat{
+  background:var(--paper);border:1px solid var(--line);border-radius:8px;
+  padding:.35rem .7rem;text-align:center;min-width:70px;
+}
+.rep-stat .l{font-size:.62rem;font-weight:700;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.05em}
+.rep-stat .v{font-weight:700;font-size:1.05rem;font-variant-numeric:tabular-nums}
+.rep-adv{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.35rem;margin-top:.5rem}
+.rep-src{font-size:.7rem;color:var(--ink-soft);margin-top:.3rem}
+.rep-text{font-size:.92rem;white-space:pre-wrap}
+.rep-adat p{margin:.25rem 0;font-size:.92rem}
+.rep-adat b{font-weight:700}
+.rep-obs{font-size:.85rem;margin:.25rem 0;padding-left:.8rem;border-left:3px solid var(--line)}
+.rep-obs .d{color:var(--ink-soft);font-size:.72rem;font-variant-numeric:tabular-nums;margin-right:.4rem}
+.rep-foot{
+  margin-top:1.8rem;padding-top:.7rem;border-top:1px solid var(--line);
+  display:flex;align-items:baseline;gap:1rem;font-size:.8rem;color:var(--ink-soft);
+}
+.rep-firma{font-weight:700;color:var(--ink);outline:none;min-width:180px}
+.rep-firma:empty:before{content:'Tocca per firmare il report…';color:var(--ink-soft);font-weight:400}
+.rep-foot .gen{margin-left:auto}
+@media print{
+  body>*{display:none!important}
+  #reportView{display:block!important;position:static;background:#fff;padding:0;overflow:visible}
+  .rep-toolbar{display:none!important}
+  .rep-page{box-shadow:none;border-radius:0;max-width:none;padding:1rem 0}
+  .rep-band{border-radius:0}
+}
+
 /* toast */
 #toast{
   position:fixed;bottom:1.2rem;left:50%;transform:translateX(-50%);
@@ -435,6 +494,16 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       <div><label for="iRischio">Rischio principale</label><input id="iRischio" placeholder="Es. efficienza al ferro contro fisicità europea"></div>
     </div>
 
+    <div class="section-label">Framework sei livelli (alimenta il report)</div>
+    <div class="fw-grid">
+      <div><label for="iFw1">1 · Attributi fisici e storia infortuni</label><textarea id="iFw1"></textarea></div>
+      <div><label for="iFw2">2 · Skillset offensivo e difensivo</label><textarea id="iFw2"></textarea></div>
+      <div><label for="iFw3">3 · Analisi statistica e metriche avanzate</label><textarea id="iFw3"></textarea></div>
+      <div><label for="iFw4">4 · Fattori comportamentali</label><textarea id="iFw4"></textarea></div>
+      <div><label for="iFw5">5 · Ruolo e fit</label><textarea id="iFw5"></textarea></div>
+      <div><label for="iFw6">6 · Benchmark e comparabili</label><textarea id="iFw6"></textarea></div>
+    </div>
+
     <div class="section-label">Osservazioni</div>
     <div class="obs-form">
       <input id="obsInput" placeholder="Cosa hai visto — appunto rapido datato…">
@@ -445,11 +514,20 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
     <div class="modal-footer">
       <button class="btn btn-danger" id="btnDelete" type="button">Elimina giocatore</button>
       <span class="spacer"></span>
+      <button class="btn" id="btnReport" type="button">📄 Report</button>
       <button class="btn" id="btnCancel" type="button">Annulla</button>
       <button class="btn btn-primary" id="btnSave" type="button">Salva scheda</button>
     </div>
   </div>
 </dialog>
+
+<div id="reportView">
+  <div class="rep-toolbar">
+    <button class="btn" id="repPrint">🖨 Stampa / PDF</button>
+    <button class="btn" id="repClose">Chiudi</button>
+  </div>
+  <div class="rep-page" id="repPage"></div>
+</div>
 
 <div id="toast" role="status"></div>
 
@@ -582,6 +660,7 @@ function openModal(id){
   $('#iFit').value=p?.fit||'';
   $('#iRuoloReale').value=p?.ruoloReale||'';
   $('#iRischio').value=p?.rischio||'';
+  for(let i=1;i<=6;i++)document.getElementById('iFw'+i).value=p?.['fw'+i]||'';
   currentObs=p?structuredClone(p.obs||[]):[];
   currentHs=p?.hs?structuredClone(p.hs):null;
   $('#hsPaste').value='';
@@ -605,7 +684,7 @@ function paintObs(){
 function numOrNull(v){return v===''?null:+v}
 function save(){
   const nome=$('#iNome').value.trim();
-  if(!nome){toast('Il nome è obbligatorio');$('#iNome').focus();return}
+  if(!nome){toast('Il nome è obbligatorio');$('#iNome').focus();return null}
   const data={
     nome,squadra:$('#iSquadra').value.trim(),lega:$('#iLega').value.trim(),
     ruolo:$('#iRuolo').value,naz:$('#iNaz').value.trim(),
@@ -615,15 +694,21 @@ function save(){
     tre:numOrNull($('#iTre').value),ts:numOrNull($('#iTs').value),usg:numOrNull($('#iUsg').value),min:numOrNull($('#iMin').value),
     verdetto:currentVerdict,conf:$('#iConf').value,why:$('#iWhy').value.trim(),
     fit:$('#iFit').value.trim(),ruoloReale:$('#iRuoloReale').value.trim(),rischio:$('#iRischio').value.trim(),
+    fw1:$('#iFw1').value.trim(),fw2:$('#iFw2').value.trim(),fw3:$('#iFw3').value.trim(),
+    fw4:$('#iFw4').value.trim(),fw5:$('#iFw5').value.trim(),fw6:$('#iFw6').value.trim(),
     obs:currentObs,hs:currentHs
   };
+  let savedId;
   if(editingId){
     const i=players.findIndex(x=>x.id===editingId);
     players[i]={...players[i],...data};
+    savedId=editingId;
   }else{
-    players.push({id:uid(),...data});
+    savedId=uid();
+    players.push({id:savedId,...data});
   }
   saveAll(players);render();modal.close();toast('Scheda salvata');
+  return savedId;
 }
 
 /* ---------- eventi ---------- */
@@ -1007,6 +1092,72 @@ function importMatchNotes(data){
   saveAll(players);render();
   toast('Match-notes: '+added+' note importate'+(created?(', '+created+' giocatori nuovi'):''));
 }
+
+/* ---------- report generator ---------- */
+const FKEY='taccuino_firma_v1';
+function getFirma(){try{return localStorage.getItem(FKEY)||''}catch(e){return ''}}
+function setFirma(v){try{localStorage.setItem(FKEY,v)}catch(e){}}
+const VLAB={sign:'Sign',monitor:'Monitor',pass:'Pass'};
+function repStat(l,v){return (v===null||v===undefined||v==='')?'':`<div class="rep-stat"><div class="l">${l}</div><div class="v">${v}</div></div>`}
+function openReport(id){
+  const p=players.find(x=>x.id===id);
+  if(!p)return;
+  const oggi=new Date().toLocaleDateString('it-IT',{day:'numeric',month:'long',year:'numeric'});
+  const fw=[
+    ['1 · Attributi fisici e storia infortuni',p.fw1],
+    ['2 · Skillset offensivo e difensivo',p.fw2],
+    ['3 · Analisi statistica e metriche avanzate',p.fw3],
+    ['4 · Fattori comportamentali',p.fw4],
+    ['5 · Ruolo e fit',p.fw5],
+    ['6 · Benchmark e comparabili',p.fw6]
+  ].filter(x=>x[1]);
+  const meta=[p.squadra,p.lega,p.ruolo,p.eta?p.eta+' anni':'',p.altezza?p.altezza+' cm':'',p.naz,
+    p.cotonou==='cotonou'?'Cotonou / non-foreign':p.cotonou==='ita'?'Italiano / formato':''
+  ].filter(Boolean).join(' · ');
+  const adat=[
+    p.fit?`<p><b>Fattori a favore / fit:</b> ${esc(p.fit)}</p>`:'',
+    p.ruoloReale?`<p><b>Ruolo realistico:</b> ${esc(p.ruoloReale)}</p>`:'',
+    p.rischio?`<p><b>Rischio principale:</b> ${esc(p.rischio)}</p>`:''
+  ].join('');
+  const srcName=p.hs?(p.hs.src==='barttorvik'?'Barttorvik':'Hackastat'):'';
+  $('#repPage').innerHTML=`
+    <div class="rep-band"><span class="b1">Taccuino di Scouting · Report</span><span class="b2">${oggi}</span></div>
+    <div class="rep-name">${esc(p.nome)}</div>
+    <div class="rep-meta">${esc(meta)}</div>
+    ${p.verdetto?`<div class="rep-verdict">
+      <span class="stamp ${p.verdetto}">${VLAB[p.verdetto]}</span>
+      ${p.conf?`<span class="conf-dots">${'●'.repeat(+p.conf)}</span>`:''}
+      ${p.why?`<span class="rep-why">«${esc(p.why)}»</span>`:''}
+    </div>`:''}
+    <div class="rep-sec">Statistiche stagionali</div>
+    <div class="rep-stats">
+      ${repStat('PPG',p.ppg)}${repStat('RPG',p.rpg)}${repStat('APG',p.apg)}
+      ${repStat('3P%',p.tre)}${repStat('TS%',p.ts)}${repStat('USG%',p.usg)}${repStat('MIN',p.min)}
+    </div>
+    ${p.hs&&p.hs.stats?.length?`<div class="rep-adv">${p.hs.stats.map(s=>`
+      <div class="adv-cell"><span class="adv-label">${esc(s.k)}</span><span class="adv-val">${esc(s.raw)}</span>
+      ${s.pct!==null&&s.pct!==undefined?`<span class="pct ${pctClass(s.pct)}">${s.pct}</span>`:''}</div>`).join('')}</div>
+      <div class="rep-src">Fonte dati avanzati: ${srcName}, aggiornati al ${esc(p.hs.d)}. Percentili di lega dove disponibili.</div>`:''}
+    ${fw.map(([t,txt])=>`<div class="rep-sec">${esc(t)}</div><div class="rep-text">${esc(txt)}</div>`).join('')}
+    ${adat?`<div class="rep-sec">Adattabilità Europa / Serie A</div><div class="rep-adat">${adat}</div>`:''}
+    ${p.obs&&p.obs.length?`<div class="rep-sec">Osservazioni dal campo</div>${
+      [...p.obs].slice(-10).reverse().map(o=>`<div class="rep-obs"><span class="d">${esc(o.d)}</span>${esc(o.t)}</div>`).join('')}`:''}
+    <div class="rep-foot">
+      <span class="rep-firma" contenteditable="true" id="repFirma">${esc(getFirma())}</span>
+      <span class="gen">Generato il ${oggi} · Taccuino di Scouting</span>
+    </div>`;
+  $('#reportView').classList.add('open');
+  $('#repFirma').addEventListener('input',e=>setFirma(e.target.textContent.trim()));
+}
+$('#btnReport').addEventListener('click',()=>{
+  const id=save();
+  if(id)openReport(id);
+});
+$('#repClose').addEventListener('click',()=>$('#reportView').classList.remove('open'));
+$('#repPrint').addEventListener('click',()=>window.print());
+$('#reportView').addEventListener('click',e=>{
+  if(e.target.id==='reportView')$('#reportView').classList.remove('open');
+});
 
 /* ---------- toast ---------- */
 let toastTimer;
