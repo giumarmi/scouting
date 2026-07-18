@@ -309,8 +309,8 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       <div class="span2"><label for="iMin">MIN</label><input id="iMin" type="number" step="0.1"></div>
     </div>
 
-    <div class="section-label">Importa da Hackastat</div>
-    <textarea class="hs-paste" id="hsPaste" placeholder="Apri il Dettaglio giocatore su hackastat.eu, seleziona il blocco statistiche, copia e incolla qui…"></textarea>
+    <div class="section-label">Importa statistiche (Hackastat / Barttorvik)</div>
+    <textarea class="hs-paste" id="hsPaste" placeholder="Incolla il blocco dal Dettaglio giocatore di hackastat.eu oppure la riga (con intestazione) da barttorvik.com — riconosco il formato da solo…"></textarea>
     <div class="hs-actions">
       <button class="btn" id="hsParse" type="button">Leggi dati incollati</button>
       <span class="hs-info" id="hsInfo"></span>
@@ -570,24 +570,86 @@ function parseHs(text){
 }
 function stat(hs,k){const s=hs?.stats?.find(x=>x.k===k);return s?s.v:null}
 function pctClass(p){return p===null?'':p>=67?'hi':p>=34?'mid':'lo'}
+/* ---------- import Barttorvik (T-Rank) ---------- */
+const BT_COLS=['Yr','Cls','Ht','Player','Team','Conf','Role','G','Min%','PRPG!','BPM','OBPM','DBPM','ORtg','Usg','eFG','TS','OR%','DR%','Ast%','TO%','Blk%','Stl%','FTR','FC/40','FT M-A','FT%','2P M-A','2P%','3P M-A','3P%'];
+function parseBt(text){
+  const lines=text.split(/\r?\n/);
+  for(const line of lines){
+    const f=line.split('\t').map(s=>s.trim());
+    if(f.length>=25&&/^(19|20)\d{2}$/.test(f[0])){
+      const stats=[];
+      BT_COLS.forEach((k,i)=>{
+        if(f[i]===undefined||f[i]==='')return;
+        const raw=f[i];
+        let v=parseFloat(raw.replace(',','.'));
+        if(/^\.\d+$/.test(raw))v=Math.round(parseFloat(raw)*1000)/10; // .814 → 81.4
+        if(/^\d+-\d+$/.test(raw))v=null; // made-attempts e altezza piedi-pollici
+        stats.push({k,raw,v:(v===null||isNaN(v))?null:v,pct:null});
+      });
+      return stats;
+    }
+  }
+  return [];
+}
+function btVal(stats,k){const s=stats.find(x=>x.k===k);return s?s:null}
+function htToCm(raw){
+  const m=/^(\d+)-(\d+)$/.exec(raw||'');
+  if(!m)return null;
+  return Math.round(+m[1]*30.48+ +m[2]*2.54);
+}
+function btRuolo(role){
+  const r=(role||'').toLowerCase();
+  if(r.includes('pg'))return 'Playmaker';
+  if(r.includes('cg')||r.includes('combo')||r.includes('wing g'))return 'Guardia';
+  if(r.includes('wing f'))return 'Ala';
+  if(r.includes('pf')||r.includes('stretch 4'))return 'Ala grande';
+  if(r==='c'||r.includes('big')||r.includes(' c'))return 'Centro';
+  return '';
+}
+
+/* ---------- import unificato ---------- */
+function looksLikeBt(text){
+  return text.split(/\r?\n/).some(l=>l.split('\t').length>=25&&/^(19|20)\d{2}\t/.test(l));
+}
 function paintHs(){
   const box=$('#advPanel'),info=$('#hsInfo');
   if(!currentHs||!currentHs.stats?.length){box.innerHTML='';info.textContent='';return}
-  info.textContent='Dati Hackastat del '+currentHs.d+' · '+currentHs.stats.length+' voci';
+  const srcName=currentHs.src==='barttorvik'?'Barttorvik':'Hackastat';
+  info.textContent='Dati '+srcName+' del '+currentHs.d+' · '+currentHs.stats.length+' voci';
   box.innerHTML=currentHs.stats.map(s=>`
     <div class="adv-cell">
       <span class="adv-label">${esc(s.k)}</span>
       <span class="adv-val">${esc(s.raw)}</span>
-      ${s.pct!==null?`<span class="pct ${pctClass(s.pct)}">${s.pct}</span>`:''}
+      ${s.pct!==null&&s.pct!==undefined?`<span class="pct ${pctClass(s.pct)}">${s.pct}</span>`:''}
     </div>`).join('');
 }
 $('#hsParse').addEventListener('click',()=>{
   const txt=$('#hsPaste').value;
   if(!txt.trim()){toast('Incolla prima il blocco statistiche');return}
+  if(looksLikeBt(txt)){
+    const stats=parseBt(txt);
+    if(!stats.length){toast('Riga Barttorvik non riconosciuta: copia anche l\'intestazione');return}
+    currentHs={d:new Date().toISOString().slice(0,10),src:'barttorvik',stats};
+    // campi rapidi
+    const qmap={'Usg':'iUsg','TS':'iTs','3P%':'iTre','Min%':null};
+    const usg=btVal(stats,'Usg');if(usg?.v!==null&&usg)$('#iUsg').value=usg.v;
+    const ts=btVal(stats,'TS');if(ts?.v!==null&&ts)$('#iTs').value=ts.v;
+    const tre=btVal(stats,'3P%');if(tre?.v!==null&&tre)$('#iTre').value=tre.v;
+    // anagrafica (solo se i campi sono vuoti: non sovrascrivo il tuo lavoro)
+    const nome=btVal(stats,'Player');if(nome&&!$('#iNome').value.trim())$('#iNome').value=nome.raw;
+    const team=btVal(stats,'Team');if(team&&!$('#iSquadra').value.trim())$('#iSquadra').value=team.raw;
+    if(!$('#iLega').value.trim())$('#iLega').value='NCAA';
+    const ht=btVal(stats,'Ht');const cm=ht?htToCm(ht.raw):null;
+    if(cm&&!$('#iAltezza').value)$('#iAltezza').value=cm;
+    const role=btVal(stats,'Role');const ru=role?btRuolo(role.raw):'';
+    if(ru&&!$('#iRuolo').value)$('#iRuolo').value=ru;
+    paintHs();
+    toast(stats.length+' voci importate da Barttorvik');
+    return;
+  }
   const stats=parseHs(txt);
   if(!stats.length){toast('Formato non riconosciuto: copia il blocco dal Dettaglio giocatore');return}
-  currentHs={d:new Date().toISOString().slice(0,10),stats};
-  // travaso nei campi rapidi
+  currentHs={d:new Date().toISOString().slice(0,10),src:'hackastat',stats};
   const map={MIN:'iMin',PTS:'iPpg','USG%':'iUsg','3P%':'iTre','TS%':'iTs',AST:'iApg'};
   Object.entries(map).forEach(([k,id])=>{
     const v=stat(currentHs,k);
@@ -597,7 +659,7 @@ $('#hsParse').addEventListener('click',()=>{
   if(trb!==null)$('#iRpg').value=trb;
   else if(orb!==null&&drb!==null)$('#iRpg').value=(orb+drb).toFixed(1);
   paintHs();
-  toast(stats.length+' statistiche importate');
+  toast(stats.length+' statistiche importate da Hackastat');
 });
 
 $('#obsAdd').addEventListener('click',addObs);
