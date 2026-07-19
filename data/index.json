@@ -87,6 +87,54 @@
     {
       "file": "ncaa-mountain-west.json",
       "lega": "NCAA - Mountain West"
+    },
+    {
+      "file": "ncaa-northeast.json",
+      "lega": "NCAA - Northeast"
+    },
+    {
+      "file": "ncaa-ohio-valley.json",
+      "lega": "NCAA - Ohio Valley"
+    },
+    {
+      "file": "ncaa-pac-12.json",
+      "lega": "NCAA - Pac-12"
+    },
+    {
+      "file": "ncaa-patriot-league.json",
+      "lega": "NCAA - Patriot"
+    },
+    {
+      "file": "ncaa-sec.json",
+      "lega": "NCAA - SEC"
+    },
+    {
+      "file": "ncaa-southern.json",
+      "lega": "NCAA - Southern"
+    },
+    {
+      "file": "ncaa-southland.json",
+      "lega": "NCAA - Southland"
+    },
+    {
+      "file": "ncaa-summit-league.json",
+      "lega": "NCAA - Summit"
+    },
+    {
+      "file": "ncaa-sun-belt.json",
+      "lega": "NCAA - Sun Belt"
+    },
+    {
+      "file": "ncaa-swac.json",
+      "lega": "NCAA - SWAC"
+    },
+    {
+      "file": "ncaa-uac.json",
+      "lega": "NCAA - UAC"
+    },
+    {
+      "file": "ncaa-wcc.json",
+      "lega": "NCAA - WCC"
     }
   ]
 }
