@@ -1266,7 +1266,6 @@ function paintRosterTable(){
       <td class="num">${g.altezza_cm||(g.altezza?esc(g.altezza):'—')}</td>
       <td class="num">${esc(g.peso||'')}</td>
       <td class="num">${esc(g.eta||'')}</td>
-      <td class="num">${esc(g.anni_pro||'')}</td>
       <td>${esc(g.nazionalita||g.naz||'—')}</td>
       <td>${esc(g.pre_draft||'')}</td>
       <td>${esc(g.squadra_2025_26||'')}</td>
@@ -1275,8 +1274,8 @@ function paintRosterTable(){
       <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
     </tr>`).join('');
   box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:1050px">
-    <thead><tr><th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Peso</th><th>Età</th><th>Anni pro</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th><th>Agenzia</th><th></th></tr></thead>
-    <tbody>${rows||'<tr><td colspan="13" class="cal-empty" style="padding:1rem">Roster vuoto.</td></tr>'}</tbody>
+    <thead><tr><th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Peso</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th><th>Agenzia</th><th></th></tr></thead>
+    <tbody>${rows||'<tr><td colspan="12" class="cal-empty" style="padding:1rem">Roster vuoto.</td></tr>'}</tbody>
   </table></div>`;
 }
 $('#rosterLeagues').addEventListener('click',e=>{
