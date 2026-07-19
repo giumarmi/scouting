@@ -1,0 +1,72 @@
+{
+  "lega": "LBA",
+  "stagione": "2026/27",
+  "aggiornato": "2026-07-18",
+  "nota": "Cremona: titolo sportivo in cessione a Roma Basket Club, da confermare",
+  "squadre": [
+    {
+      "nome": "Virtus Bologna",
+      "roster": []
+    },
+    {
+      "nome": "Germani Brescia",
+      "roster": []
+    },
+    {
+      "nome": "Olimpia Milano",
+      "roster": []
+    },
+    {
+      "nome": "Reyer Venezia",
+      "roster": []
+    },
+    {
+      "nome": "Bertram Derthona Tortona",
+      "roster": []
+    },
+    {
+      "nome": "UnaHotels Reggio Emilia",
+      "roster": []
+    },
+    {
+      "nome": "Pallacanestro Trieste",
+      "roster": []
+    },
+    {
+      "nome": "Openjobmetis Varese",
+      "roster": []
+    },
+    {
+      "nome": "Dolomiti Energia Trentino",
+      "roster": []
+    },
+    {
+      "nome": "APU Udine",
+      "roster": []
+    },
+    {
+      "nome": "Vanoli Cremona",
+      "roster": []
+    },
+    {
+      "nome": "Napoli Basket",
+      "roster": []
+    },
+    {
+      "nome": "Nutribullet Treviso",
+      "roster": []
+    },
+    {
+      "nome": "Acqua S.Bernardo Cantù",
+      "roster": []
+    },
+    {
+      "nome": "Givova Scafati",
+      "roster": []
+    },
+    {
+      "nome": "Tezenis Verona",
+      "roster": []
+    }
+  ]
+}

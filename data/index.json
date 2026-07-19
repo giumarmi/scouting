@@ -1,1 +1,12 @@
-
+{
+  "leghe": [
+    {
+      "file": "lba.json",
+      "lega": "LBA"
+    },
+    {
+      "file": "eurolega.json",
+      "lega": "EuroLeague"
+    }
+  ]
+}

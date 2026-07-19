@@ -1,0 +1,683 @@
+{
+  "lega": "EuroLeague",
+  "stagione": "2026/27",
+  "aggiornato": "2026-07-19",
+  "nota": "Roster parziali da Player Movement Tracker: 8 squadre popolate (A-D), 12 da completare",
+  "squadre": [
+    {
+      "nome": "Real Madrid",
+      "roster": []
+    },
+    {
+      "nome": "FC Barcelona",
+      "roster": [
+        {
+          "nome": "Dario Brizuela",
+          "ruolo": "Wing G",
+          "altezza": 193,
+          "naz": "ESP",
+          "cls": ""
+        },
+        {
+          "nome": "Umoja Gibson",
+          "ruolo": "Wing G",
+          "altezza": 185,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Josh Nebo",
+          "ruolo": "Center",
+          "altezza": 206,
+          "naz": "USA, SLO",
+          "cls": ""
+        },
+        {
+          "nome": "Olivier Nkamhoua",
+          "ruolo": "Wing F",
+          "altezza": 206,
+          "naz": "FIN",
+          "cls": ""
+        },
+        {
+          "nome": "Juan Nunez",
+          "ruolo": "Wing G",
+          "altezza": 193,
+          "naz": "ESP",
+          "cls": ""
+        },
+        {
+          "nome": "Joel Parra",
+          "ruolo": "Wing F",
+          "altezza": 203,
+          "naz": "ESP",
+          "cls": ""
+        },
+        {
+          "nome": "Kevin Punter",
+          "ruolo": "Wing G",
+          "altezza": 188,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Justin Robinson",
+          "ruolo": "Wing G",
+          "altezza": 185,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Tornike Shengelia",
+          "ruolo": "Center",
+          "altezza": 206,
+          "naz": "GEO",
+          "cls": ""
+        },
+        {
+          "nome": "Agustin Ubal",
+          "ruolo": "Wing G",
+          "altezza": 201,
+          "naz": "URU",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "nome": "Baskonia",
+      "roster": [
+        {
+          "nome": "Mamadi Diakite",
+          "ruolo": "Center",
+          "altezza": 206,
+          "naz": "GUI",
+          "cls": ""
+        },
+        {
+          "nome": "Khalifa Diop",
+          "ruolo": "Center",
+          "altezza": 208,
+          "naz": "SEN",
+          "cls": ""
+        },
+        {
+          "nome": "Chris Duarte",
+          "ruolo": "Wing G",
+          "altezza": 196,
+          "naz": "CAN, DOM",
+          "cls": ""
+        },
+        {
+          "nome": "Clement Frisch",
+          "ruolo": "Wing F",
+          "altezza": 201,
+          "naz": "FRA",
+          "cls": ""
+        },
+        {
+          "nome": "Markus Howard",
+          "ruolo": "Wing G",
+          "altezza": 180,
+          "naz": "USA, PUR",
+          "cls": ""
+        },
+        {
+          "nome": "Stefan Joksimovic",
+          "ruolo": "Wing F",
+          "altezza": 198,
+          "naz": "SLO",
+          "cls": ""
+        },
+        {
+          "nome": "Rodions Kurucs",
+          "ruolo": "Wing F",
+          "altezza": 206,
+          "naz": "LAT",
+          "cls": ""
+        },
+        {
+          "nome": "Tadas Sedekerskis",
+          "ruolo": "Wing F",
+          "altezza": 206,
+          "naz": "LTU",
+          "cls": ""
+        },
+        {
+          "nome": "Kobi Simmons",
+          "ruolo": "Wing G",
+          "altezza": 196,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Matteo Spagnolo",
+          "ruolo": "Wing G",
+          "altezza": 198,
+          "naz": "ITA",
+          "cls": ""
+        },
+        {
+          "nome": "D.J. Stewart",
+          "ruolo": "Wing G",
+          "altezza": 198,
+          "naz": "USA",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "nome": "Valencia Basket",
+      "roster": []
+    },
+    {
+      "nome": "ASVEL Villeurbanne",
+      "roster": [
+        {
+          "nome": "Armoni Brooks",
+          "ruolo": "Wing G",
+          "altezza": 190,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Sylvain Francisco",
+          "ruolo": "Wing G",
+          "altezza": 188,
+          "naz": "USA, FRA",
+          "cls": ""
+        },
+        {
+          "nome": "Both Gach",
+          "ruolo": "Wing G",
+          "altezza": 198,
+          "naz": "USA, SSD",
+          "cls": ""
+        },
+        {
+          "nome": "Bodian Massa",
+          "ruolo": "Wing F",
+          "altezza": 208,
+          "naz": "FRA",
+          "cls": ""
+        },
+        {
+          "nome": "Mbaye Ndiaye",
+          "ruolo": "Center",
+          "altezza": 203,
+          "naz": "SEN",
+          "cls": ""
+        },
+        {
+          "nome": "Yves Pons",
+          "ruolo": "Wing F",
+          "altezza": 198,
+          "naz": "HAI, FRA",
+          "cls": ""
+        },
+        {
+          "nome": "Daniel Theis",
+          "ruolo": "Center",
+          "altezza": 203,
+          "naz": "GER",
+          "cls": ""
+        },
+        {
+          "nome": "Nick Weiler-Babb",
+          "ruolo": "Wing G",
+          "altezza": 196,
+          "naz": "USA, GER",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "nome": "Paris Basketball",
+      "roster": []
+    },
+    {
+      "nome": "Olimpia Milano",
+      "roster": []
+    },
+    {
+      "nome": "Virtus Bologna",
+      "roster": []
+    },
+    {
+      "nome": "Bayern Monaco",
+      "roster": [
+        {
+          "nome": "Kamar Baldwin",
+          "ruolo": "Wing G",
+          "altezza": 185,
+          "naz": "USA, GEO",
+          "cls": ""
+        },
+        {
+          "nome": "Oscar Da Silva",
+          "ruolo": "Wing F",
+          "altezza": 206,
+          "naz": "GER",
+          "cls": ""
+        },
+        {
+          "nome": "Wenyen Gabriel",
+          "ruolo": "Center",
+          "altezza": 206,
+          "naz": "SSD",
+          "cls": ""
+        },
+        {
+          "nome": "Niels Giffey",
+          "ruolo": "Wing F",
+          "altezza": 201,
+          "naz": "GER",
+          "cls": ""
+        },
+        {
+          "nome": "Justus Hollatz",
+          "ruolo": "Wing G",
+          "altezza": 190,
+          "naz": "GER",
+          "cls": ""
+        },
+        {
+          "nome": "Tobias Jensen",
+          "ruolo": "Wing F",
+          "altezza": 198,
+          "naz": "DEN",
+          "cls": ""
+        },
+        {
+          "nome": "Justinian Jessup",
+          "ruolo": "Wing G",
+          "altezza": 196,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Rokas Jokubaitis",
+          "ruolo": "Wing G",
+          "altezza": 193,
+          "naz": "LTU",
+          "cls": ""
+        },
+        {
+          "nome": "Vladimir Lucic",
+          "ruolo": "Wing F",
+          "altezza": 203,
+          "naz": "SRB",
+          "cls": ""
+        },
+        {
+          "nome": "Andreas Obst",
+          "ruolo": "Wing G",
+          "altezza": 190,
+          "naz": "GER",
+          "cls": ""
+        },
+        {
+          "nome": "Johannes Thiemann",
+          "ruolo": "Center",
+          "altezza": 206,
+          "naz": "GER",
+          "cls": ""
+        },
+        {
+          "nome": "Johannes Voightmann",
+          "ruolo": "Center",
+          "altezza": 211,
+          "naz": "GER",
+          "cls": ""
+        },
+        {
+          "nome": "Duane Washington Jr.",
+          "ruolo": "Wing G",
+          "altezza": 188,
+          "naz": "GER, USA",
+          "cls": ""
+        },
+        {
+          "nome": "Austin Wiley",
+          "ruolo": "Wing F",
+          "altezza": 211,
+          "naz": "USA",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "nome": "Zalgiris Kaunas",
+      "roster": []
+    },
+    {
+      "nome": "Fenerbahce",
+      "roster": []
+    },
+    {
+      "nome": "Anadolu Efes",
+      "roster": [
+        {
+          "nome": "Isaia Cordinier",
+          "ruolo": "Wing G",
+          "altezza": 196,
+          "naz": "FRA",
+          "cls": ""
+        },
+        {
+          "nome": "PJ Dozier",
+          "ruolo": "Wing G",
+          "altezza": 198,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Ruzgar Fenemen",
+          "ruolo": "Wing G",
+          "altezza": 185,
+          "naz": "TUR",
+          "cls": ""
+        },
+        {
+          "nome": "Bruno Fernando",
+          "ruolo": "Center",
+          "altezza": 206,
+          "naz": "ANG",
+          "cls": ""
+        },
+        {
+          "nome": "Mike James",
+          "ruolo": "Wing G",
+          "altezza": 185,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Kai Jones",
+          "ruolo": "Center",
+          "altezza": 211,
+          "naz": "BAH",
+          "cls": ""
+        },
+        {
+          "nome": "Darius Karutasu",
+          "ruolo": "Wing F",
+          "altezza": 198,
+          "naz": "TUR",
+          "cls": ""
+        },
+        {
+          "nome": "Jordan Loyd",
+          "ruolo": "Wing G",
+          "altezza": 193,
+          "naz": "USA, POL",
+          "cls": ""
+        },
+        {
+          "nome": "David Mutaf",
+          "ruolo": "Wing G",
+          "altezza": 196,
+          "naz": "TUR",
+          "cls": ""
+        },
+        {
+          "nome": "Ercan Osmani",
+          "ruolo": "Wing F",
+          "altezza": 211,
+          "naz": "ALB, TUR",
+          "cls": ""
+        },
+        {
+          "nome": "Georgios Papagiannis",
+          "ruolo": "Center",
+          "altezza": 218,
+          "naz": "GRE",
+          "cls": ""
+        },
+        {
+          "nome": "Dario Saric",
+          "ruolo": "Wing F",
+          "altezza": 208,
+          "naz": "CRO",
+          "cls": ""
+        },
+        {
+          "nome": "Matthew Strazel",
+          "ruolo": "Wing G",
+          "altezza": 183,
+          "naz": "FRA",
+          "cls": ""
+        },
+        {
+          "nome": "Santi Yusta",
+          "ruolo": "Wing F",
+          "altezza": 198,
+          "naz": "ESP",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "nome": "Besiktas",
+      "roster": [
+        {
+          "nome": "Metecan Birsen",
+          "ruolo": "Wing F",
+          "altezza": 208,
+          "naz": "TUR",
+          "cls": ""
+        },
+        {
+          "nome": "Anthony Brown",
+          "ruolo": "Wing F",
+          "altezza": 201,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Devon Dotson",
+          "ruolo": "Wing G",
+          "altezza": 185,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "DaQuan Jeffries",
+          "ruolo": "Wing F",
+          "altezza": 196,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Furkan Korkmaz",
+          "ruolo": "Wing G",
+          "altezza": 201,
+          "naz": "TUR",
+          "cls": ""
+        },
+        {
+          "nome": "Conor Morgan",
+          "ruolo": "Center",
+          "altezza": 206,
+          "naz": "CAN",
+          "cls": ""
+        },
+        {
+          "nome": "Jaylen Nowell",
+          "ruolo": "Wing G",
+          "altezza": 193,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Eugene Omoruyi",
+          "ruolo": "Center",
+          "altezza": 198,
+          "naz": "CAN",
+          "cls": ""
+        },
+        {
+          "nome": "Mady Sissoko",
+          "ruolo": "Center",
+          "altezza": 201,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Berk Ugurlu",
+          "ruolo": "Wing G",
+          "altezza": 190,
+          "naz": "TUR",
+          "cls": ""
+        },
+        {
+          "nome": "Scottie Wilbekin",
+          "ruolo": "Wing G",
+          "altezza": 188,
+          "naz": "USA, TUR",
+          "cls": ""
+        },
+        {
+          "nome": "Ante Zizic",
+          "ruolo": "Center",
+          "altezza": 211,
+          "naz": "CRO",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "nome": "Olympiacos",
+      "roster": []
+    },
+    {
+      "nome": "Panathinaikos",
+      "roster": []
+    },
+    {
+      "nome": "Partizan Belgrado",
+      "roster": []
+    },
+    {
+      "nome": "Stella Rossa",
+      "roster": [
+        {
+          "nome": "Patrick Baldwin Jr.",
+          "ruolo": "Wing F",
+          "altezza": 213,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Jovan Bikic",
+          "ruolo": "Wing G",
+          "altezza": 206,
+          "naz": "SRB",
+          "cls": ""
+        },
+        {
+          "nome": "Jared Butler",
+          "ruolo": "Wing G",
+          "altezza": 190,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Tyson Carter",
+          "ruolo": "Wing G",
+          "altezza": 193,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Dejan Davidovac",
+          "ruolo": "Wing F",
+          "altezza": 203,
+          "naz": "SRB",
+          "cls": ""
+        },
+        {
+          "nome": "Ognjen Dobric",
+          "ruolo": "Wing F",
+          "altezza": 198,
+          "naz": "CRO, SRB",
+          "cls": ""
+        },
+        {
+          "nome": "Ebuka Izundu",
+          "ruolo": "Center",
+          "altezza": 208,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Chris Jones",
+          "ruolo": "Wing G",
+          "altezza": 188,
+          "naz": "USA, ARM",
+          "cls": ""
+        },
+        {
+          "nome": "Nikola Kalinic",
+          "ruolo": "Wing F",
+          "altezza": 203,
+          "naz": "SRB",
+          "cls": ""
+        },
+        {
+          "nome": "David Kramer",
+          "ruolo": "Wing F",
+          "altezza": 190,
+          "naz": "SVK, AUT",
+          "cls": ""
+        },
+        {
+          "nome": "Stefan Miljenovic",
+          "ruolo": "Wing G",
+          "altezza": 190,
+          "naz": "CAN, SRB",
+          "cls": ""
+        },
+        {
+          "nome": "Chima Moneke",
+          "ruolo": "Wing F",
+          "altezza": 198,
+          "naz": "NGR",
+          "cls": ""
+        },
+        {
+          "nome": "Johnathan Motley",
+          "ruolo": "Center",
+          "altezza": 208,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Semi Ojeleye",
+          "ruolo": "Wing F",
+          "altezza": 198,
+          "naz": "USA",
+          "cls": ""
+        },
+        {
+          "nome": "Ognjen Radosic",
+          "ruolo": "Wing G",
+          "altezza": 196,
+          "naz": "SRB, BIH",
+          "cls": ""
+        }
+      ]
+    },
+    {
+      "nome": "Maccabi Tel Aviv",
+      "roster": []
+    },
+    {
+      "nome": "Hapoel Tel Aviv",
+      "roster": []
+    },
+    {
+      "nome": "Dubai Basketball",
+      "roster": []
+    }
+  ]
+}
