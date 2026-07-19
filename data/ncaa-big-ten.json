@@ -1,0 +1,2990 @@
+{
+  "lega": "NCAA - Big Ten",
+  "stagione": "2026/27",
+  "aggiornato": "2026-07-19",
+  "colonne": [
+    "nome",
+    "posizione",
+    "altezza",
+    "altezza_cm",
+    "classe",
+    "ppg",
+    "rpg",
+    "apg",
+    "mpg"
+  ],
+  "squadre": [
+    {
+      "nome": "Illinois",
+      "roster": [
+        {
+          "nome": "Ethan Brown",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Quentin Coleman",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jake Davis",
+          "posizione": "SF",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "SR",
+          "ppg": 5.4,
+          "rpg": 2.2,
+          "apg": 0.7,
+          "mpg": 19.6
+        },
+        {
+          "nome": "Landon Davis",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Blake Fagbemi",
+          "posizione": "PG",
+          "altezza": "6-0",
+          "altezza_cm": 183,
+          "classe": "SO",
+          "ppg": 0.2,
+          "rpg": 1.0,
+          "apg": 0.4,
+          "mpg": 3.6
+        },
+        {
+          "nome": "Tomislav Ivisic",
+          "posizione": "C",
+          "altezza": "7-1",
+          "altezza_cm": 216,
+          "classe": "SR",
+          "ppg": 10.4,
+          "rpg": 5.6,
+          "apg": 1.6,
+          "mpg": 25.4
+        },
+        {
+          "nome": "Zvonimir Ivisic",
+          "posizione": "C",
+          "altezza": "7-2",
+          "altezza_cm": 218,
+          "classe": "SR",
+          "ppg": 6.4,
+          "rpg": 4.5,
+          "apg": 0.3,
+          "mpg": 17.2
+        },
+        {
+          "nome": "Jason Jakstys",
+          "posizione": "C",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "SO",
+          "ppg": 1.3,
+          "rpg": 1.9,
+          "apg": 0.2,
+          "mpg": 5.3
+        },
+        {
+          "nome": "David Mirkovic",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "SO",
+          "ppg": 13.3,
+          "rpg": 8.0,
+          "apg": 2.6,
+          "mpg": 29.5
+        },
+        {
+          "nome": "Lucas Morillo",
+          "posizione": "PG",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Andrej Stojakovic",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SR",
+          "ppg": 13.5,
+          "rpg": 4.5,
+          "apg": 1.0,
+          "mpg": 26.3
+        },
+        {
+          "nome": "Stefan Vaaks",
+          "posizione": "SG",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SO",
+          "ppg": 15.8,
+          "rpg": 2.5,
+          "apg": 3.2,
+          "mpg": 31.5
+        },
+        {
+          "nome": "Lincoln Williams",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Zavier Zens",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        }
+      ]
+    },
+    {
+      "nome": "Indiana",
+      "roster": [
+        {
+          "nome": "Markus Burton",
+          "posizione": "PG",
+          "altezza": "6-0",
+          "altezza_cm": 183,
+          "classe": "RS JR",
+          "ppg": 18.5,
+          "rpg": 2.8,
+          "apg": 3.7,
+          "mpg": 30.1
+        },
+        {
+          "nome": "Darren Harris",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "JR",
+          "ppg": 3.3,
+          "rpg": 0.8,
+          "apg": 0.4,
+          "mpg": 9.7
+        },
+        {
+          "nome": "Vaughn Karvala",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Bryce Lindsay",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "JR",
+          "ppg": 12.3,
+          "rpg": 2.1,
+          "apg": 2.1,
+          "mpg": 28.6
+        },
+        {
+          "nome": "Trevor Manhertz",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Justin Monden",
+          "posizione": "PG",
+          "altezza": "6-0",
+          "altezza_cm": 183,
+          "classe": "SR",
+          "ppg": 6.0,
+          "rpg": 1.2,
+          "apg": 1.6,
+          "mpg": 20.8
+        },
+        {
+          "nome": "Prince-Alexander Moody",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jaeden Mustaf",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "JR",
+          "ppg": 10.4,
+          "rpg": 4.3,
+          "apg": 2.4,
+          "mpg": 27.7
+        },
+        {
+          "nome": "Jordan Rayford",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Aiden Sherrell",
+          "posizione": "PF",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "JR",
+          "ppg": 11.1,
+          "rpg": 6.2,
+          "apg": 1.1,
+          "mpg": 23.9
+        },
+        {
+          "nome": "Trent Sisley",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SO",
+          "ppg": 4.2,
+          "rpg": 2.8,
+          "apg": 0.4,
+          "mpg": 13.2
+        },
+        {
+          "nome": "Drew Snively",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SO",
+          "ppg": 0.4,
+          "rpg": 0.4,
+          "apg": 0.0,
+          "mpg": 1.7
+        },
+        {
+          "nome": "Clemens Sokolov",
+          "posizione": "C",
+          "altezza": "7-0",
+          "altezza_cm": 213,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Ian Stephens",
+          "posizione": "SF",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SR",
+          "ppg": 0.3,
+          "rpg": 0.1,
+          "apg": 0.0,
+          "mpg": 1.8
+        },
+        {
+          "nome": "Ben Winker",
+          "posizione": "C",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "SO",
+          "ppg": 0.9,
+          "rpg": 1.8,
+          "apg": 0.4,
+          "mpg": 4.3
+        },
+        {
+          "nome": "Samet Yigitoglu",
+          "posizione": "C",
+          "altezza": "7-2",
+          "altezza_cm": 218,
+          "classe": "JR",
+          "ppg": 10.7,
+          "rpg": 7.9,
+          "apg": 1.6,
+          "mpg": 28.9
+        }
+      ]
+    },
+    {
+      "nome": "Iowa",
+      "roster": [
+        {
+          "nome": "TyReek Coleman",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "SO",
+          "ppg": 10.0,
+          "rpg": 2.7,
+          "apg": 1.8,
+          "mpg": 22.8
+        },
+        {
+          "nome": "Kael Combs",
+          "posizione": "PG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SR",
+          "ppg": 6.1,
+          "rpg": 2.4,
+          "apg": 2.4,
+          "mpg": 26.1
+        },
+        {
+          "nome": "Jaidyn Coon",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Ethan Harris",
+          "posizione": "SF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Isaia Howard",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "JR",
+          "ppg": 5.1,
+          "rpg": 2.6,
+          "apg": 1.1,
+          "mpg": 18.2
+        },
+        {
+          "nome": "Trevin Jirak",
+          "posizione": "C",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "SO",
+          "ppg": 3.4,
+          "rpg": 0.9,
+          "apg": 1.1,
+          "mpg": 8.1
+        },
+        {
+          "nome": "Cooper Koch",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SO",
+          "ppg": 7.8,
+          "rpg": 3.1,
+          "apg": 1.1,
+          "mpg": 28.4
+        },
+        {
+          "nome": "Jacob Koch",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "JR",
+          "ppg": 0.4,
+          "rpg": 0.0,
+          "apg": 0.2,
+          "mpg": 2.0
+        },
+        {
+          "nome": "Cam Manyawu",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "SR",
+          "ppg": 6.6,
+          "rpg": 4.6,
+          "apg": 1.1,
+          "mpg": 19.2
+        },
+        {
+          "nome": "Joey Matteoni",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "SO",
+          "ppg": 1.5,
+          "rpg": 0.6,
+          "apg": 0.3,
+          "mpg": 3.6
+        },
+        {
+          "nome": "Peyton McCollum",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "RS FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Andrew McKeever",
+          "posizione": "C",
+          "altezza": "7-3",
+          "altezza_cm": 221,
+          "classe": "JR",
+          "ppg": 8.2,
+          "rpg": 9.2,
+          "apg": 1.8,
+          "mpg": 23.2
+        },
+        {
+          "nome": "Tate Sage",
+          "posizione": "SG",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SO",
+          "ppg": 6.1,
+          "rpg": 2.1,
+          "apg": 0.7,
+          "mpg": 16.1
+        },
+        {
+          "nome": "Trey Thompson",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "RS FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        }
+      ]
+    },
+    {
+      "nome": "Maryland",
+      "roster": [
+        {
+          "nome": "Bishop Boswell",
+          "posizione": "PG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "JR",
+          "ppg": 6.2,
+          "rpg": 4.4,
+          "apg": 3.1,
+          "mpg": 26.4
+        },
+        {
+          "nome": "Austin Brown",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Tomislav Buljan",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "SO",
+          "ppg": 13.1,
+          "rpg": 10.3,
+          "apg": 1.5,
+          "mpg": 25.9
+        },
+        {
+          "nome": "Guillermo Del Pino",
+          "posizione": "PG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SO",
+          "ppg": 1.5,
+          "rpg": 0.7,
+          "apg": 0.5,
+          "mpg": 9.0
+        },
+        {
+          "nome": "Kaden House",
+          "posizione": "SG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Maban Jabriel",
+          "posizione": "SF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "JR",
+          "ppg": 7.7,
+          "rpg": 3.8,
+          "apg": 1.0,
+          "mpg": 19.8
+        },
+        {
+          "nome": "Robert Jennings II",
+          "posizione": "PF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "RS SR",
+          "ppg": 3.7,
+          "rpg": 4.0,
+          "apg": 0.0,
+          "mpg": 13.0
+        },
+        {
+          "nome": "Alex K'Medehouto",
+          "posizione": "C",
+          "altezza": "7-0",
+          "altezza_cm": 213,
+          "classe": "JR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Mike McNair Jr.",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SR",
+          "ppg": 16.9,
+          "rpg": 5.1,
+          "apg": 2.1,
+          "mpg": 36.1
+        },
+        {
+          "nome": "Andre Mills",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SO",
+          "ppg": 12.2,
+          "rpg": 4.1,
+          "apg": 1.6,
+          "mpg": 26.6
+        },
+        {
+          "nome": "Baba Oladotun",
+          "posizione": "SF",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Pharrel Payne",
+          "posizione": "C",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "RS SR",
+          "ppg": 17.5,
+          "rpg": 7.2,
+          "apg": 1.4,
+          "mpg": 26.9
+        },
+        {
+          "nome": "Lukas Sotell",
+          "posizione": "SG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "SR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Adama Tambedou",
+          "posizione": "PF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "George Turkson Jr.",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SO",
+          "ppg": 1.3,
+          "rpg": 2.0,
+          "apg": 0.2,
+          "mpg": 11.5
+        },
+        {
+          "nome": "DJ Wagner",
+          "posizione": "PG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SR",
+          "ppg": 7.4,
+          "rpg": 1.6,
+          "apg": 2.4,
+          "mpg": 23.6
+        }
+      ]
+    },
+    {
+      "nome": "Michigan",
+      "roster": [
+        {
+          "nome": "Malachi Brown",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Elliot Cadeau",
+          "posizione": "PG",
+          "altezza": "6-1",
+          "altezza_cm": 185,
+          "classe": "SR",
+          "ppg": 10.5,
+          "rpg": 2.7,
+          "apg": 5.9,
+          "mpg": 27.3
+        },
+        {
+          "nome": "Lincoln Cosby",
+          "posizione": "SF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Quinn Costello",
+          "posizione": "PF",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Howard Eisley Jr.",
+          "posizione": "PG",
+          "altezza": "6-0",
+          "altezza_cm": 183,
+          "classe": "JR",
+          "ppg": 0.3,
+          "rpg": 0.1,
+          "apg": 0.0,
+          "mpg": 1.2
+        },
+        {
+          "nome": "JP Estrella",
+          "posizione": "PF",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "JR",
+          "ppg": 10.0,
+          "rpg": 5.4,
+          "apg": 0.8,
+          "mpg": 18.3
+        },
+        {
+          "nome": "Oscar Goodman",
+          "posizione": "PF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SO",
+          "ppg": 1.4,
+          "rpg": 1.3,
+          "apg": 0.4,
+          "mpg": 5.3
+        },
+        {
+          "nome": "Joseph Hartman",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Harrison Hochberg",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Ricky Liburd",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "RS FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Brandon McCoy Jr.",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Trey McKenney",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SO",
+          "ppg": 9.9,
+          "rpg": 2.8,
+          "apg": 0.9,
+          "mpg": 22.1
+        },
+        {
+          "nome": "Marcus Moller",
+          "posizione": "C",
+          "altezza": "7-2",
+          "altezza_cm": 218,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jalen Reed",
+          "posizione": "PF",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "SR",
+          "ppg": 9.5,
+          "rpg": 5.7,
+          "apg": 0.7,
+          "mpg": 18.0
+        },
+        {
+          "nome": "Moustapha Thiam",
+          "posizione": "C",
+          "altezza": "7-2",
+          "altezza_cm": 218,
+          "classe": "JR",
+          "ppg": 12.8,
+          "rpg": 7.1,
+          "apg": 0.5,
+          "mpg": 27.2
+        }
+      ]
+    },
+    {
+      "nome": "Michigan State",
+      "roster": [
+        {
+          "nome": "Julius Avent",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Anton Bonke",
+          "posizione": "C",
+          "altezza": "7-2",
+          "altezza_cm": 218,
+          "classe": "SR",
+          "ppg": 10.6,
+          "rpg": 8.3,
+          "apg": 1.0,
+          "mpg": 25.6
+        },
+        {
+          "nome": "Coen Carr",
+          "posizione": "SF",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "SR",
+          "ppg": 12.0,
+          "rpg": 5.4,
+          "apg": 1.2,
+          "mpg": 29.3
+        },
+        {
+          "nome": "Jeremy Fears Jr.",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "JR",
+          "ppg": 15.2,
+          "rpg": 2.4,
+          "apg": 9.4,
+          "mpg": 32.4
+        },
+        {
+          "nome": "Kaleb Glenn",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "RS JR",
+          "ppg": 12.6,
+          "rpg": 4.8,
+          "apg": 0.6,
+          "mpg": 25.8
+        },
+        {
+          "nome": "Jasiah Jervis",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jesse McCulloch",
+          "posizione": "C",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "SO",
+          "ppg": 2.4,
+          "rpg": 1.3,
+          "apg": 0.2,
+          "mpg": 7.4
+        },
+        {
+          "nome": "Carlos Medlock Jr.",
+          "posizione": "PG",
+          "altezza": "5-11",
+          "altezza_cm": 180,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jordan Scott",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SO",
+          "ppg": 5.8,
+          "rpg": 3.1,
+          "apg": 1.2,
+          "mpg": 20.8
+        },
+        {
+          "nome": "Ethan Taylor",
+          "posizione": "C",
+          "altezza": "7-1",
+          "altezza_cm": 216,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Kur Teng",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "JR",
+          "ppg": 7.3,
+          "rpg": 2.0,
+          "apg": 1.0,
+          "mpg": 17.5
+        },
+        {
+          "nome": "Brennan Walton",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SO",
+          "ppg": 0.4,
+          "rpg": 0.4,
+          "apg": 0.0,
+          "mpg": 1.3
+        },
+        {
+          "nome": "Colin Walton",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SO",
+          "ppg": 0.3,
+          "rpg": 0.3,
+          "apg": 0.0,
+          "mpg": 1.3
+        },
+        {
+          "nome": "Cam Ward",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SO",
+          "ppg": 5.1,
+          "rpg": 4.2,
+          "apg": 0.3,
+          "mpg": 15.3
+        }
+      ]
+    },
+    {
+      "nome": "Minnesota",
+      "roster": [
+        {
+          "nome": "Nolen Anderson",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Isaac Asuma",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "JR",
+          "ppg": 10.9,
+          "rpg": 4.0,
+          "apg": 3.7,
+          "mpg": 34.3
+        },
+        {
+          "nome": "Jaylen Crocker-Johnson",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SR",
+          "ppg": 13.4,
+          "rpg": 6.8,
+          "apg": 1.8,
+          "mpg": 31.5
+        },
+        {
+          "nome": "Bobby Durkin",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SR",
+          "ppg": 10.2,
+          "rpg": 3.2,
+          "apg": 1.8,
+          "mpg": 32.8
+        },
+        {
+          "nome": "Kyan Evans",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "SR",
+          "ppg": 4.0,
+          "rpg": 1.2,
+          "apg": 2.5,
+          "mpg": 17.7
+        },
+        {
+          "nome": "Winters Grady",
+          "posizione": "SF",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "RS FR",
+          "ppg": 2.9,
+          "rpg": 1.1,
+          "apg": 0.2,
+          "mpg": 6.0
+        },
+        {
+          "nome": "Grayson Grove",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "SO",
+          "ppg": 4.0,
+          "rpg": 3.2,
+          "apg": 1.7,
+          "mpg": 20.6
+        },
+        {
+          "nome": "Nolan Groves",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SO",
+          "ppg": 0.9,
+          "rpg": 1.2,
+          "apg": 0.2,
+          "mpg": 5.8
+        },
+        {
+          "nome": "Malick Kordel",
+          "posizione": "C",
+          "altezza": "7-2",
+          "altezza_cm": 218,
+          "classe": "SO",
+          "ppg": 1.2,
+          "rpg": 1.5,
+          "apg": 0.1,
+          "mpg": 4.1
+        },
+        {
+          "nome": "Max Lorenson",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "RS FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Chadrack Mpoyi",
+          "posizione": "C",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Blake Nixon Jr.",
+          "posizione": "SG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Malachi Palmer",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "JR",
+          "ppg": 4.6,
+          "rpg": 1.7,
+          "apg": 0.6,
+          "mpg": 18.3
+        },
+        {
+          "nome": "Kai Shinholster",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SO",
+          "ppg": 1.8,
+          "rpg": 1.2,
+          "apg": 1.0,
+          "mpg": 13.1
+        },
+        {
+          "nome": "Cedric Tomes",
+          "posizione": "PG",
+          "altezza": "6-1",
+          "altezza_cm": 185,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        }
+      ]
+    },
+    {
+      "nome": "Nebraska",
+      "roster": [
+        {
+          "nome": "Kadyn Betts",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SR",
+          "ppg": 3.1,
+          "rpg": 1.1,
+          "apg": 0.2,
+          "mpg": 6.6
+        },
+        {
+          "nome": "Henry Burt",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Will Cooper",
+          "posizione": "SF",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "RS SO",
+          "ppg": 5.3,
+          "rpg": 1.8,
+          "apg": 0.4,
+          "mpg": 15.1
+        },
+        {
+          "nome": "Leo Curtis",
+          "posizione": "C",
+          "altezza": "7-2",
+          "altezza_cm": 218,
+          "classe": "SO",
+          "ppg": 1.6,
+          "rpg": 0.5,
+          "apg": 0.2,
+          "mpg": 3.9
+        },
+        {
+          "nome": "Taj DeGourville",
+          "posizione": "PG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "JR",
+          "ppg": 5.5,
+          "rpg": 2.8,
+          "apg": 3.0,
+          "mpg": 19.4
+        },
+        {
+          "nome": "Connor Essegian",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "RS SR",
+          "ppg": 5.4,
+          "rpg": 1.3,
+          "apg": 0.9,
+          "mpg": 14.0
+        },
+        {
+          "nome": "Braden Frager",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SO",
+          "ppg": 11.8,
+          "rpg": 3.8,
+          "apg": 1.0,
+          "mpg": 23.6
+        },
+        {
+          "nome": "Cale Jacobsen",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SR",
+          "ppg": 4.6,
+          "rpg": 2.9,
+          "apg": 1.3,
+          "mpg": 19.7
+        },
+        {
+          "nome": "Boden Kapke",
+          "posizione": "C",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "SR",
+          "ppg": 10.6,
+          "rpg": 5.7,
+          "apg": 0.7,
+          "mpg": 26.8
+        },
+        {
+          "nome": "Jacob Lanier",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Trevan Leonhardt",
+          "posizione": "PG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SR",
+          "ppg": 11.9,
+          "rpg": 5.4,
+          "apg": 6.0,
+          "mpg": 34.4
+        },
+        {
+          "nome": "Sam Orme",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "JR",
+          "ppg": 12.7,
+          "rpg": 5.0,
+          "apg": 1.8,
+          "mpg": 25.7
+        },
+        {
+          "nome": "Colin Rice",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Pryce Sandfort",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SR",
+          "ppg": 18.1,
+          "rpg": 4.9,
+          "apg": 2.0,
+          "mpg": 33.6
+        },
+        {
+          "nome": "Damon Wilkinson",
+          "posizione": "C",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "JR",
+          "ppg": 13.9,
+          "rpg": 6.4,
+          "apg": 1.3,
+          "mpg": 23.9
+        }
+      ]
+    },
+    {
+      "nome": "Northwestern",
+      "roster": [
+        {
+          "nome": "Angelo Ciaravino",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "JR",
+          "ppg": 6.3,
+          "rpg": 3.9,
+          "apg": 1.2,
+          "mpg": 22.0
+        },
+        {
+          "nome": "Elijah Eschmeyer",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Okku Federiko",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "JR",
+          "ppg": 8.6,
+          "rpg": 4.8,
+          "apg": 1.5,
+          "mpg": 23.2
+        },
+        {
+          "nome": "Symon Ghai",
+          "posizione": "C",
+          "altezza": "7-3",
+          "altezza_cm": 221,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Phoenix Gill",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "SO",
+          "ppg": 0.5,
+          "rpg": 0.5,
+          "apg": 0.3,
+          "mpg": 3.5
+        },
+        {
+          "nome": "Jayden Hodge",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jack Karasinski",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SR",
+          "ppg": 21.7,
+          "rpg": 4.7,
+          "apg": 1.2,
+          "mpg": 29.9
+        },
+        {
+          "nome": "Aleksej Kostic",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SO",
+          "ppg": 4.4,
+          "rpg": 0.9,
+          "apg": 0.4,
+          "mpg": 12.0
+        },
+        {
+          "nome": "Luke McEldon",
+          "posizione": "C",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "JR",
+          "ppg": 11.7,
+          "rpg": 6.2,
+          "apg": 1.3,
+          "mpg": 25.6
+        },
+        {
+          "nome": "LA Pratt",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "RS SR",
+          "ppg": 17.0,
+          "rpg": 1.7,
+          "apg": 3.3,
+          "mpg": 33.0
+        },
+        {
+          "nome": "Colin Smith",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SR",
+          "ppg": 11.9,
+          "rpg": 4.2,
+          "apg": 1.5,
+          "mpg": 29.3
+        },
+        {
+          "nome": "Ryan Soulis",
+          "posizione": "C",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "JR",
+          "ppg": 5.8,
+          "rpg": 4.6,
+          "apg": 1.5,
+          "mpg": 20.0
+        },
+        {
+          "nome": "Jake West",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "SO",
+          "ppg": 5.3,
+          "rpg": 0.8,
+          "apg": 2.8,
+          "mpg": 22.0
+        },
+        {
+          "nome": "Dylan Williams",
+          "posizione": "PG",
+          "altezza": "5-11",
+          "altezza_cm": 180,
+          "classe": "SR",
+          "ppg": 2.1,
+          "rpg": 1.0,
+          "apg": 1.6,
+          "mpg": 8.7
+        }
+      ]
+    },
+    {
+      "nome": "Ohio State",
+      "roster": [
+        {
+          "nome": "Amare Bynum",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SO",
+          "ppg": 9.7,
+          "rpg": 4.9,
+          "apg": 1.1,
+          "mpg": 28.5
+        },
+        {
+          "nome": "Curtis Givens III",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "JR",
+          "ppg": 9.4,
+          "rpg": 2.1,
+          "apg": 2.3,
+          "mpg": 25.6
+        },
+        {
+          "nome": "Myles Herro",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "RS FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Andrija Jelavic",
+          "posizione": "PF",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "JR",
+          "ppg": 5.5,
+          "rpg": 4.0,
+          "apg": 0.7,
+          "mpg": 15.6
+        },
+        {
+          "nome": "Vuk Lazarevic",
+          "posizione": "C",
+          "altezza": "7-1",
+          "altezza_cm": 216,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "John Mobley Jr.",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "JR",
+          "ppg": 15.7,
+          "rpg": 2.4,
+          "apg": 2.8,
+          "mpg": 31.6
+        },
+        {
+          "nome": "Braylen Nash",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "JR",
+          "ppg": 0.0,
+          "rpg": 0.0,
+          "apg": 0.2,
+          "mpg": 1.3
+        },
+        {
+          "nome": "Ivan Njegovan",
+          "posizione": "C",
+          "altezza": "7-2",
+          "altezza_cm": 218,
+          "classe": "JR",
+          "ppg": 2.6,
+          "rpg": 3.0,
+          "apg": 0.7,
+          "mpg": 11.4
+        },
+        {
+          "nome": "Josh Ojianwuna",
+          "posizione": "C",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "RS SR",
+          "ppg": 7.4,
+          "rpg": 6.4,
+          "apg": 0.6,
+          "mpg": 24.7
+        },
+        {
+          "nome": "Justin Pippen",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "JR",
+          "ppg": 14.2,
+          "rpg": 3.9,
+          "apg": 4.6,
+          "mpg": 30.8
+        },
+        {
+          "nome": "Alex Smith",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "LJ Smith",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Anthony Thompson",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jimmie Williams",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SR",
+          "ppg": 15.1,
+          "rpg": 4.5,
+          "apg": 2.6,
+          "mpg": 29.7
+        }
+      ]
+    },
+    {
+      "nome": "Oregon",
+      "roster": [
+        {
+          "nome": "Dwayne Aristode",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SO",
+          "ppg": 3.8,
+          "rpg": 1.7,
+          "apg": 0.7,
+          "mpg": 13.3
+        },
+        {
+          "nome": "Tajh Ariza",
+          "posizione": "SF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Taylor Bol Bowen",
+          "posizione": "PF",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "SR",
+          "ppg": 6.3,
+          "rpg": 4.2,
+          "apg": 0.5,
+          "mpg": 19.0
+        },
+        {
+          "nome": "Pharaoh Compton",
+          "posizione": "PF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "JR",
+          "ppg": 7.5,
+          "rpg": 2.8,
+          "apg": 0.3,
+          "mpg": 13.8
+        },
+        {
+          "nome": "Jerry Easter II",
+          "posizione": "PG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SO",
+          "ppg": 4.4,
+          "rpg": 3.0,
+          "apg": 1.1,
+          "mpg": 17.4
+        },
+        {
+          "nome": "Rian Gonzales",
+          "posizione": "SG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "RS FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Kendre Harrison",
+          "posizione": "PF",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jasper Johnson",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SO",
+          "ppg": 4.9,
+          "rpg": 1.1,
+          "apg": 1.6,
+          "mpg": 12.0
+        },
+        {
+          "nome": "Luke Johnson",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "JR",
+          "ppg": 1.1,
+          "rpg": 0.7,
+          "apg": 0.1,
+          "mpg": 5.4
+        },
+        {
+          "nome": "Andrew Meadow",
+          "posizione": "PF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SR",
+          "ppg": 12.1,
+          "rpg": 3.6,
+          "apg": 1.0,
+          "mpg": 29.9
+        },
+        {
+          "nome": "Fred Payne",
+          "posizione": "PG",
+          "altezza": "6-1",
+          "altezza_cm": 185,
+          "classe": "JR",
+          "ppg": 15.8,
+          "rpg": 4.2,
+          "apg": 2.7,
+          "mpg": 34.7
+        },
+        {
+          "nome": "Tyrone Riley IV",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "JR",
+          "ppg": 12.2,
+          "rpg": 4.8,
+          "apg": 1.2,
+          "mpg": 31.8
+        },
+        {
+          "nome": "Steven Spurlock",
+          "posizione": "SF",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Sean Stewart",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "SR",
+          "ppg": 6.5,
+          "rpg": 5.2,
+          "apg": 1.2,
+          "mpg": 23.0
+        }
+      ]
+    },
+    {
+      "nome": "Penn State",
+      "roster": [
+        {
+          "nome": "Thomas Allard",
+          "posizione": "SG",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Roberts Blums",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "JR",
+          "ppg": 12.4,
+          "rpg": 3.4,
+          "apg": 1.1,
+          "mpg": 22.3
+        },
+        {
+          "nome": "Dasonte Bowen",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "SR",
+          "ppg": 10.9,
+          "rpg": 3.0,
+          "apg": 4.8,
+          "mpg": 34.3
+        },
+        {
+          "nome": "Brant Byers",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "JR",
+          "ppg": 14.2,
+          "rpg": 4.1,
+          "apg": 0.6,
+          "mpg": 30.8
+        },
+        {
+          "nome": "Andy Gemao",
+          "posizione": "PG",
+          "altezza": "6-1",
+          "altezza_cm": 185,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Reggie Grodin",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "RS FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Ivan Juric",
+          "posizione": "C",
+          "altezza": "7-0",
+          "altezza_cm": 213,
+          "classe": "SO",
+          "ppg": 10.2,
+          "rpg": 5.3,
+          "apg": 0.8,
+          "mpg": 26.4
+        },
+        {
+          "nome": "Chris Lotito",
+          "posizione": "PF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SO",
+          "ppg": 0.0,
+          "rpg": 0.3,
+          "apg": 0.0,
+          "mpg": 1.8
+        },
+        {
+          "nome": "Tim Oboh",
+          "posizione": "C",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "JR",
+          "ppg": 8.5,
+          "rpg": 4.9,
+          "apg": 0.3,
+          "mpg": 21.1
+        },
+        {
+          "nome": "Roko Prkacin",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jay Rodgers",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "SR",
+          "ppg": 11.0,
+          "rpg": 2.2,
+          "apg": 6.9,
+          "mpg": 29.3
+        },
+        {
+          "nome": "Grant Spacciapolli",
+          "posizione": "SG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Francois Wibaut",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Aleksandar Zecevic",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        }
+      ]
+    },
+    {
+      "nome": "Purdue",
+      "roster": [
+        {
+          "nome": "Jack Benter",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "SO",
+          "ppg": 4.4,
+          "rpg": 2.6,
+          "apg": 0.8,
+          "mpg": 14.7
+        },
+        {
+          "nome": "Raleigh Burgess",
+          "posizione": "PF",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "RS SO",
+          "ppg": 1.9,
+          "rpg": 1.3,
+          "apg": 0.2,
+          "mpg": 6.4
+        },
+        {
+          "nome": "CJ Cox",
+          "posizione": "SG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "JR",
+          "ppg": 8.5,
+          "rpg": 2.8,
+          "apg": 1.3,
+          "mpg": 24.4
+        },
+        {
+          "nome": "Luke Ertel",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Gicarri Harris",
+          "posizione": "SG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "JR",
+          "ppg": 4.6,
+          "rpg": 1.6,
+          "apg": 0.8,
+          "mpg": 15.7
+        },
+        {
+          "nome": "Sinan Huan",
+          "posizione": "C",
+          "altezza": "7-1",
+          "altezza_cm": 216,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Daniel Jacobsen",
+          "posizione": "C",
+          "altezza": "7-4",
+          "altezza_cm": 224,
+          "classe": "JR",
+          "ppg": 5.5,
+          "rpg": 3.0,
+          "apg": 0.3,
+          "mpg": 12.9
+        },
+        {
+          "nome": "Sam King",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "RS SR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Rivers Knight",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jack Lusk",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SR",
+          "ppg": 0.0,
+          "rpg": 0.3,
+          "apg": 0.0,
+          "mpg": 2.1
+        },
+        {
+          "nome": "Omer Mayer",
+          "posizione": "PG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SO",
+          "ppg": 5.5,
+          "rpg": 1.1,
+          "apg": 1.2,
+          "mpg": 14.3
+        },
+        {
+          "nome": "Caden Pierce",
+          "posizione": "PF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "RS SR",
+          "ppg": 11.2,
+          "rpg": 7.2,
+          "apg": 3.2,
+          "mpg": 32.5
+        },
+        {
+          "nome": "Jace Rayl",
+          "posizione": "PG",
+          "altezza": "5-11",
+          "altezza_cm": 180,
+          "classe": "SR",
+          "ppg": 0.0,
+          "rpg": 0.0,
+          "apg": 0.0,
+          "mpg": 1.9
+        },
+        {
+          "nome": "Jacob Webber",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Antione West Jr.",
+          "posizione": "SG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "RS FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        }
+      ]
+    },
+    {
+      "nome": "Rutgers",
+      "roster": [
+        {
+          "nome": "Dorin Buca",
+          "posizione": "C",
+          "altezza": "7-2",
+          "altezza_cm": 218,
+          "classe": "SR",
+          "ppg": 3.2,
+          "rpg": 3.3,
+          "apg": 0.5,
+          "mpg": 12.8
+        },
+        {
+          "nome": "Darren Buchanan Jr.",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SR",
+          "ppg": 8.1,
+          "rpg": 3.9,
+          "apg": 1.7,
+          "mpg": 24.1
+        },
+        {
+          "nome": "Jamichael Davis",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "SR",
+          "ppg": 7.5,
+          "rpg": 2.9,
+          "apg": 2.5,
+          "mpg": 26.2
+        },
+        {
+          "nome": "Max Fradkin",
+          "posizione": "PG",
+          "altezza": "5-11",
+          "altezza_cm": 180,
+          "classe": "JR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Tariq Francis",
+          "posizione": "PG",
+          "altezza": "6-1",
+          "altezza_cm": 185,
+          "classe": "SR",
+          "ppg": 17.0,
+          "rpg": 2.3,
+          "apg": 2.9,
+          "mpg": 27.8
+        },
+        {
+          "nome": "Diego Garavaglia",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Christian Gurdak",
+          "posizione": "C",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "SO",
+          "ppg": 5.6,
+          "rpg": 4.4,
+          "apg": 0.3,
+          "mpg": 17.1
+        },
+        {
+          "nome": "Rasheed Jones",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "SR",
+          "ppg": 14.8,
+          "rpg": 4.6,
+          "apg": 2.9,
+          "mpg": 36.2
+        },
+        {
+          "nome": "Lino Mark",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "SO",
+          "ppg": 5.9,
+          "rpg": 1.8,
+          "apg": 1.2,
+          "mpg": 15.9
+        },
+        {
+          "nome": "Kaden Powers",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SO",
+          "ppg": 6.1,
+          "rpg": 1.8,
+          "apg": 1.5,
+          "mpg": 15.8
+        },
+        {
+          "nome": "Darin Smith Jr.",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "JR",
+          "ppg": 20.7,
+          "rpg": 5.4,
+          "apg": 1.2,
+          "mpg": 32.6
+        },
+        {
+          "nome": "Will Sydnor",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "JR",
+          "ppg": 13.9,
+          "rpg": 6.8,
+          "apg": 1.5,
+          "mpg": 29.5
+        },
+        {
+          "nome": "Martin Tonejc",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Gevonte Ware",
+          "posizione": "C",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "RS FR",
+          "ppg": 0.3,
+          "rpg": 0.5,
+          "apg": 0.0,
+          "mpg": 6.2
+        },
+        {
+          "nome": "Imahri Wooten",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        }
+      ]
+    },
+    {
+      "nome": "Ucla",
+      "roster": [
+        {
+          "nome": "Markell Alston",
+          "posizione": "PG",
+          "altezza": "6-1",
+          "altezza_cm": 185,
+          "classe": "RS FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Xavier Booker",
+          "posizione": "C",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "SR",
+          "ppg": 7.3,
+          "rpg": 3.5,
+          "apg": 0.8,
+          "mpg": 20.1
+        },
+        {
+          "nome": "Eric Dailey Jr.",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SR",
+          "ppg": 11.6,
+          "rpg": 5.8,
+          "apg": 1.3,
+          "mpg": 27.6
+        },
+        {
+          "nome": "Javonte Floyd",
+          "posizione": "C",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Eric Freeny",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SO",
+          "ppg": 2.0,
+          "rpg": 1.6,
+          "apg": 0.4,
+          "mpg": 11.1
+        },
+        {
+          "nome": "Gunars Grinvalds",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Filip Jovic",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SO",
+          "ppg": 6.3,
+          "rpg": 4.0,
+          "apg": 0.6,
+          "mpg": 18.3
+        },
+        {
+          "nome": "Nikola Kusturica",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Sergej Macura",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "JR",
+          "ppg": 5.0,
+          "rpg": 4.8,
+          "apg": 0.8,
+          "mpg": 18.4
+        },
+        {
+          "nome": "Evan Manjikian",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "SR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Trent Perry",
+          "posizione": "PG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "JR",
+          "ppg": 12.6,
+          "rpg": 3.0,
+          "apg": 2.8,
+          "mpg": 29.9
+        },
+        {
+          "nome": "Jaylen Petty",
+          "posizione": "PG",
+          "altezza": "6-1",
+          "altezza_cm": 185,
+          "classe": "SO",
+          "ppg": 9.9,
+          "rpg": 3.9,
+          "apg": 2.2,
+          "mpg": 30.5
+        },
+        {
+          "nome": "Joe Philon",
+          "posizione": "PF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Azavier Robinson",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "SO",
+          "ppg": 6.1,
+          "rpg": 1.9,
+          "apg": 2.5,
+          "mpg": 18.3
+        },
+        {
+          "nome": "Jack Seidler",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SR",
+          "ppg": 0.3,
+          "rpg": 0.6,
+          "apg": 0.0,
+          "mpg": 1.1
+        },
+        {
+          "nome": "Brandon Williams",
+          "posizione": "SF",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "JR",
+          "ppg": 2.6,
+          "rpg": 1.9,
+          "apg": 0.3,
+          "mpg": 12.2
+        }
+      ]
+    },
+    {
+      "nome": "Usc",
+      "roster": [
+        {
+          "nome": "Alijah Arenas",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "SO",
+          "ppg": 14.1,
+          "rpg": 2.9,
+          "apg": 2.1,
+          "mpg": 27.6
+        },
+        {
+          "nome": "Isaac Bruns",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SR",
+          "ppg": 20.8,
+          "rpg": 5.1,
+          "apg": 1.3,
+          "mpg": 30.9
+        },
+        {
+          "nome": "Jacob Cofie",
+          "posizione": "PF",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "JR",
+          "ppg": 9.9,
+          "rpg": 6.8,
+          "apg": 1.9,
+          "mpg": 30.5
+        },
+        {
+          "nome": "Christian Collins",
+          "posizione": "SF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Jalen Cox",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "SR",
+          "ppg": 17.9,
+          "rpg": 5.2,
+          "apg": 5.3,
+          "mpg": 34.1
+        },
+        {
+          "nome": "Joshua Hughes",
+          "posizione": "PF",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "SR",
+          "ppg": 9.3,
+          "rpg": 4.7,
+          "apg": 0.8,
+          "mpg": 27.6
+        },
+        {
+          "nome": "Aaron Hunkin-Claytor",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "JR",
+          "ppg": 6.0,
+          "rpg": 2.8,
+          "apg": 3.9,
+          "mpg": 28.1
+        },
+        {
+          "nome": "Jadis Jones",
+          "posizione": "SF",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "JR",
+          "ppg": 15.3,
+          "rpg": 8.5,
+          "apg": 2.6,
+          "mpg": 32.9
+        },
+        {
+          "nome": "KJ Lewis",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SR",
+          "ppg": 14.9,
+          "rpg": 5.1,
+          "apg": 2.5,
+          "mpg": 30.0
+        },
+        {
+          "nome": "Adonis Ratliff",
+          "posizione": "PF",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Darius Ratliff",
+          "posizione": "C",
+          "altezza": "7-0",
+          "altezza_cm": 213,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Eric Reibe",
+          "posizione": "C",
+          "altezza": "7-1",
+          "altezza_cm": 216,
+          "classe": "SO",
+          "ppg": 5.9,
+          "rpg": 3.3,
+          "apg": 0.5,
+          "mpg": 13.8
+        },
+        {
+          "nome": "Rodney Rice",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SR",
+          "ppg": 20.3,
+          "rpg": 3.3,
+          "apg": 6.0,
+          "mpg": 34.0
+        }
+      ]
+    },
+    {
+      "nome": "Washington",
+      "roster": [
+        {
+          "nome": "Ryan Beasley",
+          "posizione": "PG",
+          "altezza": "5-11",
+          "altezza_cm": 180,
+          "classe": "SR",
+          "ppg": 13.6,
+          "rpg": 3.4,
+          "apg": 4.0,
+          "mpg": 33.3
+        },
+        {
+          "nome": "Tristan Devers",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Wini Braga",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Nikola Dzepina",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "SO",
+          "ppg": 2.6,
+          "rpg": 1.3,
+          "apg": 0.7,
+          "mpg": 11.1
+        },
+        {
+          "nome": "Lattimore Ford",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Parker Friedrichsen",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SR",
+          "ppg": 10.8,
+          "rpg": 2.5,
+          "apg": 1.4,
+          "mpg": 25.3
+        },
+        {
+          "nome": "Jasir Rencher",
+          "posizione": "SF",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "SO",
+          "ppg": 3.0,
+          "rpg": 1.8,
+          "apg": 0.1,
+          "mpg": 8.3
+        },
+        {
+          "nome": "BJ Roy",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "SO",
+          "ppg": 1.0,
+          "rpg": 0.2,
+          "apg": 0.0,
+          "mpg": 1.6
+        },
+        {
+          "nome": "Lathan Sommerville",
+          "posizione": "C",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "JR",
+          "ppg": 4.3,
+          "rpg": 2.6,
+          "apg": 0.2,
+          "mpg": 14.5
+        },
+        {
+          "nome": "Boris Tisma",
+          "posizione": "PF",
+          "altezza": "6-9",
+          "altezza_cm": 206,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Mady Traore",
+          "posizione": "PF",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "SR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Steele Venters",
+          "posizione": "SG",
+          "altezza": "6-7",
+          "altezza_cm": 201,
+          "classe": "SR",
+          "ppg": 5.0,
+          "rpg": 1.3,
+          "apg": 1.0,
+          "mpg": 15.1
+        },
+        {
+          "nome": "LeJuan Watts",
+          "posizione": "SF",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "SR",
+          "ppg": 11.8,
+          "rpg": 6.0,
+          "apg": 2.4,
+          "mpg": 27.3
+        },
+        {
+          "nome": "Wesley Yates III",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "JR",
+          "ppg": 12.7,
+          "rpg": 3.3,
+          "apg": 1.3,
+          "mpg": 31.4
+        }
+      ]
+    },
+    {
+      "nome": "Wisconsin",
+      "roster": [
+        {
+          "nome": "Trey Autry",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "SR",
+          "ppg": 11.0,
+          "rpg": 3.5,
+          "apg": 1.5,
+          "mpg": 28.7
+        },
+        {
+          "nome": "Jackson Ball",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Eian Elmer",
+          "posizione": "SF",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "SR",
+          "ppg": 12.7,
+          "rpg": 5.9,
+          "apg": 1.1,
+          "mpg": 30.3
+        },
+        {
+          "nome": "LaTrevion Fenderson",
+          "posizione": "SG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Owen Foxwell",
+          "posizione": "PG",
+          "altezza": "6-2",
+          "altezza_cm": 188,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Will Garlock",
+          "posizione": "PF",
+          "altezza": "7-0",
+          "altezza_cm": 213,
+          "classe": "SO",
+          "ppg": 1.1,
+          "rpg": 1.1,
+          "apg": 0.7,
+          "mpg": 6.7
+        },
+        {
+          "nome": "Jack Janicki",
+          "posizione": "SG",
+          "altezza": "6-5",
+          "altezza_cm": 196,
+          "classe": "JR",
+          "ppg": 2.2,
+          "rpg": 2.0,
+          "apg": 1.1,
+          "mpg": 16.5
+        },
+        {
+          "nome": "Hayden Jones",
+          "posizione": "SG",
+          "altezza": "6-6",
+          "altezza_cm": 198,
+          "classe": "SO",
+          "ppg": 1.7,
+          "rpg": 1.0,
+          "apg": 0.4,
+          "mpg": 7.2
+        },
+        {
+          "nome": "Zach Kinziger",
+          "posizione": "PG",
+          "altezza": "6-3",
+          "altezza_cm": 190,
+          "classe": "SO",
+          "ppg": 1.3,
+          "rpg": 0.3,
+          "apg": 0.6,
+          "mpg": 4.9
+        },
+        {
+          "nome": "Josh Manchester",
+          "posizione": "SG",
+          "altezza": "6-4",
+          "altezza_cm": 193,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Victory Onuetu",
+          "posizione": "C",
+          "altezza": "6-11",
+          "altezza_cm": 211,
+          "classe": "SR",
+          "ppg": 4.7,
+          "rpg": 6.9,
+          "apg": 0.4,
+          "mpg": 17.9
+        },
+        {
+          "nome": "Austin Rapp",
+          "posizione": "PF",
+          "altezza": "6-10",
+          "altezza_cm": 208,
+          "classe": "JR",
+          "ppg": 9.7,
+          "rpg": 4.0,
+          "apg": 1.6,
+          "mpg": 23.2
+        },
+        {
+          "nome": "Isaac Riddle",
+          "posizione": "SF",
+          "altezza": "6-8",
+          "altezza_cm": 203,
+          "classe": "FR",
+          "ppg": null,
+          "rpg": null,
+          "apg": null,
+          "mpg": null
+        },
+        {
+          "nome": "Nolan Winter",
+          "posizione": "C",
+          "altezza": "7-0",
+          "altezza_cm": 213,
+          "classe": "SR",
+          "ppg": 13.1,
+          "rpg": 8.5,
+          "apg": 1.5,
+          "mpg": 30.7
+        }
+      ]
+    }
+  ]
+}

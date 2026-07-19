@@ -7,6 +7,86 @@
     {
       "file": "eurolega.json",
       "lega": "EuroLeague"
+    },
+    {
+      "file": "ncaa-aac.json",
+      "lega": "NCAA - American"
+    },
+    {
+      "file": "ncaa-acc.json",
+      "lega": "NCAA - ACC"
+    },
+    {
+      "file": "ncaa-america-east.json",
+      "lega": "NCAA - America East"
+    },
+    {
+      "file": "ncaa-atlantic-10.json",
+      "lega": "NCAA - Atlantic 10"
+    },
+    {
+      "file": "ncaa-atlantic-sun.json",
+      "lega": "NCAA - Atlantic Sun"
+    },
+    {
+      "file": "ncaa-big-12.json",
+      "lega": "NCAA - Big 12"
+    },
+    {
+      "file": "ncaa-big-east.json",
+      "lega": "NCAA - Big East"
+    },
+    {
+      "file": "ncaa-big-sky.json",
+      "lega": "NCAA - Big Sky"
+    },
+    {
+      "file": "ncaa-big-south.json",
+      "lega": "NCAA - Big South"
+    },
+    {
+      "file": "ncaa-big-ten.json",
+      "lega": "NCAA - Big Ten"
+    },
+    {
+      "file": "ncaa-big-west.json",
+      "lega": "NCAA - Big West"
+    },
+    {
+      "file": "ncaa-caa.json",
+      "lega": "NCAA - CAA"
+    },
+    {
+      "file": "ncaa-conference-usa.json",
+      "lega": "NCAA - C-USA"
+    },
+    {
+      "file": "ncaa-horizon-league.json",
+      "lega": "NCAA - Horizon"
+    },
+    {
+      "file": "ncaa-ivy-league.json",
+      "lega": "NCAA - Ivy"
+    },
+    {
+      "file": "ncaa-mac.json",
+      "lega": "NCAA - MAC"
+    },
+    {
+      "file": "ncaa-meac.json",
+      "lega": "NCAA - MEAC"
+    },
+    {
+      "file": "ncaa-metro.json",
+      "lega": "NCAA - Metro"
+    },
+    {
+      "file": "ncaa-missouri-valley.json",
+      "lega": "NCAA - MVC"
+    },
+    {
+      "file": "ncaa-mountain-west.json",
+      "lega": "NCAA - Mountain West"
     }
   ]
 }
