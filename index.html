@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Taccuino di Scouting</title>
+<title>Taccuino Scouting di Giuseppe Marmina</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -349,7 +349,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 <body>
 
 <header>
-  <div class="brand">Taccuino di Scouting<small>Player Tracker · offline · dati sul tuo dispositivo</small></div>
+  <div class="brand">Taccuino Scouting di Giuseppe Marmina<small>Player Tracker</small></div>
   <div class="header-actions">
     <button class="btn btn-ghost" id="btnExport">Esporta JSON</button>
     <button class="btn btn-ghost" id="btnImport">Importa JSON</button>
@@ -1258,24 +1258,45 @@ function paintRosterTable(){
   if(!sq){box.innerHTML='';ed.hidden=true;return}
   ed.hidden=false;
   $('#edTeamName').textContent=sq.nome;
-  const rows=(sq.roster||[]).map((g,i)=>`
-    <tr>
-      <td><span class="player-name">${esc(g.nome)}</span></td>
-      <td class="num">${esc(g.numero||'')}</td>
-      <td>${esc(g.posizione||g.ruolo||'—')}</td>
-      <td class="num">${g.altezza_cm||(g.altezza?esc(g.altezza):'—')}</td>
-      <td class="num">${esc(g.peso||'')}</td>
-      <td class="num">${esc(g.eta||'')}</td>
-      <td>${esc(g.nazionalita||g.naz||'—')}</td>
-      <td>${esc(g.pre_draft||'')}</td>
-      <td>${esc(g.squadra_2025_26||'')}</td>
-      <td class="num">${esc(g.fa_year||'')}</td>
-      <td>${esc(g.agenzia||'—')}</td>
-      <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
-    </tr>`).join('');
-  box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:1050px">
-    <thead><tr><th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Peso</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th><th>Agenzia</th><th></th></tr></thead>
-    <tbody>${rows||'<tr><td colspan="12" class="cal-empty" style="padding:1rem">Roster vuoto.</td></tr>'}</tbody>
+  const isNcaa=(d.lega||'').startsWith('NCAA')||(sq.roster||[]).some(g=>g.ppg!==undefined&&g.ppg!==null||g.mpg!==undefined&&g.mpg!==null);
+  const fmt=v=>(v===null||v===undefined||v==='')?'—':v;
+  let head,rows;
+  if(isNcaa){
+    head='<th>Giocatore</th><th>Ruolo</th><th>Alt.</th><th>Classe</th><th>PPG</th><th>RPG</th><th>APG</th><th>MPG</th><th></th>';
+    rows=(sq.roster||[]).map((g,i)=>`
+      <tr>
+        <td><span class="player-name">${esc(g.nome)}</span></td>
+        <td>${esc(g.posizione||g.ruolo||'—')}</td>
+        <td class="num">${g.altezza_cm||(g.altezza?esc(g.altezza):'—')}</td>
+        <td>${esc(g.classe||g.cls||'—')}</td>
+        <td class="num">${fmt(g.ppg)}</td>
+        <td class="num">${fmt(g.rpg)}</td>
+        <td class="num">${fmt(g.apg)}</td>
+        <td class="num">${fmt(g.mpg)}</td>
+        <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
+      </tr>`).join('');
+  }else{
+    head='<th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Peso</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th><th>Agenzia</th><th></th>';
+    rows=(sq.roster||[]).map((g,i)=>`
+      <tr>
+        <td><span class="player-name">${esc(g.nome)}</span></td>
+        <td class="num">${esc(g.numero||'')}</td>
+        <td>${esc(g.posizione||g.ruolo||'—')}</td>
+        <td class="num">${g.altezza_cm||(g.altezza?esc(g.altezza):'—')}</td>
+        <td class="num">${esc(g.peso||'')}</td>
+        <td class="num">${esc(g.eta||'')}</td>
+        <td>${esc(g.nazionalita||g.naz||'—')}</td>
+        <td>${esc(g.pre_draft||'')}</td>
+        <td>${esc(g.squadra_2025_26||'')}</td>
+        <td class="num">${esc(g.fa_year||'')}</td>
+        <td>${esc(g.agenzia||'—')}</td>
+        <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
+      </tr>`).join('');
+  }
+  const span=isNcaa?9:12;
+  box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:${isNcaa?720:1050}px">
+    <thead><tr>${head}</tr></thead>
+    <tbody>${rows||'<tr><td colspan="'+span+'" class="cal-empty" style="padding:1rem">Roster vuoto.</td></tr>'}</tbody>
   </table></div>`;
 }
 $('#rosterLeagues').addEventListener('click',e=>{
@@ -1295,9 +1316,9 @@ $('#rosterTable').addEventListener('click',e=>{
   if(players.some(p=>p.nome.toLowerCase()===g.nome.toLowerCase())){toast(g.nome+' è già nel taccuino');return}
   players.push({
     id:uid(),nome:g.nome,squadra:sq.nome,lega:d.lega||'',ruolo:g.ruolo||g.posizione||'',
-    naz:g.nazionalita||g.naz||'',cls:g.cls||'',
+    naz:g.nazionalita||g.naz||'',cls:g.classe||g.cls||'',
     eta:(g.eta?Math.floor(parseFloat(g.eta)):null),altezza:g.altezza_cm||g.altezza||null,cotonou:'',
-    ppg:null,rpg:null,apg:null,tre:null,ts:null,usg:null,min:null,
+    ppg:(g.ppg??null),rpg:(g.rpg??null),apg:(g.apg??null),tre:null,ts:null,usg:null,min:(g.mpg??null),
     verdetto:'',conf:'',why:'',fit:'',ruoloReale:'',rischio:'',
     fw1:'',fw2:'',fw3:'',fw4:'',fw5:'',fw6:'',obs:[],hs:null
   });
@@ -1463,7 +1484,7 @@ function openReport(id){
   ].join('');
   const srcName=p.hs?({barttorvik:'Barttorvik',sportsreference:'Sports Reference',hackastat:'Hackastat'}[p.hs.src]||'Hackastat'):'';
   $('#repPage').innerHTML=`
-    <div class="rep-band"><span class="b1">Taccuino di Scouting · Report</span><span class="b2">${oggi}</span></div>
+    <div class="rep-band"><span class="b1">Taccuino Scouting di Giuseppe Marmina · Report</span><span class="b2">${oggi}</span></div>
     <div class="rep-name">${esc(p.nome)}</div>
     <div class="rep-meta">${esc(meta)}</div>
     ${p.verdetto?`<div class="rep-verdict">
@@ -1486,7 +1507,7 @@ function openReport(id){
       [...p.obs].slice(-10).reverse().map(o=>`<div class="rep-obs"><span class="d">${esc(o.d)}</span>${esc(o.t)}</div>`).join('')}`:''}
     <div class="rep-foot">
       <span class="rep-firma" contenteditable="true" id="repFirma">${esc(getFirma())}</span>
-      <span class="gen">Generato il ${oggi} · Taccuino di Scouting</span>
+      <span class="gen">Generato il ${oggi} · Taccuino Scouting di Giuseppe Marmina</span>
     </div>`;
   $('#reportView').classList.add('open');
   $('#repFirma').addEventListener('input',e=>setFirma(e.target.textContent.trim()));

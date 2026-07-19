@@ -3,12 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Match Notes · Taccuino di Scouting</title>
+<title>Match Notes · Taccuino Scouting di Giuseppe Marmina</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F2F4F1;--card:#FFFFFF;--ink:#14212B;--ink-soft:#4A5B68;--line:#D8DEDA;
+  --paper:#FAF5EC;--card:#FFFFFF;--ink:#16232E;--ink-soft:#54616C;--line:#E6DCC9;
+  --brand:#E8720C;--brand-deep:#BF5406;--brand-soft:#FDEBD6;
   --sign:#1F7A5C;--sign-bg:#E3F1EB;--monitor:#C07A1B;--monitor-bg:#F8EEDC;
   --pass:#B0382E;--pass-bg:#F6E4E1;
 }
@@ -18,17 +19,17 @@ button{font-family:inherit;cursor:pointer}
 input,textarea{font-family:inherit;font-size:16px;color:var(--ink)} /* 16px evita lo zoom iOS */
 :focus-visible{outline:2px solid var(--ink);outline-offset:2px}
 
-header{background:var(--ink);color:#F2F4F1;padding:.9rem 1rem;display:flex;align-items:center;gap:.8rem}
+header{background:linear-gradient(120deg,#152A3A,#254B60);color:#FAF5EC;padding:.9rem 1rem;display:flex;align-items:center;gap:.8rem;border-bottom:3px solid var(--brand)}
 .brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.3rem;letter-spacing:.05em;text-transform:uppercase}
-.brand small{display:block;font-family:'Public Sans',sans-serif;font-weight:400;font-size:.62rem;letter-spacing:.12em;opacity:.7;text-transform:uppercase}
+.brand small{display:block;font-family:'Public Sans',sans-serif;font-weight:400;font-size:.62rem;letter-spacing:.12em;color:#F5B570;text-transform:uppercase}
 .header-btns{margin-left:auto;display:flex;gap:.4rem}
 .btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;padding:.5rem .8rem;font-size:.82rem;font-weight:600}
-.btn-ghost{background:transparent;color:#F2F4F1;border-color:rgba(242,244,241,.35)}
-.btn-primary{background:var(--ink);color:#F2F4F1;border-color:var(--ink);width:100%;padding:.8rem;font-size:1rem;border-radius:10px}
-.btn-primary:active{background:#22333F}
+.btn-ghost{background:transparent;color:#FAF5EC;border-color:rgba(250,245,236,.35)}
+.btn-primary{background:var(--brand);color:#fff;border-color:var(--brand);width:100%;padding:.8rem;font-size:1rem;border-radius:10px}
+.btn-primary:active{background:var(--brand-deep)}
 
 section{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:.8rem;padding:.9rem}
-.sec-label{font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:var(--ink-soft);margin-bottom:.6rem}
+.sec-label{font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-size:.78rem;color:var(--brand-deep);border-left:4px solid var(--brand);padding-left:.5rem;margin-bottom:.6rem}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:.5rem}
 label{font-size:.7rem;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:.15rem}
 input[type=text],input[type=date],textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:.55rem .65rem;background:var(--paper)}
@@ -37,7 +38,7 @@ input[type=text],input[type=date],textarea{width:100%;border:1px solid var(--lin
 /* quarto + cronometro */
 .qrow{display:flex;gap:.4rem;align-items:center}
 .qbtn{flex:1;border:1px solid var(--line);background:var(--paper);border-radius:8px;padding:.6rem 0;font-weight:700;font-family:'Barlow Condensed',sans-serif;font-size:1rem;color:var(--ink-soft)}
-.qbtn.active{background:var(--ink);color:#F2F4F1;border-color:var(--ink)}
+.qbtn.active{background:var(--brand);color:#fff;border-color:var(--brand)}
 .clock{width:5.2rem;text-align:center;font-variant-numeric:tabular-nums;font-weight:700}
 
 /* tag chips */
@@ -45,12 +46,12 @@ input[type=text],input[type=date],textarea{width:100%;border:1px solid var(--lin
 .cat{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:.6rem 0 .3rem}
 .chips{display:flex;flex-wrap:wrap;gap:.35rem}
 .chip{border:1px solid var(--line);background:var(--paper);border-radius:999px;padding:.4rem .7rem;font-size:.8rem;font-weight:500;color:var(--ink)}
-.chip.on{background:var(--ink);color:#F2F4F1;border-color:var(--ink)}
+.chip.on{background:var(--brand-deep);color:#fff;border-color:var(--brand-deep)}
 
 /* rating */
 .rates{display:flex;gap:.4rem}
 .rate{flex:1;font-size:1.3rem;border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:.45rem 0}
-.rate.on{border-width:2px;border-color:var(--ink);background:#E9EDE8}
+.rate.on{border-width:2px;border-color:var(--brand);background:var(--brand-soft)}
 
 /* composer riepilogo */
 .newnote-head{display:flex;align-items:baseline;gap:.5rem;margin-bottom:.5rem}
@@ -59,7 +60,7 @@ input[type=text],input[type=date],textarea{width:100%;border:1px solid var(--lin
 .seltags{font-size:.75rem;color:var(--ink-soft);margin:.4rem 0;min-height:1em}
 
 /* lista note */
-.note{border-left:3px solid var(--ink);background:var(--paper);border-radius:0 8px 8px 0;padding:.5rem .7rem;margin-bottom:.5rem}
+.note{border-left:3px solid var(--brand);background:var(--paper);border-radius:0 8px 8px 0;padding:.5rem .7rem;margin-bottom:.5rem}
 .note-top{display:flex;gap:.5rem;align-items:baseline;flex-wrap:wrap}
 .note-q{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.85rem}
 .note-player{font-weight:700;font-size:.85rem}
