@@ -1276,14 +1276,13 @@ function paintRosterTable(){
         <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
       </tr>`).join('');
   }else{
-    head='<th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Peso</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th><th>Agenzia</th><th></th>';
+    head='<th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th><th>Agenzia</th><th></th>';
     rows=(sq.roster||[]).map((g,i)=>`
       <tr>
         <td><span class="player-name">${esc(g.nome)}</span></td>
         <td class="num">${esc(g.numero||'')}</td>
         <td>${esc(g.posizione||g.ruolo||'—')}</td>
         <td class="num">${g.altezza_cm||(g.altezza?esc(g.altezza):'—')}</td>
-        <td class="num">${esc(g.peso||'')}</td>
         <td class="num">${esc(g.eta||'')}</td>
         <td>${esc(g.nazionalita||g.naz||'—')}</td>
         <td>${esc(g.pre_draft||'')}</td>
@@ -1293,7 +1292,7 @@ function paintRosterTable(){
         <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
       </tr>`).join('');
   }
-  const span=isNcaa?9:12;
+  const span=isNcaa?9:11;
   box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:${isNcaa?720:1050}px">
     <thead><tr>${head}</tr></thead>
     <tbody>${rows||'<tr><td colspan="'+span+'" class="cal-empty" style="padding:1rem">Roster vuoto.</td></tr>'}</tbody>
