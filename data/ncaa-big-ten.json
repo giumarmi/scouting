@@ -5,6 +5,7 @@
   "colonne": [
     "nome",
     "posizione",
+    "posizione_ncaa",
     "altezza",
     "altezza_cm",
     "classe",
@@ -19,157 +20,171 @@
       "roster": [
         {
           "nome": "Ethan Brown",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Quentin Coleman",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Jake Davis",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "SR",
           "ppg": 5.4,
           "rpg": 2.2,
           "apg": 0.7,
-          "mpg": 19.6
+          "mpg": 19.6,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Landon Davis",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Blake Fagbemi",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-0",
           "altezza_cm": 183,
           "classe": "SO",
           "ppg": 0.2,
           "rpg": 1.0,
           "apg": 0.4,
-          "mpg": 3.6
+          "mpg": 3.6,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Tomislav Ivisic",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-1",
           "altezza_cm": 216,
           "classe": "SR",
           "ppg": 10.4,
           "rpg": 5.6,
           "apg": 1.6,
-          "mpg": 25.4
+          "mpg": 25.4,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Zvonimir Ivisic",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-2",
           "altezza_cm": 218,
           "classe": "SR",
           "ppg": 6.4,
           "rpg": 4.5,
           "apg": 0.3,
-          "mpg": 17.2
+          "mpg": 17.2,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Jason Jakstys",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "SO",
           "ppg": 1.3,
           "rpg": 1.9,
           "apg": 0.2,
-          "mpg": 5.3
+          "mpg": 5.3,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "David Mirkovic",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "SO",
           "ppg": 13.3,
           "rpg": 8.0,
           "apg": 2.6,
-          "mpg": 29.5
+          "mpg": 29.5,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Lucas Morillo",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Andrej Stojakovic",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SR",
           "ppg": 13.5,
           "rpg": 4.5,
           "apg": 1.0,
-          "mpg": 26.3
+          "mpg": 26.3,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Stefan Vaaks",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SO",
           "ppg": 15.8,
           "rpg": 2.5,
           "apg": 3.2,
-          "mpg": 31.5
+          "mpg": 31.5,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Lincoln Williams",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Zavier Zens",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         }
       ]
     },
@@ -178,179 +193,195 @@
       "roster": [
         {
           "nome": "Markus Burton",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-0",
           "altezza_cm": 183,
           "classe": "RS JR",
           "ppg": 18.5,
           "rpg": 2.8,
           "apg": 3.7,
-          "mpg": 30.1
+          "mpg": 30.1,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Darren Harris",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "JR",
           "ppg": 3.3,
           "rpg": 0.8,
           "apg": 0.4,
-          "mpg": 9.7
+          "mpg": 9.7,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Vaughn Karvala",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Bryce Lindsay",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "JR",
           "ppg": 12.3,
           "rpg": 2.1,
           "apg": 2.1,
-          "mpg": 28.6
+          "mpg": 28.6,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Trevor Manhertz",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Justin Monden",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-0",
           "altezza_cm": 183,
           "classe": "SR",
           "ppg": 6.0,
           "rpg": 1.2,
           "apg": 1.6,
-          "mpg": 20.8
+          "mpg": 20.8,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Prince-Alexander Moody",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Jaeden Mustaf",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "JR",
           "ppg": 10.4,
           "rpg": 4.3,
           "apg": 2.4,
-          "mpg": 27.7
+          "mpg": 27.7,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Jordan Rayford",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Aiden Sherrell",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "JR",
           "ppg": 11.1,
           "rpg": 6.2,
           "apg": 1.1,
-          "mpg": 23.9
+          "mpg": 23.9,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Trent Sisley",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SO",
           "ppg": 4.2,
           "rpg": 2.8,
           "apg": 0.4,
-          "mpg": 13.2
+          "mpg": 13.2,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Drew Snively",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SO",
           "ppg": 0.4,
           "rpg": 0.4,
           "apg": 0.0,
-          "mpg": 1.7
+          "mpg": 1.7,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Clemens Sokolov",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-0",
           "altezza_cm": 213,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Ian Stephens",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SR",
           "ppg": 0.3,
           "rpg": 0.1,
           "apg": 0.0,
-          "mpg": 1.8
+          "mpg": 1.8,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Ben Winker",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "SO",
           "ppg": 0.9,
           "rpg": 1.8,
           "apg": 0.4,
-          "mpg": 4.3
+          "mpg": 4.3,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Samet Yigitoglu",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-2",
           "altezza_cm": 218,
           "classe": "JR",
           "ppg": 10.7,
           "rpg": 7.9,
           "apg": 1.6,
-          "mpg": 28.9
+          "mpg": 28.9,
+          "posizione_ncaa": "C"
         }
       ]
     },
@@ -359,157 +390,171 @@
       "roster": [
         {
           "nome": "TyReek Coleman",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "SO",
           "ppg": 10.0,
           "rpg": 2.7,
           "apg": 1.8,
-          "mpg": 22.8
+          "mpg": 22.8,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Kael Combs",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SR",
           "ppg": 6.1,
           "rpg": 2.4,
           "apg": 2.4,
-          "mpg": 26.1
+          "mpg": 26.1,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Jaidyn Coon",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Ethan Harris",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Isaia Howard",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "JR",
           "ppg": 5.1,
           "rpg": 2.6,
           "apg": 1.1,
-          "mpg": 18.2
+          "mpg": 18.2,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Trevin Jirak",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "SO",
           "ppg": 3.4,
           "rpg": 0.9,
           "apg": 1.1,
-          "mpg": 8.1
+          "mpg": 8.1,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Cooper Koch",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SO",
           "ppg": 7.8,
           "rpg": 3.1,
           "apg": 1.1,
-          "mpg": 28.4
+          "mpg": 28.4,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Jacob Koch",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "JR",
           "ppg": 0.4,
           "rpg": 0.0,
           "apg": 0.2,
-          "mpg": 2.0
+          "mpg": 2.0,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Cam Manyawu",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "SR",
           "ppg": 6.6,
           "rpg": 4.6,
           "apg": 1.1,
-          "mpg": 19.2
+          "mpg": 19.2,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Joey Matteoni",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "SO",
           "ppg": 1.5,
           "rpg": 0.6,
           "apg": 0.3,
-          "mpg": 3.6
+          "mpg": 3.6,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Peyton McCollum",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "RS FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Andrew McKeever",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-3",
           "altezza_cm": 221,
           "classe": "JR",
           "ppg": 8.2,
           "rpg": 9.2,
           "apg": 1.8,
-          "mpg": 23.2
+          "mpg": 23.2,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Tate Sage",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SO",
           "ppg": 6.1,
           "rpg": 2.1,
           "apg": 0.7,
-          "mpg": 16.1
+          "mpg": 16.1,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Trey Thompson",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "RS FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         }
       ]
     },
@@ -518,179 +563,195 @@
       "roster": [
         {
           "nome": "Bishop Boswell",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "JR",
           "ppg": 6.2,
           "rpg": 4.4,
           "apg": 3.1,
-          "mpg": 26.4
+          "mpg": 26.4,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Austin Brown",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Tomislav Buljan",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "SO",
           "ppg": 13.1,
           "rpg": 10.3,
           "apg": 1.5,
-          "mpg": 25.9
+          "mpg": 25.9,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Guillermo Del Pino",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SO",
           "ppg": 1.5,
           "rpg": 0.7,
           "apg": 0.5,
-          "mpg": 9.0
+          "mpg": 9.0,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Kaden House",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Maban Jabriel",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "JR",
           "ppg": 7.7,
           "rpg": 3.8,
           "apg": 1.0,
-          "mpg": 19.8
+          "mpg": 19.8,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Robert Jennings II",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "RS SR",
           "ppg": 3.7,
           "rpg": 4.0,
           "apg": 0.0,
-          "mpg": 13.0
+          "mpg": 13.0,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Alex K'Medehouto",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-0",
           "altezza_cm": 213,
           "classe": "JR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Mike McNair Jr.",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SR",
           "ppg": 16.9,
           "rpg": 5.1,
           "apg": 2.1,
-          "mpg": 36.1
+          "mpg": 36.1,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Andre Mills",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SO",
           "ppg": 12.2,
           "rpg": 4.1,
           "apg": 1.6,
-          "mpg": 26.6
+          "mpg": 26.6,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Baba Oladotun",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Pharrel Payne",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "RS SR",
           "ppg": 17.5,
           "rpg": 7.2,
           "apg": 1.4,
-          "mpg": 26.9
+          "mpg": 26.9,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Lukas Sotell",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "SR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Adama Tambedou",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "George Turkson Jr.",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SO",
           "ppg": 1.3,
           "rpg": 2.0,
           "apg": 0.2,
-          "mpg": 11.5
+          "mpg": 11.5,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "DJ Wagner",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SR",
           "ppg": 7.4,
           "rpg": 1.6,
           "apg": 2.4,
-          "mpg": 23.6
+          "mpg": 23.6,
+          "posizione_ncaa": "PG"
         }
       ]
     },
@@ -699,168 +760,183 @@
       "roster": [
         {
           "nome": "Malachi Brown",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Elliot Cadeau",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-1",
           "altezza_cm": 185,
           "classe": "SR",
           "ppg": 10.5,
           "rpg": 2.7,
           "apg": 5.9,
-          "mpg": 27.3
+          "mpg": 27.3,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Lincoln Cosby",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Quinn Costello",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Howard Eisley Jr.",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-0",
           "altezza_cm": 183,
           "classe": "JR",
           "ppg": 0.3,
           "rpg": 0.1,
           "apg": 0.0,
-          "mpg": 1.2
+          "mpg": 1.2,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "JP Estrella",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "JR",
           "ppg": 10.0,
           "rpg": 5.4,
           "apg": 0.8,
-          "mpg": 18.3
+          "mpg": 18.3,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Oscar Goodman",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SO",
           "ppg": 1.4,
           "rpg": 1.3,
           "apg": 0.4,
-          "mpg": 5.3
+          "mpg": 5.3,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Joseph Hartman",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Harrison Hochberg",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Ricky Liburd",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "RS FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Brandon McCoy Jr.",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Trey McKenney",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SO",
           "ppg": 9.9,
           "rpg": 2.8,
           "apg": 0.9,
-          "mpg": 22.1
+          "mpg": 22.1,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Marcus Moller",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-2",
           "altezza_cm": 218,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Jalen Reed",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "SR",
           "ppg": 9.5,
           "rpg": 5.7,
           "apg": 0.7,
-          "mpg": 18.0
+          "mpg": 18.0,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Moustapha Thiam",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-2",
           "altezza_cm": 218,
           "classe": "JR",
           "ppg": 12.8,
           "rpg": 7.1,
           "apg": 0.5,
-          "mpg": 27.2
+          "mpg": 27.2,
+          "posizione_ncaa": "C"
         }
       ]
     },
@@ -869,157 +945,171 @@
       "roster": [
         {
           "nome": "Julius Avent",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Anton Bonke",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-2",
           "altezza_cm": 218,
           "classe": "SR",
           "ppg": 10.6,
           "rpg": 8.3,
           "apg": 1.0,
-          "mpg": 25.6
+          "mpg": 25.6,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Coen Carr",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "SR",
           "ppg": 12.0,
           "rpg": 5.4,
           "apg": 1.2,
-          "mpg": 29.3
+          "mpg": 29.3,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Jeremy Fears Jr.",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "JR",
           "ppg": 15.2,
           "rpg": 2.4,
           "apg": 9.4,
-          "mpg": 32.4
+          "mpg": 32.4,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Kaleb Glenn",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "RS JR",
           "ppg": 12.6,
           "rpg": 4.8,
           "apg": 0.6,
-          "mpg": 25.8
+          "mpg": 25.8,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Jasiah Jervis",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Jesse McCulloch",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "SO",
           "ppg": 2.4,
           "rpg": 1.3,
           "apg": 0.2,
-          "mpg": 7.4
+          "mpg": 7.4,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Carlos Medlock Jr.",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "5-11",
           "altezza_cm": 180,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Jordan Scott",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SO",
           "ppg": 5.8,
           "rpg": 3.1,
           "apg": 1.2,
-          "mpg": 20.8
+          "mpg": 20.8,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Ethan Taylor",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-1",
           "altezza_cm": 216,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Kur Teng",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "JR",
           "ppg": 7.3,
           "rpg": 2.0,
           "apg": 1.0,
-          "mpg": 17.5
+          "mpg": 17.5,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Brennan Walton",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SO",
           "ppg": 0.4,
           "rpg": 0.4,
           "apg": 0.0,
-          "mpg": 1.3
+          "mpg": 1.3,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Colin Walton",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SO",
           "ppg": 0.3,
           "rpg": 0.3,
           "apg": 0.0,
-          "mpg": 1.3
+          "mpg": 1.3,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Cam Ward",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SO",
           "ppg": 5.1,
           "rpg": 4.2,
           "apg": 0.3,
-          "mpg": 15.3
+          "mpg": 15.3,
+          "posizione_ncaa": "SF"
         }
       ]
     },
@@ -1028,168 +1118,183 @@
       "roster": [
         {
           "nome": "Nolen Anderson",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Isaac Asuma",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "JR",
           "ppg": 10.9,
           "rpg": 4.0,
           "apg": 3.7,
-          "mpg": 34.3
+          "mpg": 34.3,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Jaylen Crocker-Johnson",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SR",
           "ppg": 13.4,
           "rpg": 6.8,
           "apg": 1.8,
-          "mpg": 31.5
+          "mpg": 31.5,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Bobby Durkin",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SR",
           "ppg": 10.2,
           "rpg": 3.2,
           "apg": 1.8,
-          "mpg": 32.8
+          "mpg": 32.8,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Kyan Evans",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "SR",
           "ppg": 4.0,
           "rpg": 1.2,
           "apg": 2.5,
-          "mpg": 17.7
+          "mpg": 17.7,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Winters Grady",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "RS FR",
           "ppg": 2.9,
           "rpg": 1.1,
           "apg": 0.2,
-          "mpg": 6.0
+          "mpg": 6.0,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Grayson Grove",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "SO",
           "ppg": 4.0,
           "rpg": 3.2,
           "apg": 1.7,
-          "mpg": 20.6
+          "mpg": 20.6,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Nolan Groves",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SO",
           "ppg": 0.9,
           "rpg": 1.2,
           "apg": 0.2,
-          "mpg": 5.8
+          "mpg": 5.8,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Malick Kordel",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-2",
           "altezza_cm": 218,
           "classe": "SO",
           "ppg": 1.2,
           "rpg": 1.5,
           "apg": 0.1,
-          "mpg": 4.1
+          "mpg": 4.1,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Max Lorenson",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "RS FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Chadrack Mpoyi",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Blake Nixon Jr.",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Malachi Palmer",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "JR",
           "ppg": 4.6,
           "rpg": 1.7,
           "apg": 0.6,
-          "mpg": 18.3
+          "mpg": 18.3,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Kai Shinholster",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SO",
           "ppg": 1.8,
           "rpg": 1.2,
           "apg": 1.0,
-          "mpg": 13.1
+          "mpg": 13.1,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Cedric Tomes",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-1",
           "altezza_cm": 185,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         }
       ]
     },
@@ -1198,168 +1303,183 @@
       "roster": [
         {
           "nome": "Kadyn Betts",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SR",
           "ppg": 3.1,
           "rpg": 1.1,
           "apg": 0.2,
-          "mpg": 6.6
+          "mpg": 6.6,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Henry Burt",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Will Cooper",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "RS SO",
           "ppg": 5.3,
           "rpg": 1.8,
           "apg": 0.4,
-          "mpg": 15.1
+          "mpg": 15.1,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Leo Curtis",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-2",
           "altezza_cm": 218,
           "classe": "SO",
           "ppg": 1.6,
           "rpg": 0.5,
           "apg": 0.2,
-          "mpg": 3.9
+          "mpg": 3.9,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Taj DeGourville",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "JR",
           "ppg": 5.5,
           "rpg": 2.8,
           "apg": 3.0,
-          "mpg": 19.4
+          "mpg": 19.4,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Connor Essegian",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "RS SR",
           "ppg": 5.4,
           "rpg": 1.3,
           "apg": 0.9,
-          "mpg": 14.0
+          "mpg": 14.0,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Braden Frager",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SO",
           "ppg": 11.8,
           "rpg": 3.8,
           "apg": 1.0,
-          "mpg": 23.6
+          "mpg": 23.6,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Cale Jacobsen",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SR",
           "ppg": 4.6,
           "rpg": 2.9,
           "apg": 1.3,
-          "mpg": 19.7
+          "mpg": 19.7,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Boden Kapke",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "SR",
           "ppg": 10.6,
           "rpg": 5.7,
           "apg": 0.7,
-          "mpg": 26.8
+          "mpg": 26.8,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Jacob Lanier",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Trevan Leonhardt",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SR",
           "ppg": 11.9,
           "rpg": 5.4,
           "apg": 6.0,
-          "mpg": 34.4
+          "mpg": 34.4,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Sam Orme",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "JR",
           "ppg": 12.7,
           "rpg": 5.0,
           "apg": 1.8,
-          "mpg": 25.7
+          "mpg": 25.7,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Colin Rice",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Pryce Sandfort",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SR",
           "ppg": 18.1,
           "rpg": 4.9,
           "apg": 2.0,
-          "mpg": 33.6
+          "mpg": 33.6,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Damon Wilkinson",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "JR",
           "ppg": 13.9,
           "rpg": 6.4,
           "apg": 1.3,
-          "mpg": 23.9
+          "mpg": 23.9,
+          "posizione_ncaa": "C"
         }
       ]
     },
@@ -1368,157 +1488,171 @@
       "roster": [
         {
           "nome": "Angelo Ciaravino",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "JR",
           "ppg": 6.3,
           "rpg": 3.9,
           "apg": 1.2,
-          "mpg": 22.0
+          "mpg": 22.0,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Elijah Eschmeyer",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Okku Federiko",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "JR",
           "ppg": 8.6,
           "rpg": 4.8,
           "apg": 1.5,
-          "mpg": 23.2
+          "mpg": 23.2,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Symon Ghai",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-3",
           "altezza_cm": 221,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Phoenix Gill",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "SO",
           "ppg": 0.5,
           "rpg": 0.5,
           "apg": 0.3,
-          "mpg": 3.5
+          "mpg": 3.5,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Jayden Hodge",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Jack Karasinski",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SR",
           "ppg": 21.7,
           "rpg": 4.7,
           "apg": 1.2,
-          "mpg": 29.9
+          "mpg": 29.9,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Aleksej Kostic",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SO",
           "ppg": 4.4,
           "rpg": 0.9,
           "apg": 0.4,
-          "mpg": 12.0
+          "mpg": 12.0,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Luke McEldon",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "JR",
           "ppg": 11.7,
           "rpg": 6.2,
           "apg": 1.3,
-          "mpg": 25.6
+          "mpg": 25.6,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "LA Pratt",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "RS SR",
           "ppg": 17.0,
           "rpg": 1.7,
           "apg": 3.3,
-          "mpg": 33.0
+          "mpg": 33.0,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Colin Smith",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SR",
           "ppg": 11.9,
           "rpg": 4.2,
           "apg": 1.5,
-          "mpg": 29.3
+          "mpg": 29.3,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Ryan Soulis",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "JR",
           "ppg": 5.8,
           "rpg": 4.6,
           "apg": 1.5,
-          "mpg": 20.0
+          "mpg": 20.0,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Jake West",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "SO",
           "ppg": 5.3,
           "rpg": 0.8,
           "apg": 2.8,
-          "mpg": 22.0
+          "mpg": 22.0,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Dylan Williams",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "5-11",
           "altezza_cm": 180,
           "classe": "SR",
           "ppg": 2.1,
           "rpg": 1.0,
           "apg": 1.6,
-          "mpg": 8.7
+          "mpg": 8.7,
+          "posizione_ncaa": "PG"
         }
       ]
     },
@@ -1527,157 +1661,171 @@
       "roster": [
         {
           "nome": "Amare Bynum",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SO",
           "ppg": 9.7,
           "rpg": 4.9,
           "apg": 1.1,
-          "mpg": 28.5
+          "mpg": 28.5,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Curtis Givens III",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "JR",
           "ppg": 9.4,
           "rpg": 2.1,
           "apg": 2.3,
-          "mpg": 25.6
+          "mpg": 25.6,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Myles Herro",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "RS FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Andrija Jelavic",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "JR",
           "ppg": 5.5,
           "rpg": 4.0,
           "apg": 0.7,
-          "mpg": 15.6
+          "mpg": 15.6,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Vuk Lazarevic",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-1",
           "altezza_cm": 216,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "John Mobley Jr.",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "JR",
           "ppg": 15.7,
           "rpg": 2.4,
           "apg": 2.8,
-          "mpg": 31.6
+          "mpg": 31.6,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Braylen Nash",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "JR",
           "ppg": 0.0,
           "rpg": 0.0,
           "apg": 0.2,
-          "mpg": 1.3
+          "mpg": 1.3,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Ivan Njegovan",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-2",
           "altezza_cm": 218,
           "classe": "JR",
           "ppg": 2.6,
           "rpg": 3.0,
           "apg": 0.7,
-          "mpg": 11.4
+          "mpg": 11.4,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Josh Ojianwuna",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "RS SR",
           "ppg": 7.4,
           "rpg": 6.4,
           "apg": 0.6,
-          "mpg": 24.7
+          "mpg": 24.7,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Justin Pippen",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "JR",
           "ppg": 14.2,
           "rpg": 3.9,
           "apg": 4.6,
-          "mpg": 30.8
+          "mpg": 30.8,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Alex Smith",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "LJ Smith",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Anthony Thompson",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Jimmie Williams",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SR",
           "ppg": 15.1,
           "rpg": 4.5,
           "apg": 2.6,
-          "mpg": 29.7
+          "mpg": 29.7,
+          "posizione_ncaa": "SG"
         }
       ]
     },
@@ -1686,157 +1834,171 @@
       "roster": [
         {
           "nome": "Dwayne Aristode",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SO",
           "ppg": 3.8,
           "rpg": 1.7,
           "apg": 0.7,
-          "mpg": 13.3
+          "mpg": 13.3,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Tajh Ariza",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Taylor Bol Bowen",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "SR",
           "ppg": 6.3,
           "rpg": 4.2,
           "apg": 0.5,
-          "mpg": 19.0
+          "mpg": 19.0,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Pharaoh Compton",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "JR",
           "ppg": 7.5,
           "rpg": 2.8,
           "apg": 0.3,
-          "mpg": 13.8
+          "mpg": 13.8,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Jerry Easter II",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SO",
           "ppg": 4.4,
           "rpg": 3.0,
           "apg": 1.1,
-          "mpg": 17.4
+          "mpg": 17.4,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Rian Gonzales",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "RS FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Kendre Harrison",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Jasper Johnson",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SO",
           "ppg": 4.9,
           "rpg": 1.1,
           "apg": 1.6,
-          "mpg": 12.0
+          "mpg": 12.0,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Luke Johnson",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "JR",
           "ppg": 1.1,
           "rpg": 0.7,
           "apg": 0.1,
-          "mpg": 5.4
+          "mpg": 5.4,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Andrew Meadow",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SR",
           "ppg": 12.1,
           "rpg": 3.6,
           "apg": 1.0,
-          "mpg": 29.9
+          "mpg": 29.9,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Fred Payne",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-1",
           "altezza_cm": 185,
           "classe": "JR",
           "ppg": 15.8,
           "rpg": 4.2,
           "apg": 2.7,
-          "mpg": 34.7
+          "mpg": 34.7,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Tyrone Riley IV",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "JR",
           "ppg": 12.2,
           "rpg": 4.8,
           "apg": 1.2,
-          "mpg": 31.8
+          "mpg": 31.8,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Steven Spurlock",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Sean Stewart",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "SR",
           "ppg": 6.5,
           "rpg": 5.2,
           "apg": 1.2,
-          "mpg": 23.0
+          "mpg": 23.0,
+          "posizione_ncaa": "PF"
         }
       ]
     },
@@ -1845,157 +2007,171 @@
       "roster": [
         {
           "nome": "Thomas Allard",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Roberts Blums",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "JR",
           "ppg": 12.4,
           "rpg": 3.4,
           "apg": 1.1,
-          "mpg": 22.3
+          "mpg": 22.3,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Dasonte Bowen",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "SR",
           "ppg": 10.9,
           "rpg": 3.0,
           "apg": 4.8,
-          "mpg": 34.3
+          "mpg": 34.3,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Brant Byers",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "JR",
           "ppg": 14.2,
           "rpg": 4.1,
           "apg": 0.6,
-          "mpg": 30.8
+          "mpg": 30.8,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Andy Gemao",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-1",
           "altezza_cm": 185,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Reggie Grodin",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "RS FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Ivan Juric",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-0",
           "altezza_cm": 213,
           "classe": "SO",
           "ppg": 10.2,
           "rpg": 5.3,
           "apg": 0.8,
-          "mpg": 26.4
+          "mpg": 26.4,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Chris Lotito",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SO",
           "ppg": 0.0,
           "rpg": 0.3,
           "apg": 0.0,
-          "mpg": 1.8
+          "mpg": 1.8,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Tim Oboh",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "JR",
           "ppg": 8.5,
           "rpg": 4.9,
           "apg": 0.3,
-          "mpg": 21.1
+          "mpg": 21.1,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Roko Prkacin",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Jay Rodgers",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "SR",
           "ppg": 11.0,
           "rpg": 2.2,
           "apg": 6.9,
-          "mpg": 29.3
+          "mpg": 29.3,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Grant Spacciapolli",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Francois Wibaut",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Aleksandar Zecevic",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         }
       ]
     },
@@ -2004,168 +2180,183 @@
       "roster": [
         {
           "nome": "Jack Benter",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "SO",
           "ppg": 4.4,
           "rpg": 2.6,
           "apg": 0.8,
-          "mpg": 14.7
+          "mpg": 14.7,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Raleigh Burgess",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "RS SO",
           "ppg": 1.9,
           "rpg": 1.3,
           "apg": 0.2,
-          "mpg": 6.4
+          "mpg": 6.4,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "CJ Cox",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "JR",
           "ppg": 8.5,
           "rpg": 2.8,
           "apg": 1.3,
-          "mpg": 24.4
+          "mpg": 24.4,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Luke Ertel",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Gicarri Harris",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "JR",
           "ppg": 4.6,
           "rpg": 1.6,
           "apg": 0.8,
-          "mpg": 15.7
+          "mpg": 15.7,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Sinan Huan",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-1",
           "altezza_cm": 216,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Daniel Jacobsen",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-4",
           "altezza_cm": 224,
           "classe": "JR",
           "ppg": 5.5,
           "rpg": 3.0,
           "apg": 0.3,
-          "mpg": 12.9
+          "mpg": 12.9,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Sam King",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "RS SR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Rivers Knight",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Jack Lusk",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SR",
           "ppg": 0.0,
           "rpg": 0.3,
           "apg": 0.0,
-          "mpg": 2.1
+          "mpg": 2.1,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Omer Mayer",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SO",
           "ppg": 5.5,
           "rpg": 1.1,
           "apg": 1.2,
-          "mpg": 14.3
+          "mpg": 14.3,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Caden Pierce",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "RS SR",
           "ppg": 11.2,
           "rpg": 7.2,
           "apg": 3.2,
-          "mpg": 32.5
+          "mpg": 32.5,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Jace Rayl",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "5-11",
           "altezza_cm": 180,
           "classe": "SR",
           "ppg": 0.0,
           "rpg": 0.0,
           "apg": 0.0,
-          "mpg": 1.9
+          "mpg": 1.9,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Jacob Webber",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Antione West Jr.",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "RS FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         }
       ]
     },
@@ -2174,168 +2365,183 @@
       "roster": [
         {
           "nome": "Dorin Buca",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-2",
           "altezza_cm": 218,
           "classe": "SR",
           "ppg": 3.2,
           "rpg": 3.3,
           "apg": 0.5,
-          "mpg": 12.8
+          "mpg": 12.8,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Darren Buchanan Jr.",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SR",
           "ppg": 8.1,
           "rpg": 3.9,
           "apg": 1.7,
-          "mpg": 24.1
+          "mpg": 24.1,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Jamichael Davis",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "SR",
           "ppg": 7.5,
           "rpg": 2.9,
           "apg": 2.5,
-          "mpg": 26.2
+          "mpg": 26.2,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Max Fradkin",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "5-11",
           "altezza_cm": 180,
           "classe": "JR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Tariq Francis",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-1",
           "altezza_cm": 185,
           "classe": "SR",
           "ppg": 17.0,
           "rpg": 2.3,
           "apg": 2.9,
-          "mpg": 27.8
+          "mpg": 27.8,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Diego Garavaglia",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Christian Gurdak",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "SO",
           "ppg": 5.6,
           "rpg": 4.4,
           "apg": 0.3,
-          "mpg": 17.1
+          "mpg": 17.1,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Rasheed Jones",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "SR",
           "ppg": 14.8,
           "rpg": 4.6,
           "apg": 2.9,
-          "mpg": 36.2
+          "mpg": 36.2,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Lino Mark",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "SO",
           "ppg": 5.9,
           "rpg": 1.8,
           "apg": 1.2,
-          "mpg": 15.9
+          "mpg": 15.9,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Kaden Powers",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SO",
           "ppg": 6.1,
           "rpg": 1.8,
           "apg": 1.5,
-          "mpg": 15.8
+          "mpg": 15.8,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Darin Smith Jr.",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "JR",
           "ppg": 20.7,
           "rpg": 5.4,
           "apg": 1.2,
-          "mpg": 32.6
+          "mpg": 32.6,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Will Sydnor",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "JR",
           "ppg": 13.9,
           "rpg": 6.8,
           "apg": 1.5,
-          "mpg": 29.5
+          "mpg": 29.5,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Martin Tonejc",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Gevonte Ware",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "RS FR",
           "ppg": 0.3,
           "rpg": 0.5,
           "apg": 0.0,
-          "mpg": 6.2
+          "mpg": 6.2,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Imahri Wooten",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         }
       ]
     },
@@ -2344,179 +2550,195 @@
       "roster": [
         {
           "nome": "Markell Alston",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-1",
           "altezza_cm": 185,
           "classe": "RS FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Xavier Booker",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "SR",
           "ppg": 7.3,
           "rpg": 3.5,
           "apg": 0.8,
-          "mpg": 20.1
+          "mpg": 20.1,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Eric Dailey Jr.",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SR",
           "ppg": 11.6,
           "rpg": 5.8,
           "apg": 1.3,
-          "mpg": 27.6
+          "mpg": 27.6,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Javonte Floyd",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Eric Freeny",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SO",
           "ppg": 2.0,
           "rpg": 1.6,
           "apg": 0.4,
-          "mpg": 11.1
+          "mpg": 11.1,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Gunars Grinvalds",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Filip Jovic",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SO",
           "ppg": 6.3,
           "rpg": 4.0,
           "apg": 0.6,
-          "mpg": 18.3
+          "mpg": 18.3,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Nikola Kusturica",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Sergej Macura",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "JR",
           "ppg": 5.0,
           "rpg": 4.8,
           "apg": 0.8,
-          "mpg": 18.4
+          "mpg": 18.4,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Evan Manjikian",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "SR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Trent Perry",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "JR",
           "ppg": 12.6,
           "rpg": 3.0,
           "apg": 2.8,
-          "mpg": 29.9
+          "mpg": 29.9,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Jaylen Petty",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-1",
           "altezza_cm": 185,
           "classe": "SO",
           "ppg": 9.9,
           "rpg": 3.9,
           "apg": 2.2,
-          "mpg": 30.5
+          "mpg": 30.5,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Joe Philon",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Azavier Robinson",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "SO",
           "ppg": 6.1,
           "rpg": 1.9,
           "apg": 2.5,
-          "mpg": 18.3
+          "mpg": 18.3,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Jack Seidler",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SR",
           "ppg": 0.3,
           "rpg": 0.6,
           "apg": 0.0,
-          "mpg": 1.1
+          "mpg": 1.1,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Brandon Williams",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "JR",
           "ppg": 2.6,
           "rpg": 1.9,
           "apg": 0.3,
-          "mpg": 12.2
+          "mpg": 12.2,
+          "posizione_ncaa": "SF"
         }
       ]
     },
@@ -2525,146 +2747,159 @@
       "roster": [
         {
           "nome": "Alijah Arenas",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "SO",
           "ppg": 14.1,
           "rpg": 2.9,
           "apg": 2.1,
-          "mpg": 27.6
+          "mpg": 27.6,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Isaac Bruns",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SR",
           "ppg": 20.8,
           "rpg": 5.1,
           "apg": 1.3,
-          "mpg": 30.9
+          "mpg": 30.9,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Jacob Cofie",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "JR",
           "ppg": 9.9,
           "rpg": 6.8,
           "apg": 1.9,
-          "mpg": 30.5
+          "mpg": 30.5,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Christian Collins",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Jalen Cox",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "SR",
           "ppg": 17.9,
           "rpg": 5.2,
           "apg": 5.3,
-          "mpg": 34.1
+          "mpg": 34.1,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Joshua Hughes",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "SR",
           "ppg": 9.3,
           "rpg": 4.7,
           "apg": 0.8,
-          "mpg": 27.6
+          "mpg": 27.6,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Aaron Hunkin-Claytor",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "JR",
           "ppg": 6.0,
           "rpg": 2.8,
           "apg": 3.9,
-          "mpg": 28.1
+          "mpg": 28.1,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Jadis Jones",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "JR",
           "ppg": 15.3,
           "rpg": 8.5,
           "apg": 2.6,
-          "mpg": 32.9
+          "mpg": 32.9,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "KJ Lewis",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SR",
           "ppg": 14.9,
           "rpg": 5.1,
           "apg": 2.5,
-          "mpg": 30.0
+          "mpg": 30.0,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Adonis Ratliff",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Darius Ratliff",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-0",
           "altezza_cm": 213,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Eric Reibe",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-1",
           "altezza_cm": 216,
           "classe": "SO",
           "ppg": 5.9,
           "rpg": 3.3,
           "apg": 0.5,
-          "mpg": 13.8
+          "mpg": 13.8,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Rodney Rice",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SR",
           "ppg": 20.3,
           "rpg": 3.3,
           "apg": 6.0,
-          "mpg": 34.0
+          "mpg": 34.0,
+          "posizione_ncaa": "SG"
         }
       ]
     },
@@ -2673,157 +2908,171 @@
       "roster": [
         {
           "nome": "Ryan Beasley",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "5-11",
           "altezza_cm": 180,
           "classe": "SR",
           "ppg": 13.6,
           "rpg": 3.4,
           "apg": 4.0,
-          "mpg": 33.3
+          "mpg": 33.3,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Tristan Devers",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Wini Braga",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Nikola Dzepina",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "SO",
           "ppg": 2.6,
           "rpg": 1.3,
           "apg": 0.7,
-          "mpg": 11.1
+          "mpg": 11.1,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Lattimore Ford",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Parker Friedrichsen",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SR",
           "ppg": 10.8,
           "rpg": 2.5,
           "apg": 1.4,
-          "mpg": 25.3
+          "mpg": 25.3,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Jasir Rencher",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "SO",
           "ppg": 3.0,
           "rpg": 1.8,
           "apg": 0.1,
-          "mpg": 8.3
+          "mpg": 8.3,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "BJ Roy",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "SO",
           "ppg": 1.0,
           "rpg": 0.2,
           "apg": 0.0,
-          "mpg": 1.6
+          "mpg": 1.6,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Lathan Sommerville",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "JR",
           "ppg": 4.3,
           "rpg": 2.6,
           "apg": 0.2,
-          "mpg": 14.5
+          "mpg": 14.5,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Boris Tisma",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-9",
           "altezza_cm": 206,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Mady Traore",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "SR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Steele Venters",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-7",
           "altezza_cm": 201,
           "classe": "SR",
           "ppg": 5.0,
           "rpg": 1.3,
           "apg": 1.0,
-          "mpg": 15.1
+          "mpg": 15.1,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "LeJuan Watts",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "SR",
           "ppg": 11.8,
           "rpg": 6.0,
           "apg": 2.4,
-          "mpg": 27.3
+          "mpg": 27.3,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Wesley Yates III",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "JR",
           "ppg": 12.7,
           "rpg": 3.3,
           "apg": 1.3,
-          "mpg": 31.4
+          "mpg": 31.4,
+          "posizione_ncaa": "SG"
         }
       ]
     },
@@ -2832,157 +3081,171 @@
       "roster": [
         {
           "nome": "Trey Autry",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "SR",
           "ppg": 11.0,
           "rpg": 3.5,
           "apg": 1.5,
-          "mpg": 28.7
+          "mpg": 28.7,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Jackson Ball",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Eian Elmer",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "SR",
           "ppg": 12.7,
           "rpg": 5.9,
           "apg": 1.1,
-          "mpg": 30.3
+          "mpg": 30.3,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "LaTrevion Fenderson",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Owen Foxwell",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-2",
           "altezza_cm": 188,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Will Garlock",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "7-0",
           "altezza_cm": 213,
           "classe": "SO",
           "ppg": 1.1,
           "rpg": 1.1,
           "apg": 0.7,
-          "mpg": 6.7
+          "mpg": 6.7,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Jack Janicki",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-5",
           "altezza_cm": 196,
           "classe": "JR",
           "ppg": 2.2,
           "rpg": 2.0,
           "apg": 1.1,
-          "mpg": 16.5
+          "mpg": 16.5,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Hayden Jones",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-6",
           "altezza_cm": 198,
           "classe": "SO",
           "ppg": 1.7,
           "rpg": 1.0,
           "apg": 0.4,
-          "mpg": 7.2
+          "mpg": 7.2,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Zach Kinziger",
-          "posizione": "PG",
+          "posizione": "Pure PG",
           "altezza": "6-3",
           "altezza_cm": 190,
           "classe": "SO",
           "ppg": 1.3,
           "rpg": 0.3,
           "apg": 0.6,
-          "mpg": 4.9
+          "mpg": 4.9,
+          "posizione_ncaa": "PG"
         },
         {
           "nome": "Josh Manchester",
-          "posizione": "SG",
+          "posizione": "Combo G",
           "altezza": "6-4",
           "altezza_cm": 193,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SG"
         },
         {
           "nome": "Victory Onuetu",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "6-11",
           "altezza_cm": 211,
           "classe": "SR",
           "ppg": 4.7,
           "rpg": 6.9,
           "apg": 0.4,
-          "mpg": 17.9
+          "mpg": 17.9,
+          "posizione_ncaa": "C"
         },
         {
           "nome": "Austin Rapp",
-          "posizione": "PF",
+          "posizione": "Stretch 4",
           "altezza": "6-10",
           "altezza_cm": 208,
           "classe": "JR",
           "ppg": 9.7,
           "rpg": 4.0,
           "apg": 1.6,
-          "mpg": 23.2
+          "mpg": 23.2,
+          "posizione_ncaa": "PF"
         },
         {
           "nome": "Isaac Riddle",
-          "posizione": "SF",
+          "posizione": "Wing F",
           "altezza": "6-8",
           "altezza_cm": 203,
           "classe": "FR",
           "ppg": null,
           "rpg": null,
           "apg": null,
-          "mpg": null
+          "mpg": null,
+          "posizione_ncaa": "SF"
         },
         {
           "nome": "Nolan Winter",
-          "posizione": "C",
+          "posizione": "Center",
           "altezza": "7-0",
           "altezza_cm": 213,
           "classe": "SR",
           "ppg": 13.1,
           "rpg": 8.5,
           "apg": 1.5,
-          "mpg": 30.7
+          "mpg": 30.7,
+          "posizione_ncaa": "C"
         }
       ]
     }
