@@ -444,8 +444,8 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
     <div id="rosterTable"></div>
     <div class="cal-form" id="rosterEditor" hidden>
       <div class="section-label" style="margin-top:0">Aggiorna roster · <span id="edTeamName"></span></div>
-      <textarea class="hs-paste" id="edPaste" style="min-height:110px" placeholder="Un giocatore per riga: Nome; Ruolo; Altezza cm; Nazionalità; Classe
-Esempio: Khalif Battle; Combo G; 195; USA
+      <textarea class="hs-paste" id="edPaste" style="min-height:110px" placeholder="Un giocatore per riga: Nome; Ruolo; Altezza cm; Nazionalità; Agenzia
+Esempio: Isaia Cordinier; Wing G; 196; FRA; Octagon
 Sostituisce l'intero roster della squadra selezionata."></textarea>
       <div class="cal-actions">
         <button class="btn" id="edApply" type="button">Sostituisci roster</button>
@@ -1309,17 +1309,33 @@ $('#edApply').addEventListener('click',()=>{
   if(!d||!rosterSel.team)return;
   const sq=d.squadre.find(s=>s.nome===rosterSel.team);
   const lines=$('#edPaste').value.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
-  const roster=[];
+  if(!lines.length){toast('Nessuna riga valida');return}
+  const prev=sq.roster||[];
+  const byName=n=>prev.find(p=>p.nome.toLowerCase()===n.toLowerCase());
+  const roster=[]; let updated=0,added=0;
   lines.forEach(l=>{
     const f=l.split(/[;,|\t]/).map(s=>s.trim());
     if(!f[0])return;
-    roster.push({nome:f[0],ruolo:f[1]||'',altezza:f[2]?(+f[2]||null):null,naz:f[3]||'',cls:f[4]||''});
+    const [nome,ruolo,altezza,naz,agenzia]=f;
+    const ex=byName(nome);
+    if(ex){
+      // aggiorna solo i campi forniti (non vuoti), conserva tutto il resto
+      if(ruolo)ex.ruolo=ruolo;
+      if(altezza){ex.altezza_cm=+altezza||ex.altezza_cm; ex.altezza=altezza;}
+      if(naz){ex.nazionalita=naz; ex.naz=naz;}
+      if(agenzia!==undefined&&agenzia!=='')ex.agenzia=agenzia;
+      roster.push(ex); updated++;
+    }else{
+      roster.push({nome,ruolo:ruolo||'',altezza:altezza||'',altezza_cm:altezza?(+altezza||null):null,naz:naz||'',nazionalita:naz||'',agenzia:agenzia||''});
+      added++;
+    }
   });
-  if(!roster.length){toast('Nessuna riga valida');return}
+  // conserva i giocatori del roster non citati in questo incolla
+  prev.forEach(p=>{if(!roster.includes(p))roster.push(p)});
   sq.roster=roster;
   d.aggiornato=new Date().toISOString().slice(0,10);
   paintRosterAll();
-  toast(roster.length+' giocatori nel roster di '+sq.nome+' (ricorda: scarica e ricarica il JSON)');
+  toast(`Aggiornati ${updated}, aggiunti ${added} · scarica e ricarica il JSON`);
 });
 $('#edDownload').addEventListener('click',()=>{
   const d=rosterData[rosterSel.file];
