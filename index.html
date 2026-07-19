@@ -8,18 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F2F4F1;
+  --paper:#FAF5EC;
   --card:#FFFFFF;
-  --ink:#14212B;
-  --ink-soft:#4A5B68;
-  --line:#D8DEDA;
+  --ink:#16232E;
+  --ink-soft:#54616C;
+  --line:#E6DCC9;
+  --brand:#E8720C;
+  --brand-deep:#BF5406;
+  --brand-soft:#FDEBD6;
   --sign:#1F7A5C;
   --sign-bg:#E3F1EB;
   --monitor:#C07A1B;
   --monitor-bg:#F8EEDC;
   --pass:#B0382E;
   --pass-bg:#F6E4E1;
-  --focus:#14212B;
+  --focus:#BF5406;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px}
@@ -36,10 +39,11 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;color:var(--ink)}
 
 /* ---------- header ---------- */
 header{
-  background:var(--ink);
-  color:#F2F4F1;
+  background:linear-gradient(120deg,#152A3A 0%,#1D3E52 60%,#254B60 100%);
+  color:#FAF5EC;
   padding:1.1rem 1.4rem 1rem;
   display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;
+  border-bottom:3px solid var(--brand);
 }
 .brand{
   font-family:'Barlow Condensed',sans-serif;
@@ -47,19 +51,19 @@ header{
 }
 .brand small{
   display:block;font-family:'Public Sans',sans-serif;font-weight:400;
-  font-size:.72rem;letter-spacing:.12em;opacity:.7;text-transform:uppercase;margin-top:.1rem;
+  font-size:.72rem;letter-spacing:.12em;color:#F5B570;text-transform:uppercase;margin-top:.1rem;
 }
 .header-actions{margin-left:auto;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
 .btn{
   border:1px solid var(--line);background:var(--card);color:var(--ink);
   border-radius:8px;padding:.5rem .9rem;font-size:.85rem;font-weight:600;
 }
-.btn:hover{background:#EDF0EC}
-.btn-dark{background:#F2F4F1;color:var(--ink);border-color:transparent}
-.btn-ghost{background:transparent;color:#F2F4F1;border:1px solid rgba(242,244,241,.35)}
-.btn-ghost:hover{background:rgba(242,244,241,.12)}
-.btn-primary{background:var(--ink);color:#F2F4F1;border-color:var(--ink)}
-.btn-primary:hover{background:#22333F}
+.btn:hover{background:var(--brand-soft)}
+.btn-dark{background:#FAF5EC;color:var(--ink);border-color:transparent}
+.btn-ghost{background:transparent;color:#FAF5EC;border:1px solid rgba(250,245,236,.35)}
+.btn-ghost:hover{background:rgba(250,245,236,.14)}
+.btn-primary{background:var(--brand);color:#fff;border-color:var(--brand)}
+.btn-primary:hover{background:var(--brand-deep)}
 .btn-danger{color:var(--pass);border-color:var(--pass)}
 .btn-danger:hover{background:var(--pass-bg)}
 
@@ -83,13 +87,13 @@ table{width:100%;border-collapse:collapse;min-width:760px}
 th{
   font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.08em;
   text-transform:uppercase;font-size:.8rem;color:var(--ink-soft);
-  text-align:left;padding:.7rem .8rem;border-bottom:2px solid var(--ink);
+  text-align:left;padding:.7rem .8rem;border-bottom:2px solid var(--brand);
   cursor:pointer;user-select:none;white-space:nowrap;
 }
 th .arrow{font-size:.7rem;margin-left:.2rem}
 td{padding:.65rem .8rem;border-bottom:1px solid var(--line);font-size:.92rem;vertical-align:middle}
 tbody tr{cursor:pointer}
-tbody tr:hover{background:#F7F9F6}
+tbody tr:hover{background:#FBF2E4}
 tbody tr:last-child td{border-bottom:none}
 .player-name{font-weight:700}
 .player-sub{font-size:.78rem;color:var(--ink-soft)}
@@ -121,7 +125,7 @@ dialog{
 }
 dialog::backdrop{background:rgba(20,33,43,.5)}
 .modal-head{
-  background:var(--ink);color:#F2F4F1;padding:1.1rem 1.3rem;
+  background:linear-gradient(120deg,#152A3A,#254B60);color:#FAF5EC;padding:1.1rem 1.3rem;
   display:flex;align-items:flex-start;gap:1rem;
   border-radius:14px 14px 0 0;
 }
@@ -132,8 +136,9 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .modal-body{padding:1.2rem 1.3rem 1.5rem;overflow-y:auto;max-height:calc(90vh - 90px)}
 .section-label{
   font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.1em;
-  text-transform:uppercase;font-size:.82rem;color:var(--ink-soft);
-  border-bottom:1px solid var(--line);padding-bottom:.3rem;margin:1.3rem 0 .7rem;
+  text-transform:uppercase;font-size:.82rem;color:var(--brand-deep);
+  border-bottom:1px solid var(--line);border-left:4px solid var(--brand);
+  padding:.05rem 0 .3rem .5rem;margin:1.3rem 0 .7rem;
 }
 .section-label:first-child{margin-top:0}
 
@@ -160,7 +165,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .obs-form{display:flex;gap:.5rem;margin-bottom:.8rem}
 .obs-form input{flex:1;border:1px solid var(--line);border-radius:8px;padding:.55rem .7rem;background:var(--paper)}
 .obs-item{
-  border-left:3px solid var(--ink);padding:.4rem .8rem;margin-bottom:.5rem;
+  border-left:3px solid var(--brand);padding:.4rem .8rem;margin-bottom:.5rem;
   background:var(--paper);border-radius:0 8px 8px 0;
   display:flex;gap:.6rem;align-items:baseline;
 }
@@ -206,13 +211,13 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .pct.lo{background:var(--pass-bg);color:var(--pass)}
 
 /* tabs */
-.tabs{display:flex;gap:0;background:var(--ink);padding:0 1.4rem}
+.tabs{display:flex;gap:0;background:#152A3A;padding:0 1.4rem}
 .tab{
   font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;font-size:.95rem;color:rgba(242,244,241,.6);
+  text-transform:uppercase;font-size:.95rem;color:rgba(250,245,236,.6);
   background:transparent;border:none;padding:.6rem 1rem;border-bottom:3px solid transparent;
 }
-.tab.active{color:#F2F4F1;border-bottom-color:#F2F4F1}
+.tab.active{color:#FFC08A;border-bottom-color:var(--brand)}
 
 /* calendario */
 .cal-form{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem}
@@ -225,7 +230,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .cal-hint{font-size:.75rem;color:var(--ink-soft)}
 
 .kg-head{
-  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.15rem;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.15rem;color:var(--brand-deep);
   letter-spacing:.05em;text-transform:uppercase;margin:1.2rem 0 .5rem;display:flex;align-items:center;gap:.5rem;
 }
 .day-head{
@@ -237,7 +242,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   background:var(--card);border:1px solid var(--line);border-radius:10px;
   padding:.6rem .8rem;margin-bottom:.5rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;
 }
-.game.key{border-color:var(--ink);border-width:2px}
+.game.key{border-color:var(--brand);border-width:2px;background:#FFFDF8}
 .game.past{opacity:.55}
 .g-time{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-variant-numeric:tabular-nums;min-width:3.2rem}
 .g-league{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;color:var(--ink-soft);font-weight:600}
@@ -247,7 +252,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:.68rem;
   letter-spacing:.08em;text-transform:uppercase;border-radius:5px;padding:.1rem .4rem;
 }
-.g-badge.kg{background:var(--ink);color:#F2F4F1}
+.g-badge.kg{background:var(--brand);color:#fff}
 .g-badge.h2h{background:var(--pass-bg);color:var(--pass);border:1px solid var(--pass)}
 .g-badge.count{background:var(--paper);border:1px solid var(--line);color:var(--ink-soft)}
 .g-players{width:100%;display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.1rem}
@@ -262,7 +267,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   border:1px solid var(--line);background:var(--paper);border-radius:6px;
   padding:.2rem .5rem;font-size:.7rem;font-weight:600;color:var(--ink-soft);
 }
-.st-btn.on{background:var(--ink);color:#F2F4F1;border-color:var(--ink)}
+.st-btn.on{background:var(--brand);color:#fff;border-color:var(--brand)}
 .g-del{background:none;border:none;color:var(--ink-soft);font-size:1rem;padding:0 .2rem}
 .g-del:hover{color:var(--pass)}
 .cal-empty{color:var(--ink-soft);font-style:italic;padding:1rem 0}
@@ -283,7 +288,8 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   padding:2.2rem 2.4rem;box-shadow:0 20px 60px rgba(20,33,43,.4);
 }
 .rep-band{
-  background:var(--ink);color:#F2F4F1;margin:-2.2rem -2.4rem 1.4rem;
+  background:linear-gradient(120deg,#152A3A,#254B60);color:#FAF5EC;margin:-2.2rem -2.4rem 1.4rem;
+  border-bottom:3px solid var(--brand);
   padding:1rem 2.4rem;display:flex;align-items:baseline;gap:1rem;border-radius:8px 8px 0 0;
 }
 .rep-band .b1{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.1rem;letter-spacing:.08em;text-transform:uppercase}
@@ -295,7 +301,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .rep-why{font-size:.95rem;font-style:italic}
 .rep-sec{
   font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;
-  letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--ink);
+  letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--brand);
   margin:1.3rem 0 .5rem;padding-bottom:.15rem;
 }
 .rep-stats{display:flex;flex-wrap:wrap;gap:.45rem}
@@ -310,7 +316,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .rep-text{font-size:.92rem;white-space:pre-wrap}
 .rep-adat p{margin:.25rem 0;font-size:.92rem}
 .rep-adat b{font-weight:700}
-.rep-obs{font-size:.85rem;margin:.25rem 0;padding-left:.8rem;border-left:3px solid var(--line)}
+.rep-obs{font-size:.85rem;margin:.25rem 0;padding-left:.8rem;border-left:3px solid var(--brand-soft)}
 .rep-obs .d{color:var(--ink-soft);font-size:.72rem;font-variant-numeric:tabular-nums;margin-right:.4rem}
 .rep-foot{
   margin-top:1.8rem;padding-top:.7rem;border-top:1px solid var(--line);
@@ -355,6 +361,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 <nav class="tabs">
   <button class="tab active" data-view="players">Giocatori</button>
   <button class="tab" data-view="cal">Calendario</button>
+  <button class="tab" data-view="roster">Roster</button>
 </nav>
 
 <div class="toolbar" id="playersToolbar">
@@ -426,6 +433,27 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
     <div id="gameList"></div>
     <label class="past-toggle"><input type="checkbox" id="showPast"> mostra le partite già giocate</label>
   </div><!-- /viewCal -->
+
+  <div id="viewRoster" hidden>
+    <div class="cal-form">
+      <div class="kg-head" style="margin-top:0">🏀 Archivio roster</div>
+      <div class="cal-hint" style="margin-bottom:.6rem">I roster vivono nella cartella <b>data/</b> del repository: uguali su ogni dispositivo. Per aggiornarli usa l'editor in fondo e ricarica il file su GitHub.</div>
+      <div id="rosterLeagues" class="chips" style="display:flex;gap:.4rem;flex-wrap:wrap"></div>
+    </div>
+    <div id="rosterTeams" class="adv-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))"></div>
+    <div id="rosterTable"></div>
+    <div class="cal-form" id="rosterEditor" hidden>
+      <div class="section-label" style="margin-top:0">Aggiorna roster · <span id="edTeamName"></span></div>
+      <textarea class="hs-paste" id="edPaste" style="min-height:110px" placeholder="Un giocatore per riga: Nome; Ruolo; Altezza cm; Nazionalità; Classe
+Esempio: Khalif Battle; Combo G; 195; USA
+Sostituisce l'intero roster della squadra selezionata."></textarea>
+      <div class="cal-actions">
+        <button class="btn" id="edApply" type="button">Sostituisci roster</button>
+        <button class="btn btn-primary" id="edDownload" type="button">Scarica JSON aggiornato</button>
+        <span class="cal-hint">Poi carica il file scaricato in data/ su GitHub, sovrascrivendo il vecchio.</span>
+      </div>
+    </div>
+  </div><!-- /viewRoster -->
 </main>
 
 <!-- ============ MODAL SCHEDA GIOCATORE ============ -->
@@ -1169,12 +1197,131 @@ $('#showPast').addEventListener('change',renderCal);
 document.querySelectorAll('.tab').forEach(t=>{
   t.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===t));
-    const cal=t.dataset.view==='cal';
-    $('#viewPlayers').hidden=cal;
-    $('#playersToolbar').style.display=cal?'none':'';
-    $('#viewCal').hidden=!cal;
-    if(cal)renderCal();
+    const v=t.dataset.view;
+    $('#viewPlayers').hidden=v!=='players';
+    $('#playersToolbar').style.display=v==='players'?'':'none';
+    $('#viewCal').hidden=v!=='cal';
+    $('#viewRoster').hidden=v!=='roster';
+    if(v==='cal')renderCal();
+    if(v==='roster')initRoster();
   });
+});
+
+/* ---------- archivio roster (data/*.json) ---------- */
+let rosterFiles=[];       // [{file,lega}]
+let rosterData={};        // file -> json
+let rosterSel={file:null,team:null};
+let rosterLoaded=false;
+async function initRoster(){
+  if(rosterLoaded){paintRosterAll();return}
+  try{
+    const r=await fetch('data/index.json',{cache:'no-store'});
+    if(!r.ok)throw 0;
+    const idx=await r.json();
+    rosterFiles=idx.leghe||[];
+    for(const f of rosterFiles){
+      try{
+        const rr=await fetch('data/'+f.file,{cache:'no-store'});
+        if(rr.ok)rosterData[f.file]=await rr.json();
+      }catch(e){}
+    }
+    rosterLoaded=true;
+    if(rosterFiles.length&&!rosterSel.file)rosterSel.file=rosterFiles[0].file;
+    paintRosterAll();
+  }catch(e){
+    $('#rosterLeagues').innerHTML='<span class="cal-hint">Archivio non trovato: carica la cartella <b>data/</b> (index.json + file leghe) nel repository accanto a index.html. Nota: aprendo il file in locale l\u2019archivio non è raggiungibile, serve il sito online.</span>';
+  }
+}
+function paintRosterAll(){paintRosterLeagues();paintRosterTeams();paintRosterTable();}
+function paintRosterLeagues(){
+  $('#rosterLeagues').innerHTML=rosterFiles.map(f=>{
+    const d=rosterData[f.file];
+    const n=d?d.squadre.reduce((a,s)=>a+(s.roster||[]).length,0):0;
+    return `<button class="st-btn${rosterSel.file===f.file?' on':''}" data-f="${esc(f.file)}" style="font-size:.85rem;padding:.4rem .8rem">${esc(f.lega)} · ${d?d.squadre.length:0} squadre · ${n} giocatori</button>`;
+  }).join('');
+}
+function paintRosterTeams(){
+  const d=rosterData[rosterSel.file];
+  if(!d){$('#rosterTeams').innerHTML='';return}
+  $('#rosterTeams').innerHTML=d.squadre.map(s=>`
+    <button class="adv-cell" data-team="${esc(s.nome)}" style="cursor:pointer;text-align:left${rosterSel.team===s.nome?';border-color:var(--brand);border-width:2px':''}">
+      <span class="adv-label" style="text-transform:none;font-size:.85rem">${esc(s.nome)}</span>
+      <span class="pct ${((s.roster||[]).length)?'hi':'lo'}">${(s.roster||[]).length}</span>
+    </button>`).join('');
+}
+function paintRosterTable(){
+  const d=rosterData[rosterSel.file];
+  const box=$('#rosterTable');
+  const ed=$('#rosterEditor');
+  if(!d||!rosterSel.team){box.innerHTML='';ed.hidden=true;return}
+  const sq=d.squadre.find(s=>s.nome===rosterSel.team);
+  if(!sq){box.innerHTML='';ed.hidden=true;return}
+  ed.hidden=false;
+  $('#edTeamName').textContent=sq.nome;
+  const rows=(sq.roster||[]).map((g,i)=>`
+    <tr>
+      <td><span class="player-name">${esc(g.nome)}</span></td>
+      <td>${esc(g.ruolo||'—')}</td>
+      <td class="num">${g.altezza||'—'}</td>
+      <td>${esc(g.naz||'—')}</td>
+      <td>${esc(g.cls||'—')}</td>
+      <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
+    </tr>`).join('');
+  box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:560px">
+    <thead><tr><th>Giocatore</th><th>Ruolo</th><th>Alt.</th><th>Naz</th><th>Cls</th><th></th></tr></thead>
+    <tbody>${rows||'<tr><td colspan="6" class="cal-empty" style="padding:1rem">Roster vuoto: compilalo con l\u2019editor qui sotto.</td></tr>'}</tbody>
+  </table></div>`;
+}
+$('#rosterLeagues').addEventListener('click',e=>{
+  const b=e.target.closest('[data-f]');if(!b)return;
+  rosterSel={file:b.dataset.f,team:null};paintRosterAll();
+});
+$('#rosterTeams').addEventListener('click',e=>{
+  const b=e.target.closest('[data-team]');if(!b)return;
+  rosterSel.team=b.dataset.team;paintRosterAll();
+});
+$('#rosterTable').addEventListener('click',e=>{
+  const b=e.target.closest('[data-add]');if(!b)return;
+  const d=rosterData[rosterSel.file];
+  const sq=d.squadre.find(s=>s.nome===rosterSel.team);
+  const g=(sq.roster||[])[+b.dataset.add];
+  if(!g)return;
+  if(players.some(p=>p.nome.toLowerCase()===g.nome.toLowerCase())){toast(g.nome+' è già nel taccuino');return}
+  players.push({
+    id:uid(),nome:g.nome,squadra:sq.nome,lega:d.lega||'',ruolo:g.ruolo||'',naz:g.naz||'',cls:g.cls||'',
+    eta:null,altezza:g.altezza||null,cotonou:'',
+    ppg:null,rpg:null,apg:null,tre:null,ts:null,usg:null,min:null,
+    verdetto:'',conf:'',why:'',fit:'',ruoloReale:'',rischio:'',
+    fw1:'',fw2:'',fw3:'',fw4:'',fw5:'',fw6:'',obs:[],hs:null
+  });
+  saveAll(players);render();
+  toast(g.nome+' aggiunto al taccuino');
+});
+$('#edApply').addEventListener('click',()=>{
+  const d=rosterData[rosterSel.file];
+  if(!d||!rosterSel.team)return;
+  const sq=d.squadre.find(s=>s.nome===rosterSel.team);
+  const lines=$('#edPaste').value.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  const roster=[];
+  lines.forEach(l=>{
+    const f=l.split(/[;,|\t]/).map(s=>s.trim());
+    if(!f[0])return;
+    roster.push({nome:f[0],ruolo:f[1]||'',altezza:f[2]?(+f[2]||null):null,naz:f[3]||'',cls:f[4]||''});
+  });
+  if(!roster.length){toast('Nessuna riga valida');return}
+  sq.roster=roster;
+  d.aggiornato=new Date().toISOString().slice(0,10);
+  paintRosterAll();
+  toast(roster.length+' giocatori nel roster di '+sq.nome+' (ricorda: scarica e ricarica il JSON)');
+});
+$('#edDownload').addEventListener('click',()=>{
+  const d=rosterData[rosterSel.file];
+  if(!d)return;
+  const blob=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download=rosterSel.file;a.click();
+  URL.revokeObjectURL(a.href);
+  toast(rosterSel.file+' scaricato: caricalo in data/ su GitHub');
 });
 
 /* ---------- import match-notes ---------- */
