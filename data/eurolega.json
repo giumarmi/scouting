@@ -1223,7 +1223,7 @@
           "pre_draft": "",
           "squadra_2025_26": "Virtus Bologna (Italy)",
           "fa_year": "2029",
-          "agenzia": ""
+          "agenzia": "Sigma Sports"
         },
         {
           "nome": "Leandro Bolmaro",
@@ -1241,7 +1241,7 @@
           "pre_draft": "",
           "squadra_2025_26": "Olimpia Milano (Italy)",
           "fa_year": "2028",
-          "agenzia": ""
+          "agenzia": "Xpheres"
         },
         {
           "nome": "Devin Booker",
@@ -1259,25 +1259,7 @@
           "pre_draft": "Clemson",
           "squadra_2025_26": "EA7 Milano (Italy)",
           "fa_year": "2027",
-          "agenzia": ""
-        },
-        {
-          "nome": "Lorenzo Brown",
-          "numero": "2",
-          "posizione": "G",
-          "ruolo": "Wing G",
-          "altezza": "6' 05\"",
-          "altezza_cm": 196,
-          "peso": "190",
-          "data_nascita": "08/26/90",
-          "eta": "35.92",
-          "draft": "2013-52",
-          "nazionalita": "USA, ESP",
-          "luogo_nascita": "NM - Roswell",
-          "pre_draft": "North Carolina State",
-          "squadra_2025_26": "Olimpia Milano (Italy)",
-          "fa_year": "2027",
-          "agenzia": ""
+          "agenzia": "You First"
         },
         {
           "nome": "Jason Burnell",
@@ -1295,7 +1277,7 @@
           "pre_draft": "Jacksonville State",
           "squadra_2025_26": "Brescia (Italy)",
           "fa_year": "2027 +1",
-          "agenzia": ""
+          "agenzia": "Overtime"
         },
         {
           "nome": "R.J. Cole",
@@ -1313,7 +1295,7 @@
           "pre_draft": "Connecticut",
           "squadra_2025_26": "Venezia (Italy)",
           "fa_year": "2027 +1",
-          "agenzia": ""
+          "agenzia": "RZA Sports, Tangram Sports"
         },
         {
           "nome": "Ousmane Diop",
@@ -1331,7 +1313,7 @@
           "pre_draft": "",
           "squadra_2025_26": "Olimpia Milano (Italy)",
           "fa_year": "2028",
-          "agenzia": ""
+          "agenzia": "Sigma Sports"
         },
         {
           "nome": "Diego Flaccadori",
@@ -1349,7 +1331,7 @@
           "pre_draft": "",
           "squadra_2025_26": "Olimpia Milano (Italy)",
           "fa_year": "2027",
-          "agenzia": ""
+          "agenzia": "Sigma Sports"
         },
         {
           "nome": "Marko Guduric",
@@ -1367,7 +1349,7 @@
           "pre_draft": "",
           "squadra_2025_26": "Olimpia Milano (Italy)",
           "fa_year": "2027 +1",
-          "agenzia": ""
+          "agenzia": "BeoBasket"
         },
         {
           "nome": "Devon Hall",
@@ -1385,7 +1367,7 @@
           "pre_draft": "Virginia",
           "squadra_2025_26": "Fenerbahce (Turkey)",
           "fa_year": "2029",
-          "agenzia": ""
+          "agenzia": "Octagon"
         },
         {
           "nome": "Garrison Mathews",
@@ -1403,7 +1385,7 @@
           "pre_draft": "Lipscomb",
           "squadra_2025_26": "Indiana Pacers",
           "fa_year": "2027 +1",
-          "agenzia": ""
+          "agenzia": "Independent Sports & Entertainment"
         },
         {
           "nome": "Alec Peters",
@@ -1421,10 +1403,10 @@
           "pre_draft": "Valparaiso",
           "squadra_2025_26": "Olympiacos (Greece)",
           "fa_year": "2028",
-          "agenzia": ""
+          "agenzia": "Priority Sports"
         },
         {
-          "nome": "Giampolo Ricci",
+          "nome": "Giampaolo Ricci",
           "numero": "17",
           "posizione": "F",
           "ruolo": "Wing F",
@@ -1439,7 +1421,7 @@
           "pre_draft": "",
           "squadra_2025_26": "Olimpia Milano (Italy)",
           "fa_year": "2027",
-          "agenzia": ""
+          "agenzia": "Riccardo Sbezzi"
         },
         {
           "nome": "Darius Thompson",
@@ -1457,7 +1439,7 @@
           "pre_draft": "Western Kentucky",
           "squadra_2025_26": "Valencia (Spain)",
           "fa_year": "2029",
-          "agenzia": ""
+          "agenzia": "Sigma Sports - Excel Sports Management"
         },
         {
           "nome": "Stefano Tonut",
@@ -1475,7 +1457,7 @@
           "pre_draft": "",
           "squadra_2025_26": "Olimpia Milano (Italy)",
           "fa_year": "2028",
-          "agenzia": ""
+          "agenzia": "Triple Double Sports - Superbasket"
         },
         {
           "nome": "Moses Wright",
@@ -1493,7 +1475,7 @@
           "pre_draft": "Georgia Tech",
           "squadra_2025_26": "Zalgiris (Lithuania)",
           "fa_year": "2028",
-          "agenzia": ""
+          "agenzia": "Octagon"
         }
       ]
     },
