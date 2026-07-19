@@ -1261,15 +1261,22 @@ function paintRosterTable(){
   const rows=(sq.roster||[]).map((g,i)=>`
     <tr>
       <td><span class="player-name">${esc(g.nome)}</span></td>
-      <td>${esc(g.ruolo||'—')}</td>
-      <td class="num">${g.altezza||'—'}</td>
-      <td>${esc(g.naz||'—')}</td>
-      <td>${esc(g.cls||'—')}</td>
+      <td class="num">${esc(g.numero||'')}</td>
+      <td>${esc(g.posizione||g.ruolo||'—')}</td>
+      <td class="num">${g.altezza_cm||(g.altezza?esc(g.altezza):'—')}</td>
+      <td class="num">${esc(g.peso||'')}</td>
+      <td class="num">${esc(g.eta||'')}</td>
+      <td class="num">${esc(g.anni_pro||'')}</td>
+      <td>${esc(g.nazionalita||g.naz||'—')}</td>
+      <td>${esc(g.pre_draft||'')}</td>
+      <td>${esc(g.squadra_2025_26||'')}</td>
+      <td class="num">${esc(g.fa_year||'')}</td>
+      <td>${esc(g.agenzia||'—')}</td>
       <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
     </tr>`).join('');
-  box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:560px">
-    <thead><tr><th>Giocatore</th><th>Ruolo</th><th>Alt.</th><th>Naz</th><th>Cls</th><th></th></tr></thead>
-    <tbody>${rows||'<tr><td colspan="6" class="cal-empty" style="padding:1rem">Roster vuoto: compilalo con l\u2019editor qui sotto.</td></tr>'}</tbody>
+  box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:1050px">
+    <thead><tr><th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Peso</th><th>Età</th><th>Anni pro</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th><th>Agenzia</th><th></th></tr></thead>
+    <tbody>${rows||'<tr><td colspan="13" class="cal-empty" style="padding:1rem">Roster vuoto.</td></tr>'}</tbody>
   </table></div>`;
 }
 $('#rosterLeagues').addEventListener('click',e=>{
@@ -1288,8 +1295,9 @@ $('#rosterTable').addEventListener('click',e=>{
   if(!g)return;
   if(players.some(p=>p.nome.toLowerCase()===g.nome.toLowerCase())){toast(g.nome+' è già nel taccuino');return}
   players.push({
-    id:uid(),nome:g.nome,squadra:sq.nome,lega:d.lega||'',ruolo:g.ruolo||'',naz:g.naz||'',cls:g.cls||'',
-    eta:null,altezza:g.altezza||null,cotonou:'',
+    id:uid(),nome:g.nome,squadra:sq.nome,lega:d.lega||'',ruolo:g.ruolo||g.posizione||'',
+    naz:g.nazionalita||g.naz||'',cls:g.cls||'',
+    eta:(g.eta?Math.floor(parseFloat(g.eta)):null),altezza:g.altezza_cm||g.altezza||null,cotonou:'',
     ppg:null,rpg:null,apg:null,tre:null,ts:null,usg:null,min:null,
     verdetto:'',conf:'',why:'',fit:'',ruoloReale:'',rischio:'',
     fw1:'',fw2:'',fw3:'',fw4:'',fw5:'',fw6:'',obs:[],hs:null
