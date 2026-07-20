@@ -359,7 +359,8 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 </header>
 
 <nav class="tabs">
-  <button class="tab active" data-view="players">Giocatori</button>
+  <button class="tab active" data-view="home">Home</button>
+  <button class="tab" data-view="players">Giocatori</button>
   <button class="tab" data-view="cal">Calendario</button>
   <button class="tab" data-view="roster">Roster</button>
 </nav>
@@ -382,7 +383,12 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 </div>
 
 <main>
-  <div id="viewPlayers">
+  <div id="viewHome">
+    <div class="kg-head" style="margin-top:.5rem">👋 Do next</div>
+    <div id="homeContent"></div>
+  </div>
+
+  <div id="viewPlayers" hidden>
   <div class="table-wrap">
     <table id="tbl">
       <thead>
@@ -439,7 +445,13 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       <div class="kg-head" style="margin-top:0">🏀 Archivio roster</div>
       <div class="cal-hint" style="margin-bottom:.6rem">I roster vivono nella cartella <b>data/</b> del repository: uguali su ogni dispositivo. Per aggiornarli usa l'editor in fondo e ricarica il file su GitHub.</div>
       <div id="rosterLeagues" class="chips" style="display:flex;gap:.4rem;flex-wrap:wrap"></div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;align-items:center">
+        <input type="search" id="rosterSearch" placeholder="Cerca un giocatore in tutte le leghe…" style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem;background:var(--paper)">
+        <button class="st-btn" id="agencyViewBtn" style="font-size:.85rem;padding:.45rem .8rem">Vista per agenzia</button>
+      </div>
+      <div id="rosterSearchResults"></div>
     </div>
+    <div id="agencyPanel" hidden></div>
     <div id="rosterTeams" class="adv-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))"></div>
     <div id="rosterTable"></div>
     <div class="cal-form" id="rosterEditor" hidden>
@@ -1193,18 +1205,137 @@ document.getElementById('viewCal').addEventListener('click',e=>{
 });
 $('#showPast').addEventListener('change',renderCal);
 
+/* ---------- ricerca globale + vista agenzia + verdetti nel roster ---------- */
+function verdictOf(nome){
+  const p=players.find(x=>x.nome.toLowerCase()===(nome||'').toLowerCase());
+  return p?p.verdetto:'';
+}
+function verdictBadge(v){
+  if(!v)return '';
+  const lab={sign:'Sign',monitor:'Monitor',pass:'Pass'}[v];
+  return `<span class="stamp ${v}" style="font-size:.68rem;padding:.05rem .4rem;margin-left:.4rem">${lab}</span>`;
+}
+function allRosterPlayers(){
+  const out=[];
+  rosterFiles.forEach(f=>{
+    const d=rosterData[f.file];if(!d)return;
+    d.squadre.forEach(s=>(s.roster||[]).forEach(g=>out.push({g,team:s.nome,lega:d.lega,file:f.file})));
+  });
+  return out;
+}
+function addRosterPlayerToTracker(g,team,lega){
+  if(players.some(p=>p.nome.toLowerCase()===g.nome.toLowerCase())){toast(g.nome+' è già nel taccuino');return}
+  players.push({
+    id:uid(),nome:g.nome,squadra:team,lega:lega||'',ruolo:g.ruolo||g.posizione||'',
+    naz:g.nazionalita||g.naz||'',cls:g.classe||g.cls||'',
+    eta:(g.eta?Math.floor(parseFloat(g.eta)):null),altezza:g.altezza_cm||g.altezza||null,cotonou:'',
+    ppg:(g.ppg??null),rpg:(g.rpg??null),apg:(g.apg??null),tre:null,ts:null,usg:null,min:(g.mpg??null),
+    verdetto:'',conf:'',why:'',fit:'',ruoloReale:'',rischio:'',
+    fw1:'',fw2:'',fw3:'',fw4:'',fw5:'',fw6:'',obs:[],hs:null
+  });
+  saveAll(players);render();toast(g.nome+' aggiunto al taccuino');
+}
+document.addEventListener('input',e=>{
+  if(e.target.id!=='rosterSearch')return;
+  const q=e.target.value.trim().toLowerCase();
+  const box=$('#rosterSearchResults');
+  if(q.length<2){box.innerHTML='';return}
+  const hits=allRosterPlayers().filter(x=>x.g.nome.toLowerCase().includes(q)).slice(0,40);
+  if(!hits.length){box.innerHTML='<div class="cal-empty">Nessun giocatore trovato.</div>';return}
+  box.innerHTML='<div class="table-wrap" style="margin-top:.6rem"><table style="min-width:520px"><thead><tr><th>Giocatore</th><th>Squadra</th><th>Lega</th><th>Ruolo</th><th></th></tr></thead><tbody>'+
+    hits.map((x,i)=>`<tr>
+      <td><span class="player-name">${esc(x.g.nome)}</span>${verdictBadge(verdictOf(x.g.nome))}</td>
+      <td>${esc(x.team)}</td><td>${esc(x.lega||'')}</td>
+      <td>${esc(x.g.posizione||x.g.ruolo||'—')}</td>
+      <td><button class="btn" data-gs="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
+    </tr>`).join('')+'</tbody></table></div>';
+  box._hits=hits;
+});
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-gs]');if(!b)return;
+  const hits=$('#rosterSearchResults')._hits;if(!hits)return;
+  const x=hits[+b.dataset.gs];
+  addRosterPlayerToTracker(x.g,x.team,x.lega);
+});
+let agencyOpen=false;
+document.addEventListener('click',e=>{
+  if(e.target.id!=='agencyViewBtn')return;
+  agencyOpen=!agencyOpen;
+  e.target.classList.toggle('on',agencyOpen);
+  $('#agencyPanel').hidden=!agencyOpen;
+  $('#rosterTeams').style.display=agencyOpen?'none':'';
+  $('#rosterTable').style.display=agencyOpen?'none':'';
+  if(agencyOpen)renderAgencies();
+});
+function renderAgencies(){
+  const byAg={};
+  allRosterPlayers().forEach(x=>{
+    const a=(x.g.agenzia||'').trim();if(!a)return;
+    (byAg[a]=byAg[a]||[]).push(x);
+  });
+  const names=Object.keys(byAg).sort((a,b)=>byAg[b].length-byAg[a].length);
+  if(!names.length){$('#agencyPanel').innerHTML='<div class="cal-empty">Nessuna agenzia ancora inserita. Compila il campo Agenzia nei roster.</div>';return}
+  $('#agencyPanel').innerHTML=names.map(a=>`
+    <div class="day-head">${esc(a)} · ${byAg[a].length} giocatori</div>
+    <div class="table-wrap"><table style="min-width:480px"><tbody>${
+      byAg[a].map(x=>`<tr>
+        <td><span class="player-name">${esc(x.g.nome)}</span>${verdictBadge(verdictOf(x.g.nome))}</td>
+        <td>${esc(x.team)}</td><td>${esc(x.g.posizione||x.g.ruolo||'')}</td>
+      </tr>`).join('')
+    }</tbody></table></div>`).join('');
+}
+
 /* ---------- tabs ---------- */
 document.querySelectorAll('.tab').forEach(t=>{
   t.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x===t));
     const v=t.dataset.view;
+    $('#viewHome').hidden=v!=='home';
     $('#viewPlayers').hidden=v!=='players';
     $('#playersToolbar').style.display=v==='players'?'':'none';
     $('#viewCal').hidden=v!=='cal';
     $('#viewRoster').hidden=v!=='roster';
+    if(v==='home')renderHome();
     if(v==='cal')renderCal();
     if(v==='roster')initRoster();
   });
+});
+
+/* ---------- Home / Do next ---------- */
+function renderHome(){
+  const noVerdict=players.filter(p=>!p.verdetto);
+  const signs=players.filter(p=>p.verdetto==='sign');
+  const monitors=players.filter(p=>p.verdetto==='monitor');
+  const noReport=players.filter(p=>p.verdetto&&!p.fw1&&!p.fw2&&!p.fw3&&!p.fw4&&!p.fw5&&!p.fw6);
+  // key games nei prossimi 7 giorni
+  const today=todayStr();
+  const in7=new Date(Date.now()+7*86400000).toISOString().slice(0,10);
+  const kg=games.filter(g=>g.data>=today&&g.data<=in7&&trackedIn(g).tot>=2);
+  const cards=[];
+  cards.push(homeCard('Giocatori da valutare',noVerdict.length,'Assegna un verdetto Sign / Monitor / Pass',noVerdict.slice(0,6),'players'));
+  cards.push(homeCard('Report da scrivere',noReport.length,'Hanno un verdetto ma il framework è vuoto',noReport.slice(0,6),'players'));
+  cards.push(homeCard('Key games entro 7 giorni',kg.length,'Partite con 2+ giocatori seguiti',kg.map(g=>({nome:g.casa+' – '+g.ospite+' ('+g.data+')'})),'cal'));
+  cards.push(homeCard('Verdetti Sign attivi',signs.length,'I tuoi consigliati',signs.slice(0,6),'players'));
+  $('#homeContent').innerHTML=`
+    <div class="cal-hint" style="margin:.2rem 0 1rem">${players.length} giocatori in taccuino · ${monitors.length} in monitoraggio · ${signs.length} da firmare</div>
+    <div class="adv-grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">${cards.join('')}</div>`;
+}
+function homeCard(titolo,n,sub,items,goView){
+  const list=items.length?('<div style="margin-top:.5rem">'+items.map(x=>`<div style="font-size:.82rem;padding:.15rem 0;border-top:1px solid var(--line)">${esc(x.nome)}</div>`).join('')+'</div>'):'<div class="cal-hint" style="margin-top:.4rem">Niente in coda 👍</div>';
+  return `<div class="cal-form" style="margin:0">
+    <div style="display:flex;align-items:baseline;gap:.5rem">
+      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.6rem;color:var(--brand-deep)">${n}</span>
+      <span style="font-weight:700">${esc(titolo)}</span>
+    </div>
+    <div class="cal-hint">${esc(sub)}</div>
+    ${list}
+    <button class="st-btn" data-goto="${goView}" style="margin-top:.6rem;font-size:.78rem">Vai →</button>
+  </div>`;
+}
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-goto]');if(!b)return;
+  const tab=document.querySelector('.tab[data-view="'+b.dataset.goto+'"]');
+  if(tab)tab.click();
 });
 
 /* ---------- archivio roster (data/*.json) ---------- */
@@ -1265,7 +1396,7 @@ function paintRosterTable(){
     head='<th>Giocatore</th><th>Ruolo</th><th>Alt.</th><th>Classe</th><th>PPG</th><th>RPG</th><th>APG</th><th>MPG</th><th></th>';
     rows=(sq.roster||[]).map((g,i)=>`
       <tr>
-        <td><span class="player-name">${esc(g.nome)}</span></td>
+        <td><span class="player-name">${esc(g.nome)}</span>${verdictBadge(verdictOf(g.nome))}</td>
         <td>${esc(g.posizione||g.ruolo||'—')}</td>
         <td class="num">${g.altezza_cm||(g.altezza?esc(g.altezza):'—')}</td>
         <td>${esc(g.classe||g.cls||'—')}</td>
@@ -1279,7 +1410,7 @@ function paintRosterTable(){
     head='<th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th><th>Agenzia</th><th></th>';
     rows=(sq.roster||[]).map((g,i)=>`
       <tr>
-        <td><span class="player-name">${esc(g.nome)}</span></td>
+        <td><span class="player-name">${esc(g.nome)}</span>${verdictBadge(verdictOf(g.nome))}</td>
         <td class="num">${esc(g.numero||'')}</td>
         <td>${esc(g.posizione||g.ruolo||'—')}</td>
         <td class="num">${g.altezza_cm||(g.altezza?esc(g.altezza):'—')}</td>
@@ -1529,6 +1660,8 @@ function toast(msg){
 }
 
 render();
+$('#playersToolbar').style.display='none';
+renderHome();
 })();
 </script>
 </body>
