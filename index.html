@@ -273,6 +273,20 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .cal-empty{color:var(--ink-soft);font-style:italic;padding:1rem 0}
 .past-toggle{font-size:.8rem;color:var(--ink-soft);margin-top:1rem;display:inline-flex;align-items:center;gap:.35rem;cursor:pointer}
 
+/* shot chart a zone */
+.shot-wrap{display:flex;flex-wrap:wrap;gap:1rem;align-items:flex-start}
+.court-box{flex:0 0 auto}
+.court-zone{cursor:pointer;transition:opacity .15s}
+.court-zone:hover{opacity:.85;stroke:var(--ink);stroke-width:2}
+.court-line{fill:none;stroke:#B7A98C;stroke-width:2}
+.zone-label{font-family:'Public Sans',sans-serif;font-size:11px;font-weight:700;fill:var(--ink);text-anchor:middle;pointer-events:none}
+.zone-sub{font-size:9px;fill:var(--ink-soft);text-anchor:middle;pointer-events:none}
+.shot-editor{flex:1;min-width:200px}
+.shot-editor .sz{display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem}
+.shot-editor .sz label{flex:1;font-size:.8rem;color:var(--ink-soft);margin:0}
+.shot-editor .sz input{width:64px;border:1px solid var(--line);border-radius:6px;padding:.3rem .4rem;background:var(--paper);text-align:center}
+.shot-hint{font-size:.75rem;color:var(--ink-soft);margin-top:.4rem}
+
 /* report */
 .fw-grid{display:grid;grid-template-columns:1fr;gap:.6rem}
 .fw-grid label{font-size:.75rem;font-weight:600;color:var(--ink-soft);display:block;margin-bottom:.15rem}
@@ -538,6 +552,12 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
       <div><label for="iRischio">Rischio principale</label><input id="iRischio" placeholder="Es. efficienza al ferro contro fisicità europea"></div>
     </div>
 
+    <div class="section-label">Shot chart per zone</div>
+    <div class="shot-wrap">
+      <div class="court-box" id="courtBox"></div>
+      <div class="shot-editor" id="shotEditor"></div>
+    </div>
+
     <div class="section-label">Framework sei livelli (alimenta il report)</div>
     <div class="fw-grid">
       <div><label for="iFw1">1 · Attributi fisici e storia infortuni</label><textarea id="iFw1"></textarea></div>
@@ -632,6 +652,7 @@ let editingId=null;
 let currentVerdict='';
 let currentObs=[];
 let currentHs=null;
+let currentShot=null;
 let sortKey='nome',sortDir=1;
 
 function seed(){
@@ -767,8 +788,9 @@ function openModal(id){
   for(let i=1;i<=6;i++)document.getElementById('iFw'+i).value=p?.['fw'+i]||'';
   currentObs=p?structuredClone(p.obs||[]):[];
   currentHs=p?.hs?structuredClone(p.hs):null;
+  currentShot=p?.shot?structuredClone(p.shot):{};
   $('#hsPaste').value='';
-  paintVerdict();paintObs();paintHs();
+  paintVerdict();paintObs();paintHs();paintShot();
   $('#btnDelete').style.display=p?'':'none';
   modal.showModal();
 }
@@ -801,7 +823,7 @@ function save(){
     fit:$('#iFit').value.trim(),ruoloReale:$('#iRuoloReale').value.trim(),rischio:$('#iRischio').value.trim(),
     fw1:$('#iFw1').value.trim(),fw2:$('#iFw2').value.trim(),fw3:$('#iFw3').value.trim(),
     fw4:$('#iFw4').value.trim(),fw5:$('#iFw5').value.trim(),fw6:$('#iFw6').value.trim(),
-    obs:currentObs,hs:currentHs
+    obs:currentObs,hs:currentHs,shot:currentShot
   };
   let savedId;
   if(editingId){
@@ -962,8 +984,8 @@ $('#hsParse').addEventListener('click',()=>{
       $('#iCls').value=cls.raw;
       if($('#iCls').value!==cls.raw){const o=document.createElement('option');o.textContent=cls.raw;o.selected=true;$('#iCls').appendChild(o)}
     }
-    paintHs();
-    toast(stats.length+' voci importate da Barttorvik');
+    fillShotFromImport();paintHs();paintShot();
+    toast(stats.length+" voci importate da Barttorvik");
     return;
   }
   if(looksLikeSR(txt)){
@@ -976,8 +998,8 @@ $('#hsParse').addEventListener('click',()=>{
       const v=first(k);
       if(v!==null)document.getElementById(id).value=v;
     });
-    paintHs();
-    toast(stats.length+' voci importate da Sports Reference'+(season?(' · '+season):''));
+    fillShotFromImport();paintHs();paintShot();
+    toast(stats.length+" voci importate da Sports Reference"+(season?(' · '+season):''));
     return;
   }
   const stats=parseHs(txt);
@@ -991,8 +1013,8 @@ $('#hsParse').addEventListener('click',()=>{
   const orb=stat(currentHs,'ORB'),drb=stat(currentHs,'DRB'),trb=stat(currentHs,'TRB');
   if(trb!==null)$('#iRpg').value=trb;
   else if(orb!==null&&drb!==null)$('#iRpg').value=(orb+drb).toFixed(1);
-  paintHs();
-  toast(stats.length+' statistiche importate da Hackastat');
+  fillShotFromImport();paintHs();paintShot();
+  toast(stats.length+" statistiche importate da Hackastat");
 });
 
 $('#obsAdd').addEventListener('click',addObs);
@@ -1586,6 +1608,100 @@ $('#rosterGo').addEventListener('click',()=>{
   toast(created+' giocatori creati'+(skipped?(', '+skipped+' già presenti saltati'):''));
 });
 
+/* ---------- shot chart per zone ---------- */
+// zone: id, etichetta breve, poligono SVG (mezzo campo 300x282, canestro in alto), posizione etichetta
+const ZONES=[
+  {id:'paint',lbl:'Paint',path:'M110,0 L190,0 L190,90 L110,90 Z',lx:150,ly:52},
+  {id:'mid_l',lbl:'Mid-Range L',path:'M40,0 L110,0 L110,90 L60,130 Z',lx:78,ly:45},
+  {id:'mid_r',lbl:'Mid-Range R',path:'M190,0 L260,0 L240,130 L190,90 Z',lx:222,ly:45},
+  {id:'elbow',lbl:'Elbow',path:'M110,90 L190,90 L240,130 L60,130 Z',lx:150,ly:112},
+  {id:'c3_l',lbl:'Corner 3 L',path:'M0,0 L40,0 L40,95 L0,95 Z',lx:20,ly:48},
+  {id:'c3_r',lbl:'Corner 3 R',path:'M260,0 L300,0 L300,95 L260,95 Z',lx:280,ly:48},
+  {id:'w3_l',lbl:'Wing 3 L',path:'M0,95 L40,95 L70,175 L0,205 Z',lx:28,ly:150},
+  {id:'w3_r',lbl:'Wing 3 R',path:'M260,95 L300,95 L300,205 L230,175 Z',lx:272,ly:150},
+  {id:'top3',lbl:'Top of Key',path:'M40,95 L260,95 L230,175 L150,200 L70,175 Z',lx:150,ly:160},
+];
+function shotColor(pct){
+  if(pct===null||pct===undefined||pct==='')return '#F0EAD C'.replace(' ','')||'#EFE7D6';
+  const p=+pct;
+  if(isNaN(p))return '#EFE7D6';
+  // gradiente rosso(<30) -> ocra(~40) -> verde(>50)
+  if(p>=50)return '#7FB98F';
+  if(p>=42)return '#B7CE93';
+  if(p>=35)return '#E9D08A';
+  if(p>=28)return '#E4A87C';
+  return '#D98A7E';
+}
+function paintShot(){
+  // disegno campo
+  const svg=['<svg width="300" height="212" viewBox="0 0 300 212" xmlns="http://www.w3.org/2000/svg">'];
+  ZONES.forEach(z=>{
+    const v=currentShot[z.id];
+    svg.push(`<path class="court-zone" data-zone="${z.id}" d="${z.path}" fill="${shotColor(v)}" stroke="#B7A98C" stroke-width="1"/>`);
+    svg.push(`<text class="zone-label" x="${z.lx}" y="${z.ly}">${(v!==undefined&&v!==''&&v!==null)?(v+'%'):'—'}</text>`);
+    svg.push(`<text class="zone-sub" x="${z.lx}" y="${z.ly+12}">${z.lbl}</text>`);
+  });
+  // arco 3pt e area come linee guida
+  svg.push('<path class="court-line" d="M40,0 L40,95 Q40,175 150,200 Q260,175 260,95 L260,0"/>');
+  svg.push('<rect class="court-line" x="110" y="0" width="80" height="90"/>');
+  svg.push('<circle cx="150" cy="8" r="6" class="court-line"/>');
+  svg.push('</svg>');
+  $('#courtBox').innerHTML=svg.join('');
+  // editor
+  $('#shotEditor').innerHTML=ZONES.map(z=>`
+    <div class="sz"><label>${z.lbl}</label>
+      <input type="number" min="0" max="100" step="0.1" data-zone="${z.id}" value="${currentShot[z.id]??''}" placeholder="%">
+    </div>`).join('')+'<div class="shot-hint">Percentuale di realizzazione per zona. Si riempie in parte dall\u2019import; il resto lo scrivi tu.</div>';
+}
+$('#courtBox').addEventListener('click',e=>{
+  const z=e.target.closest('[data-zone]');if(!z)return;
+  const inp=$('#shotEditor').querySelector(`input[data-zone="${z.dataset.zone}"]`);
+  if(inp)inp.focus();
+});
+$('#shotEditor').addEventListener('input',e=>{
+  const inp=e.target.closest('input[data-zone]');if(!inp)return;
+  const v=inp.value.trim();
+  if(v==='')delete currentShot[inp.dataset.zone];
+  else currentShot[inp.dataset.zone]=+v;
+  // ridisegna solo il campo (non l'editor, per non perdere il focus)
+  const svgZones=$('#courtBox').querySelectorAll('[data-zone]');
+  const z=ZONES.find(x=>x.id===inp.dataset.zone);
+  const path=$('#courtBox').querySelector(`path[data-zone="${inp.dataset.zone}"]`);
+  if(path)path.setAttribute('fill',shotColor(currentShot[inp.dataset.zone]));
+  const texts=$('#courtBox').querySelectorAll('text');
+  texts.forEach(t=>{if(t.textContent.includes(z.lbl)===false&&t.getAttribute('x')==z.lx&&t.classList.contains('zone-label')){t.textContent=(currentShot[z.id]!==undefined?currentShot[z.id]+'%':'—')}});
+});
+// mappatura import -> zone (dove il dato esiste)
+function fillShotFromImport(){
+  if(!currentHs||!currentHs.stats)return;
+  const get=k=>{const s=currentHs.stats.find(x=>x.k.toLowerCase()===k.toLowerCase());return s?s.v:null};
+  // 3P% globale -> se le zone da 3 sono vuote, le inizializzo col dato globale
+  const tre=get('3P%')||get('FG3%')||get('3p%');
+  if(tre!==null){
+    ['c3_l','c3_r','w3_l','w3_r','top3'].forEach(z=>{if(currentShot[z]===undefined)currentShot[z]=Math.round(tre*10)/10});
+  }
+  // 2P% globale -> zone interne/media se vuote
+  const due=get('2P%')||get('FG2%');
+  if(due!==null){
+    ['paint','mid_l','mid_r','elbow'].forEach(z=>{if(currentShot[z]===undefined)currentShot[z]=Math.round(due*10)/10});
+  }
+  // pitturato meglio stimato da FG% al ferro se presente (Hackastat non lo dà per zona: uso 2P%)
+}
+
+function shotChartSVG(shot){
+  const svg=['<svg width="300" height="212" viewBox="0 0 300 212" xmlns="http://www.w3.org/2000/svg" style="max-width:300px">'];
+  ZONES.forEach(z=>{
+    const v=shot[z.id];
+    svg.push(`<path d="${z.path}" fill="${shotColor(v)}" stroke="#B7A98C" stroke-width="1"/>`);
+    svg.push(`<text x="${z.lx}" y="${z.ly}" style="font-size:11px;font-weight:700;fill:#16232E;text-anchor:middle">${(v!==undefined&&v!==null&&v!=='')?(v+'%'):'—'}</text>`);
+    svg.push(`<text x="${z.lx}" y="${z.ly+12}" style="font-size:9px;fill:#54616C;text-anchor:middle">${z.lbl}</text>`);
+  });
+  svg.push('<path fill="none" stroke="#B7A98C" stroke-width="2" d="M40,0 L40,95 Q40,175 150,200 Q260,175 260,95 L260,0"/>');
+  svg.push('<rect fill="none" stroke="#B7A98C" stroke-width="2" x="110" y="0" width="80" height="90"/>');
+  svg.push('</svg>');
+  return svg.join('');
+}
+
 /* ---------- report generator ---------- */
 const FKEY='taccuino_firma_v1';
 function getFirma(){try{return localStorage.getItem(FKEY)||''}catch(e){return ''}}
@@ -1632,6 +1748,7 @@ function openReport(id){
       ${s.pct!==null&&s.pct!==undefined?`<span class="pct ${pctClass(s.pct)}">${s.pct}</span>`:''}</div>`).join('')}</div>
       <div class="rep-src">Fonte dati avanzati: ${srcName}, aggiornati al ${esc(p.hs.d)}. Percentili di lega dove disponibili.</div>`:''}
     ${fw.map(([t,txt])=>`<div class="rep-sec">${esc(t)}</div><div class="rep-text">${esc(txt)}</div>`).join('')}
+    ${p.shot&&Object.keys(p.shot).length?`<div class="rep-sec">Shot chart per zone</div>${shotChartSVG(p.shot)}`:''}
     ${adat?`<div class="rep-sec">Adattabilità Europa / Serie A</div><div class="rep-adat">${adat}</div>`:''}
     ${p.obs&&p.obs.length?`<div class="rep-sec">Osservazioni dal campo</div>${
       [...p.obs].slice(-10).reverse().map(o=>`<div class="rep-obs"><span class="d">${esc(o.d)}</span>${esc(o.t)}</div>`).join('')}`:''}
