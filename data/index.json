@@ -9,6 +9,10 @@
       "lega": "EuroLeague"
     },
     {
+      "file": "eurocup.json",
+      "lega": "EuroCup"
+    },
+    {
       "file": "ncaa-aac.json",
       "lega": "NCAA - American"
     },
