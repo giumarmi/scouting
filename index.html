@@ -447,11 +447,9 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       <div id="rosterLeagues" class="chips" style="display:flex;gap:.4rem;flex-wrap:wrap"></div>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.7rem;align-items:center">
         <input type="search" id="rosterSearch" placeholder="Cerca un giocatore in tutte le leghe…" style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem;background:var(--paper)">
-        <button class="st-btn" id="agencyViewBtn" style="font-size:.85rem;padding:.45rem .8rem">Vista per agenzia</button>
       </div>
       <div id="rosterSearchResults"></div>
     </div>
-    <div id="agencyPanel" hidden></div>
     <div id="rosterTeams" class="adv-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))"></div>
     <div id="rosterTable"></div>
     <div class="cal-form" id="rosterEditor" hidden>
@@ -466,6 +464,7 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
       </div>
     </div>
   </div><!-- /viewRoster -->
+
 </main>
 
 <!-- ============ MODAL SCHEDA GIOCATORE ============ -->
@@ -1257,34 +1256,6 @@ document.addEventListener('click',e=>{
   const x=hits[+b.dataset.gs];
   addRosterPlayerToTracker(x.g,x.team,x.lega);
 });
-let agencyOpen=false;
-document.addEventListener('click',e=>{
-  if(e.target.id!=='agencyViewBtn')return;
-  agencyOpen=!agencyOpen;
-  e.target.classList.toggle('on',agencyOpen);
-  $('#agencyPanel').hidden=!agencyOpen;
-  $('#rosterTeams').style.display=agencyOpen?'none':'';
-  $('#rosterTable').style.display=agencyOpen?'none':'';
-  if(agencyOpen)renderAgencies();
-});
-function renderAgencies(){
-  const byAg={};
-  allRosterPlayers().forEach(x=>{
-    const a=(x.g.agenzia||'').trim();if(!a)return;
-    (byAg[a]=byAg[a]||[]).push(x);
-  });
-  const names=Object.keys(byAg).sort((a,b)=>byAg[b].length-byAg[a].length);
-  if(!names.length){$('#agencyPanel').innerHTML='<div class="cal-empty">Nessuna agenzia ancora inserita. Compila il campo Agenzia nei roster.</div>';return}
-  $('#agencyPanel').innerHTML=names.map(a=>`
-    <div class="day-head">${esc(a)} · ${byAg[a].length} giocatori</div>
-    <div class="table-wrap"><table style="min-width:480px"><tbody>${
-      byAg[a].map(x=>`<tr>
-        <td><span class="player-name">${esc(x.g.nome)}</span>${verdictBadge(verdictOf(x.g.nome))}</td>
-        <td>${esc(x.team)}</td><td>${esc(x.g.posizione||x.g.ruolo||'')}</td>
-      </tr>`).join('')
-    }</tbody></table></div>`).join('');
-}
-
 /* ---------- tabs ---------- */
 document.querySelectorAll('.tab').forEach(t=>{
   t.addEventListener('click',()=>{
