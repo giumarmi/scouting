@@ -8,21 +8,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#FAF5EC;
+  --paper:#F4F5F7;
   --card:#FFFFFF;
-  --ink:#16232E;
-  --ink-soft:#54616C;
-  --line:#E6DCC9;
-  --brand:#E8720C;
-  --brand-deep:#BF5406;
-  --brand-soft:#FDEBD6;
-  --sign:#1F7A5C;
-  --sign-bg:#E3F1EB;
-  --monitor:#C07A1B;
-  --monitor-bg:#F8EEDC;
-  --pass:#B0382E;
-  --pass-bg:#F6E4E1;
-  --focus:#BF5406;
+  --ink:#1A2230;
+  --ink-soft:#5A6472;
+  --line:#E2E5EA;
+  --brand:#2F6F8F;
+  --brand-deep:#235267;
+  --brand-soft:#E4EFF4;
+  --sign:#1E8A5A;
+  --sign-bg:#E3F4EC;
+  --monitor:#C98A1E;
+  --monitor-bg:#FBF0DA;
+  --pass:#C4453A;
+  --pass-bg:#FBE7E4;
+  --focus:#2F6F8F;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px}
@@ -39,7 +39,7 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;color:var(--ink)}
 
 /* ---------- header ---------- */
 header{
-  background:linear-gradient(120deg,#152A3A 0%,#1D3E52 60%,#254B60 100%);
+  background:linear-gradient(120deg,#1A2230 0%,#243447 55%,#2F6F8F 140%);
   color:#FAF5EC;
   padding:1.1rem 1.4rem 1rem;
   display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;
@@ -51,7 +51,7 @@ header{
 }
 .brand small{
   display:block;font-family:'Public Sans',sans-serif;font-weight:400;
-  font-size:.72rem;letter-spacing:.12em;color:#F5B570;text-transform:uppercase;margin-top:.1rem;
+  font-size:.72rem;letter-spacing:.12em;color:#8FC4DB;text-transform:uppercase;margin-top:.1rem;
 }
 .header-actions{margin-left:auto;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
 .btn{
@@ -93,7 +93,7 @@ th{
 th .arrow{font-size:.7rem;margin-left:.2rem}
 td{padding:.65rem .8rem;border-bottom:1px solid var(--line);font-size:.92rem;vertical-align:middle}
 tbody tr{cursor:pointer}
-tbody tr:hover{background:#FBF2E4}
+tbody tr:hover{background:#EEF4F7}
 tbody tr:last-child td{border-bottom:none}
 .player-name{font-weight:700}
 .player-sub{font-size:.78rem;color:var(--ink-soft)}
@@ -125,7 +125,7 @@ dialog{
 }
 dialog::backdrop{background:rgba(20,33,43,.5)}
 .modal-head{
-  background:linear-gradient(120deg,#152A3A,#254B60);color:#FAF5EC;padding:1.1rem 1.3rem;
+  background:linear-gradient(120deg,#1A2230,#2F6F8F);color:#F4F5F7;padding:1.1rem 1.3rem;
   display:flex;align-items:flex-start;gap:1rem;
   border-radius:14px 14px 0 0;
 }
@@ -211,13 +211,13 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .pct.lo{background:var(--pass-bg);color:var(--pass)}
 
 /* tabs */
-.tabs{display:flex;gap:0;background:#152A3A;padding:0 1.4rem}
+.tabs{display:flex;gap:0;background:#1A2230;padding:0 1.4rem}
 .tab{
   font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.08em;
   text-transform:uppercase;font-size:.95rem;color:rgba(250,245,236,.6);
   background:transparent;border:none;padding:.6rem 1rem;border-bottom:3px solid transparent;
 }
-.tab.active{color:#FFC08A;border-bottom-color:var(--brand)}
+.tab.active{color:#9FD0E4;border-bottom-color:var(--brand)}
 
 /* calendario */
 .cal-form{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem}
@@ -242,7 +242,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   background:var(--card);border:1px solid var(--line);border-radius:10px;
   padding:.6rem .8rem;margin-bottom:.5rem;display:flex;flex-wrap:wrap;gap:.5rem;align-items:center;
 }
-.game.key{border-color:var(--brand);border-width:2px;background:#FFFDF8}
+.game.key{border-color:var(--brand);border-width:2px;background:#F3F9FC}
 .game.past{opacity:.55}
 .g-time{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-variant-numeric:tabular-nums;min-width:3.2rem}
 .g-league{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;color:var(--ink-soft);font-weight:600}
@@ -288,7 +288,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   padding:2.2rem 2.4rem;box-shadow:0 20px 60px rgba(20,33,43,.4);
 }
 .rep-band{
-  background:linear-gradient(120deg,#152A3A,#254B60);color:#FAF5EC;margin:-2.2rem -2.4rem 1.4rem;
+  background:linear-gradient(120deg,#1A2230,#2F6F8F);color:#F4F5F7;margin:-2.2rem -2.4rem 1.4rem;
   border-bottom:3px solid var(--brand);
   padding:1rem 2.4rem;display:flex;align-items:baseline;gap:1rem;border-radius:8px 8px 0 0;
 }
