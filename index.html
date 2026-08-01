@@ -451,6 +451,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       <div id="rosterSearchResults"></div>
     </div>
     <div id="rosterTeams" class="adv-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))"></div>
+    <div id="rosterStaff"></div>
     <div id="rosterTable"></div>
     <div class="cal-form" id="rosterEditor" hidden>
       <div class="section-label" style="margin-top:0">Aggiorna roster · <span id="edTeamName"></span></div>
@@ -1312,6 +1313,7 @@ document.addEventListener('click',e=>{
 /* ---------- archivio roster (data/*.json) ---------- */
 let rosterFiles=[];       // [{file,lega}]
 let rosterData={};        // file -> json
+let staffData={};         // nome-breve-squadra -> {nome_ufficiale, conference, staff:[...]}
 let rosterSel={file:null,team:null};
 let rosterLoaded=false;
 async function initRoster(){
@@ -1327,6 +1329,11 @@ async function initRoster(){
         if(rr.ok)rosterData[f.file]=await rr.json();
       }catch(e){}
     }
+    // staff NCAA: dataset a parte, indipendente dall'elenco leghe in index.json
+    try{
+      const sr=await fetch('data/ncaa-staff.json',{cache:'no-store'});
+      if(sr.ok)staffData=await sr.json();
+    }catch(e){}
     rosterLoaded=true;
     if(rosterFiles.length&&!rosterSel.file)rosterSel.file=rosterFiles[0].file;
     paintRosterAll();
@@ -1334,7 +1341,7 @@ async function initRoster(){
     $('#rosterLeagues').innerHTML='<span class="cal-hint">Archivio non trovato: carica la cartella <b>data/</b> (index.json + file leghe) nel repository accanto a index.html. Nota: aprendo il file in locale l\u2019archivio non è raggiungibile, serve il sito online.</span>';
   }
 }
-function paintRosterAll(){paintRosterLeagues();paintRosterTeams();paintRosterTable();}
+function paintRosterAll(){paintRosterLeagues();paintRosterTeams();paintRosterTable();paintRosterStaff();}
 function paintRosterLeagues(){
   $('#rosterLeagues').innerHTML=rosterFiles.map(f=>{
     const d=rosterData[f.file];
@@ -1350,6 +1357,21 @@ function paintRosterTeams(){
       <span class="adv-label" style="text-transform:none;font-size:.85rem">${esc(s.nome)}</span>
       <span class="pct ${((s.roster||[]).length)?'hi':'lo'}">${(s.roster||[]).length}</span>
     </button>`).join('');
+}
+function paintRosterStaff(){
+  const box=$('#rosterStaff');
+  if(!rosterSel.team){box.innerHTML='';return}
+  const entry=staffData[rosterSel.team];
+  if(!entry||!entry.staff?.length){box.innerHTML='';return}
+  const isHC=r=>/head coach|^hc$/i.test(r||'');
+  const sortedStaff=[...entry.staff].sort((a,b)=>(isHC(b.ruolo)?1:0)-(isHC(a.ruolo)?1:0));
+  box.innerHTML=`<div class="cal-form" style="margin-top:.8rem">
+    <div class="section-label" style="margin-top:0">Staff · ${esc(rosterSel.team)}</div>
+    ${sortedStaff.map(s=>`<div style="display:flex;justify-content:space-between;gap:.6rem;padding:.3rem 0;border-bottom:1px solid var(--line)">
+      <span>${esc(s.nome)} ${esc(s.cognome)} <span class="cal-hint">${esc(s.ruolo||'')}</span></span>
+      <a href="mailto:${esc(s.email)}" style="color:var(--brand-deep);font-weight:600">${esc(s.email)}</a>
+    </div>`).join('')}
+  </div>`;
 }
 function paintRosterTable(){
   const d=rosterData[rosterSel.file];
