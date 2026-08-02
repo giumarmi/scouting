@@ -1466,7 +1466,8 @@ function paintRosterTable(){
         <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
       </tr>`).join('');
   }else{
-    head='<th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th><th>Agenzia</th><th></th>';
+    const hideAgenzia=/euroleg|eurocup/i.test(d.lega||'');
+    head='<th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th>'+(hideAgenzia?'':'<th>Agenzia</th>')+'<th></th>';
     rows=(sq.roster||[]).map((g,i)=>`
       <tr>
         <td><span class="player-name">${esc(g.nome)}</span>${verdictBadge(verdictOf(g.nome))}</td>
@@ -1478,11 +1479,12 @@ function paintRosterTable(){
         <td>${esc(g.pre_draft||'')}</td>
         <td>${esc(g.squadra_2025_26||'')}</td>
         <td class="num">${esc(g.fa_year||'')}</td>
-        <td>${esc(g.agenzia||'—')}</td>
+        ${hideAgenzia?'':'<td>'+esc(g.agenzia||'—')+'</td>'}
         <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
       </tr>`).join('');
   }
-  const span=isNcaa?9:11;
+  const nonNcaaCols=/euroleg|eurocup/i.test(d.lega||'')?10:11;
+  const span=isNcaa?9:nonNcaaCols;
   box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:${isNcaa?720:1050}px">
     <thead><tr>${head}</tr></thead>
     <tbody>${rows||'<tr><td colspan="'+span+'" class="cal-empty" style="padding:1rem">Roster vuoto.</td></tr>'}</tbody>
