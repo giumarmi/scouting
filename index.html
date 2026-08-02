@@ -496,7 +496,7 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
 
   <div id="viewAgenti" hidden>
     <div class="cal-form">
-      <div class="kg-head" style="margin-top:0">🧑‍💼 Archivio agenti FIBA</div>
+      <div class="kg-head" style="margin-top:0">🧑‍💼 Archivio agenti</div>
       <div class="cal-hint" style="margin-bottom:.6rem">Le modifiche restano salvate su questo browser anche dopo un refresh. Per portarle su GitHub (e sugli altri dispositivi) scarica il JSON dall'editor in fondo e ricaricalo in <b>data/agenti-fiba.json</b>. Se hai già aggiornato il file su GitHub da un altro dispositivo, usa "Risincronizza da GitHub" per allinearti.</div>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
         <input type="search" id="agentiSearch" placeholder="Cerca per cognome, nome o agenzia…" style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem;background:var(--paper)">
@@ -509,10 +509,10 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
     <div id="agentiTable"></div>
     <div class="cal-form" id="agentiEditor">
       <div class="section-label" style="margin-top:0">Aggiungi o aggiorna agenti</div>
-      <div class="cal-hint" style="margin-bottom:.5rem">Un agente per riga, campi separati da <code>;</code>. La licenza è la chiave: se coincide con un agente già presente ne aggiorna solo i campi compilati, altrimenti lo crea.<br>
-      <b>Cognome;Nome;Licenza;Nazionalità;Agenzia;Indirizzo;Telefono;Email;Sito</b><br>
-      Esempio: <i>Rossi;Marco;202400123;ITA;Players Group;Via Roma 1, Milano;+39 333 1234567;marco@playersgroup.it;</i></div>
-      <textarea class="hs-paste" id="agentiPaste" style="min-height:110px" placeholder="Cognome;Nome;Licenza;Nazionalità;Agenzia;Indirizzo;Telefono;Email;Sito"></textarea>
+      <div class="cal-hint" style="margin-bottom:.5rem">Un agente per riga, campi separati da <code>;</code>. Agenzia + Nome fanno da chiave: se coincidono con un agente già presente ne aggiorna solo i campi compilati, altrimenti lo crea.<br>
+      <b>Cognome;Nome;Nazionalità;Agenzia;Indirizzo;Telefono;Email;Sito;Referente italiano</b><br>
+      Esempio: <i>Rossi;Marco;ITA;Players Group;Via Roma 1, Milano;+39 333 1234567;marco@playersgroup.it;;</i></div>
+      <textarea class="hs-paste" id="agentiPaste" style="min-height:110px" placeholder="Cognome;Nome;Nazionalità;Agenzia;Indirizzo;Telefono;Email;Sito;Referente italiano"></textarea>
       <div class="cal-actions">
         <button class="btn" id="agentiApply" type="button">Aggiungi/aggiorna</button>
         <button class="btn btn-primary" id="agentiDownload" type="button">Scarica JSON aggiornato</button>
@@ -675,16 +675,17 @@ Evan Boisdur	So	6-1	82	98	22
   </div>
   <div class="modal-body">
     <div class="form-grid">
-      <div class="span2"><label for="agCognome">Cognome *</label><input id="agCognome" required></div>
-      <div class="span2"><label for="agNome">Nome</label><input id="agNome"></div>
-      <div><label for="agLicenza">N. Licenza FIBA</label><input id="agLicenza"></div>
+      <div class="span2"><label for="agCognome">Cognome</label><input id="agCognome"></div>
+      <div class="span2"><label for="agNome">Nome</label><input id="agNome" placeholder="O nome completo del referente"></div>
       <div><label for="agNaz">Nazionalità</label><input id="agNaz" placeholder="ITA"></div>
+      <div><label for="agRefIta">Referente italiano</label><input id="agRefIta" placeholder="Agenzia/persona italiana di riferimento"></div>
       <div class="span2"><label for="agAgenzia">Agenzia</label><input id="agAgenzia" placeholder="Nome agenzia"></div>
       <div class="span2"><label for="agIndirizzo">Indirizzo</label><input id="agIndirizzo"></div>
       <div><label for="agTelefono">Telefono</label><input id="agTelefono" type="tel" placeholder="+39 …"></div>
       <div><label for="agEmail">Email</label><input id="agEmail" type="email"></div>
       <div class="span2"><label for="agSito">Sito web</label><input id="agSito" type="url" placeholder="https://…"></div>
     </div>
+    <div class="cal-hint" style="margin-top:.3rem">* almeno uno tra Agenzia, Cognome o Nome è necessario per salvare.</div>
     <div class="modal-footer">
       <button class="btn btn-danger" id="agentBtnDelete" type="button">Elimina agente</button>
       <span class="spacer"></span>
@@ -1831,20 +1832,20 @@ function paintAgenti(){
   const naz=$('#agentiNaz').value;
   const list=agentiData.filter(a=>{
     if(naz&&a.nazionalita!==naz)return false;
-    if(q&&!((a.cognome||'').toLowerCase().includes(q)||(a.nome||'').toLowerCase().includes(q)||(a.agenzia||'').toLowerCase().includes(q)))return false;
+    if(q&&!((a.cognome||'').toLowerCase().includes(q)||(a.nome||'').toLowerCase().includes(q)||(a.agenzia||'').toLowerCase().includes(q)||(a.referente_italiano||'').toLowerCase().includes(q)))return false;
     return true;
-  }).sort((a,b)=>(a.cognome||'').localeCompare(b.cognome||''));
+  }).sort((a,b)=>(a.cognome||a.agenzia||a.nome||'').localeCompare(b.cognome||b.agenzia||b.nome||''));
   $('#agentiCount').textContent=list.length+' / '+agentiData.length+' agenti';
-  $('#agentiTable').innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:900px">
-    <thead><tr><th>Cognome</th><th>Nome</th><th>Agenzia</th><th>Naz.</th><th>Contatti</th><th>Licenza</th></tr></thead>
+  $('#agentiTable').innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:960px">
+    <thead><tr><th>Cognome</th><th>Nome</th><th>Agenzia</th><th>Naz.</th><th>Contatti</th><th>Referente italiano</th></tr></thead>
     <tbody>${list.map(a=>`
-      <tr data-agent-id="${esc(a.id)}" tabindex="0" aria-label="Apri scheda ${esc(a.cognome)} ${esc(a.nome)}">
-        <td class="player-name">${esc(a.cognome||'')}</td>
+      <tr data-agent-id="${esc(a.id)}" tabindex="0" aria-label="Apri scheda ${esc(a.cognome||a.agenzia||a.nome||'')}">
+        <td class="player-name">${esc(a.cognome||(!a.nome&&a.agenzia?a.agenzia:'')||'')}</td>
         <td>${esc(a.nome||'')}</td>
         <td>${esc(a.agenzia||'—')}</td>
         <td>${esc(a.nazionalita||'—')}</td>
         <td>${agentContactCell(a)}</td>
-        <td class="num">${esc(a.licenza||'')}</td>
+        <td>${esc(a.referente_italiano||'—')}</td>
       </tr>`).join('')||'<tr><td colspan="6" class="cal-empty" style="padding:1rem">Nessun agente trovato.</td></tr>'}</tbody>
   </table></div>`;
 }
@@ -1862,11 +1863,16 @@ $('#agentiSearch').addEventListener('input',paintAgenti);
 $('#agentiNaz').addEventListener('input',paintAgenti);
 function parseAgentiLine(line){
   const f=line.split(';').map(s=>s.trim());
-  if(!f[0]||!f[2])return null; // servono almeno cognome e licenza
+  if(!f[0]&&!f[1]&&!f[3])return null; // serve almeno cognome, nome o agenzia
   return {
-    cognome:f[0]||'',nome:f[1]||'',licenza:f[2]||'',nazionalita:f[3]||'',
-    agenzia:f[4]||'',indirizzo:f[5]||'',telefono:f[6]||'',email:f[7]||'',sito:f[8]||''
+    cognome:f[0]||'',nome:f[1]||'',nazionalita:f[2]||'',
+    agenzia:f[3]||'',indirizzo:f[4]||'',telefono:f[5]||'',email:f[6]||'',sito:f[7]||'',
+    referente_italiano:f[8]||''
   };
+}
+function agentMatchKey(a){
+  const k=(a.agenzia||'').toLowerCase()+'|'+(a.nome||'').toLowerCase();
+  return k==='|'?null:k;
 }
 $('#agentiApply').addEventListener('click',()=>{
   const lines=$('#agentiPaste').value.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
@@ -1876,7 +1882,8 @@ $('#agentiApply').addEventListener('click',()=>{
   lines.forEach(line=>{
     const rec=parseAgentiLine(line);
     if(!rec){skipped++;return}
-    const ex=agentiData.find(a=>a.licenza===rec.licenza);
+    const key=agentMatchKey(rec);
+    const ex=key?agentiData.find(a=>agentMatchKey(a)===key):null;
     if(ex){
       Object.keys(rec).forEach(k=>{if(rec[k])ex[k]=rec[k]});
       ex.aggiornato=oggi;
@@ -1929,12 +1936,12 @@ let editingAgentId=null;
 function openAgentModal(id){
   editingAgentId=id;
   const a=id?agentiData.find(x=>x.id===id):null;
-  $('#agentMTitle').textContent=a?[a.cognome,a.nome].filter(Boolean).join(' '):'Nuovo agente';
+  $('#agentMTitle').textContent=a?[a.cognome,a.nome].filter(Boolean).join(' ')||a.agenzia||'Agente':'Nuovo agente';
   $('#agentMMeta').textContent=a?[a.agenzia,a.nazionalita].filter(Boolean).join(' · '):'';
   $('#agCognome').value=a?.cognome||'';
   $('#agNome').value=a?.nome||'';
-  $('#agLicenza').value=a?.licenza||'';
   $('#agNaz').value=a?.nazionalita||'';
+  $('#agRefIta').value=a?.referente_italiano||'';
   $('#agAgenzia').value=a?.agenzia||'';
   $('#agIndirizzo').value=a?.indirizzo||'';
   $('#agTelefono').value=a?.telefono||'';
@@ -1945,11 +1952,13 @@ function openAgentModal(id){
 }
 async function saveAgent(){
   const cognome=$('#agCognome').value.trim();
-  if(!cognome){toast('Il cognome è obbligatorio');$('#agCognome').focus();return}
+  const nome=$('#agNome').value.trim();
+  const agenzia=$('#agAgenzia').value.trim();
+  if(!cognome&&!nome&&!agenzia){toast('Serve almeno Cognome, Nome o Agenzia');$('#agAgenzia').focus();return}
   await loadAgentiOnce(); // assicura che l'archivio base sia già caricato prima di aggiungere/modificare
   const data={
-    cognome,nome:$('#agNome').value.trim(),licenza:$('#agLicenza').value.trim(),
-    nazionalita:$('#agNaz').value.trim(),agenzia:$('#agAgenzia').value.trim(),
+    cognome,nome,nazionalita:$('#agNaz').value.trim(),
+    referente_italiano:$('#agRefIta').value.trim(),agenzia,
     indirizzo:$('#agIndirizzo').value.trim(),telefono:$('#agTelefono').value.trim(),
     email:$('#agEmail').value.trim(),sito:$('#agSito').value.trim(),
     aggiornato:new Date().toISOString().slice(0,10)
