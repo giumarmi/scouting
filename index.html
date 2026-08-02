@@ -502,6 +502,7 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
         <input type="search" id="agentiSearch" placeholder="Cerca per cognome, nome o agenzia…" style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem;background:var(--paper)">
         <select id="agentiNaz" aria-label="Filtra per nazionalità"><option value="">Tutte le nazionalità</option></select>
         <span class="count-chip" id="agentiCount"></span>
+        <button class="btn btn-dark" id="agentiNew" type="button">+ Nuovo agente</button>
       </div>
     </div>
     <div id="agentiTable"></div>
@@ -659,6 +660,35 @@ Evan Boisdur	So	6-1	82	98	22
       <span class="spacer"></span>
       <button class="btn" id="rosterCancel" type="button">Annulla</button>
       <button class="btn btn-primary" id="rosterGo" type="button">Crea giocatori</button>
+    </div>
+  </div>
+</dialog>
+
+<dialog id="agentModal">
+  <div class="modal-head">
+    <div>
+      <h2 id="agentMTitle">Nuovo agente</h2>
+      <div class="meta" id="agentMMeta"></div>
+    </div>
+    <button class="close-x" id="agentMClose" aria-label="Chiudi">×</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-grid">
+      <div class="span2"><label for="agCognome">Cognome *</label><input id="agCognome" required></div>
+      <div class="span2"><label for="agNome">Nome</label><input id="agNome"></div>
+      <div><label for="agLicenza">N. Licenza FIBA</label><input id="agLicenza"></div>
+      <div><label for="agNaz">Nazionalità</label><input id="agNaz" placeholder="ITA"></div>
+      <div class="span2"><label for="agAgenzia">Agenzia</label><input id="agAgenzia" placeholder="Nome agenzia"></div>
+      <div class="span2"><label for="agIndirizzo">Indirizzo</label><input id="agIndirizzo"></div>
+      <div><label for="agTelefono">Telefono</label><input id="agTelefono" type="tel" placeholder="+39 …"></div>
+      <div><label for="agEmail">Email</label><input id="agEmail" type="email"></div>
+      <div class="span2"><label for="agSito">Sito web</label><input id="agSito" type="url" placeholder="https://…"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="agentBtnDelete" type="button">Elimina agente</button>
+      <span class="spacer"></span>
+      <button class="btn" id="agentBtnCancel" type="button">Annulla</button>
+      <button class="btn btn-primary" id="agentBtnSave" type="button">Salva scheda</button>
     </div>
   </div>
 </dialog>
@@ -1751,6 +1781,7 @@ async function loadAgentiOnce(){
     if(!r.ok)throw 0;
     const j=await r.json();
     agentiData=Array.isArray(j)?j:(j.agenti||[]);
+    agentiData.forEach(a=>{if(!a.id)a.id=uid();});
     agentiLoaded=true;
     return true;
   }catch(e){return false}
@@ -1788,7 +1819,7 @@ function paintAgenti(){
   $('#agentiTable').innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:900px">
     <thead><tr><th>Cognome</th><th>Nome</th><th>Agenzia</th><th>Naz.</th><th>Contatti</th><th>Licenza</th></tr></thead>
     <tbody>${list.map(a=>`
-      <tr>
+      <tr data-agent-id="${esc(a.id)}" tabindex="0" aria-label="Apri scheda ${esc(a.cognome)} ${esc(a.nome)}">
         <td class="player-name">${esc(a.cognome||'')}</td>
         <td>${esc(a.nome||'')}</td>
         <td>${esc(a.agenzia||'—')}</td>
@@ -1798,6 +1829,16 @@ function paintAgenti(){
       </tr>`).join('')||'<tr><td colspan="6" class="cal-empty" style="padding:1rem">Nessun agente trovato.</td></tr>'}</tbody>
   </table></div>`;
 }
+$('#agentiTable').addEventListener('click',e=>{
+  if(e.target.closest('a'))return; // non aprire la scheda se si clicca su email/telefono
+  const tr=e.target.closest('tr[data-agent-id]');
+  if(tr)openAgentModal(tr.dataset.agentId);
+});
+$('#agentiTable').addEventListener('keydown',e=>{
+  if(e.key!=='Enter')return;
+  const tr=e.target.closest('tr[data-agent-id]');
+  if(tr)openAgentModal(tr.dataset.agentId);
+});
 $('#agentiSearch').addEventListener('input',paintAgenti);
 $('#agentiNaz').addEventListener('input',paintAgenti);
 function parseAgentiLine(line){
@@ -1823,6 +1864,7 @@ $('#agentiApply').addEventListener('click',()=>{
       updated++;
     }else{
       rec.aggiornato=oggi;
+      rec.id=uid();
       agentiData.push(rec);
       added++;
     }
@@ -1859,6 +1901,64 @@ $('#btnContattiAgente').addEventListener('click',async()=>{
   if(hit.email)$('#iAgenteEmail').value=hit.email;
   if(hit.telefono)$('#iAgenteTel').value=hit.telefono;
   toast('Contatto importato dall\'archivio Agenti FIBA');
+});
+
+/* ---------- scheda agente (apri con click, modifica, salva, elimina) ---------- */
+const agentModal=$('#agentModal');
+let editingAgentId=null;
+function openAgentModal(id){
+  editingAgentId=id;
+  const a=id?agentiData.find(x=>x.id===id):null;
+  $('#agentMTitle').textContent=a?[a.cognome,a.nome].filter(Boolean).join(' '):'Nuovo agente';
+  $('#agentMMeta').textContent=a?[a.agenzia,a.nazionalita].filter(Boolean).join(' · '):'';
+  $('#agCognome').value=a?.cognome||'';
+  $('#agNome').value=a?.nome||'';
+  $('#agLicenza').value=a?.licenza||'';
+  $('#agNaz').value=a?.nazionalita||'';
+  $('#agAgenzia').value=a?.agenzia||'';
+  $('#agIndirizzo').value=a?.indirizzo||'';
+  $('#agTelefono').value=a?.telefono||'';
+  $('#agEmail').value=a?.email||'';
+  $('#agSito').value=a?.sito||'';
+  $('#agentBtnDelete').style.display=a?'':'none';
+  agentModal.showModal();
+}
+async function saveAgent(){
+  const cognome=$('#agCognome').value.trim();
+  if(!cognome){toast('Il cognome è obbligatorio');$('#agCognome').focus();return}
+  await loadAgentiOnce(); // assicura che l'archivio base sia già caricato prima di aggiungere/modificare
+  const data={
+    cognome,nome:$('#agNome').value.trim(),licenza:$('#agLicenza').value.trim(),
+    nazionalita:$('#agNaz').value.trim(),agenzia:$('#agAgenzia').value.trim(),
+    indirizzo:$('#agIndirizzo').value.trim(),telefono:$('#agTelefono').value.trim(),
+    email:$('#agEmail').value.trim(),sito:$('#agSito').value.trim(),
+    aggiornato:new Date().toISOString().slice(0,10)
+  };
+  if(editingAgentId){
+    const i=agentiData.findIndex(x=>x.id===editingAgentId);
+    if(i>-1)agentiData[i]={...agentiData[i],...data};
+  }else{
+    agentiData.push({id:uid(),...data});
+  }
+  agentiLoaded=true;
+  paintAgenti();
+  agentModal.close();
+  toast('Scheda agente salvata — scarica il JSON per rendere la modifica definitiva');
+}
+$('#agentiNew').addEventListener('click',()=>openAgentModal(null));
+$('#agentMClose').addEventListener('click',()=>agentModal.close());
+$('#agentBtnCancel').addEventListener('click',()=>agentModal.close());
+$('#agentBtnSave').addEventListener('click',saveAgent);
+$('#agentBtnDelete').addEventListener('click',()=>{
+  if(!editingAgentId)return;
+  const a=agentiData.find(x=>x.id===editingAgentId);
+  if(!a)return;
+  if(confirm(`Eliminare ${[a.nome,a.cognome].filter(Boolean).join(' ')} dall'archivio agenti?`)){
+    agentiData=agentiData.filter(x=>x.id!==editingAgentId);
+    paintAgenti();
+    agentModal.close();
+    toast('Agente eliminato — scarica il JSON per rendere la modifica definitiva');
+  }
 });
 
 /* ---------- import match-notes ---------- */
