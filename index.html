@@ -361,6 +361,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 <header>
   <div class="brand">Taccuino Scouting di Giuseppe Marmina<small>Player Tracker</small></div>
   <div class="header-actions">
+    <button class="btn btn-ghost" id="btnBackup" type="button">🔗 Collega backup automatico</button>
     <button class="btn btn-ghost" id="btnExport">Esporta JSON</button>
     <button class="btn btn-ghost" id="btnImport">Importa JSON</button>
     <input type="file" id="fileImport" accept=".json" hidden>
@@ -651,6 +652,7 @@ Evan Boisdur	So	6-1	82	98	22
 /* ---------- storage: localStorage con fallback in memoria ---------- */
 const KEY='taccuino_scouting_v1';
 let memStore=null;
+let backupHandle=null,backupTimer=null;
 function loadAll(){
   try{const raw=localStorage.getItem(KEY);return raw?JSON.parse(raw):null}
   catch(e){return memStore}
@@ -659,6 +661,7 @@ function saveAll(data){
   memStore=data;
   try{localStorage.setItem(KEY,JSON.stringify(data))}
   catch(e){/* ambiente senza storage: resta in memoria */}
+  scheduleBackup();
 }
 
 /* ---------- stato ---------- */
@@ -786,7 +789,7 @@ function render(){
   empty.hidden=list.length>0;
   count.textContent=list.length+' / '+players.length+' giocatori';
   // frecce ordinamento
-  document.querySelectorAll('th').forEach(th=>{
+  document.querySelectorAll('#tbl th').forEach(th=>{
     th.querySelector('.arrow').textContent=th.dataset.k===sortKey?(sortDir===1?'▲':'▼'):'';
   });
 }
@@ -1120,7 +1123,7 @@ $('#btnResetFiltri').addEventListener('click',()=>{
   ['q','fLega','fRuolo','fCls','fVerdetto','fConf','fObs'].forEach(id=>{document.getElementById(id).value=''});
   render();
 });
-document.querySelectorAll('th').forEach(th=>{
+document.querySelectorAll('#tbl th').forEach(th=>{
   th.addEventListener('click',()=>{
     const k=th.dataset.k;
     if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1}
@@ -1172,11 +1175,107 @@ $('#fileImport').addEventListener('change',e=>{
   r.readAsText(f);
 });
 
+/* ---------- backup automatico su file locale (File System Access API) ---------- */
+const BACKUP_DB='taccuino_backup_db',BACKUP_STORE='handles',BACKUP_KEY='backupFile';
+function idbOpen(){
+  return new Promise((res,rej)=>{
+    const req=indexedDB.open(BACKUP_DB,1);
+    req.onupgradeneeded=()=>req.result.createObjectStore(BACKUP_STORE);
+    req.onsuccess=()=>res(req.result);
+    req.onerror=()=>rej(req.error);
+  });
+}
+async function idbGet(key){
+  try{
+    const db=await idbOpen();
+    return await new Promise((res,rej)=>{
+      const tx=db.transaction(BACKUP_STORE,'readonly');
+      const rq=tx.objectStore(BACKUP_STORE).get(key);
+      rq.onsuccess=()=>res(rq.result||null);
+      rq.onerror=()=>rej(rq.error);
+    });
+  }catch(e){return null}
+}
+async function idbSet(key,val){
+  try{
+    const db=await idbOpen();
+    return await new Promise((res,rej)=>{
+      const tx=db.transaction(BACKUP_STORE,'readwrite');
+      tx.objectStore(BACKUP_STORE).put(val,key);
+      tx.oncomplete=()=>res(true);
+      tx.onerror=()=>rej(tx.error);
+    });
+  }catch(e){return false}
+}
+function backupSupported(){return 'showSaveFilePicker' in window}
+function updateBackupUI(state){
+  const b=$('#btnBackup');
+  if(!b)return;
+  if(state==='on'){b.textContent='🟢 Backup collegato';b.title='Salvataggio automatico attivo sul file locale scelto'}
+  else if(state==='reconnect'){b.textContent='🟠 Riattiva backup';b.title='Il browser ha bisogno di un clic per confermare di nuovo l\u2019accesso al file'}
+  else{b.textContent='🔗 Collega backup automatico';b.title='Collega un file locale che si aggiorna da solo a ogni modifica'}
+}
+async function initBackup(){
+  if(!backupSupported()){updateBackupUI('off');return}
+  const h=await idbGet(BACKUP_KEY);
+  if(!h){updateBackupUI('off');return}
+  try{
+    const perm=await h.queryPermission({mode:'readwrite'});
+    backupHandle=h;
+    updateBackupUI(perm==='granted'?'on':'reconnect');
+  }catch(e){updateBackupUI('off')}
+}
+async function connectBackup(){
+  if(!backupSupported()){
+    toast('Backup automatico non supportato: serve Chrome o Edge su desktop');
+    return;
+  }
+  if(backupHandle){
+    try{
+      const perm=await backupHandle.requestPermission({mode:'readwrite'});
+      if(perm==='granted'){updateBackupUI('on');await writeBackupNow();toast('Backup riattivato');return}
+    }catch(e){}
+  }
+  try{
+    const handle=await window.showSaveFilePicker({
+      suggestedName:'taccuino-scouting-backup.json',
+      types:[{description:'JSON',accept:{'application/json':['.json']}}]
+    });
+    const perm=await handle.requestPermission({mode:'readwrite'});
+    if(perm!=='granted')throw new Error('permesso negato');
+    backupHandle=handle;
+    await idbSet(BACKUP_KEY,handle);
+    updateBackupUI('on');
+    await writeBackupNow();
+    toast('Backup automatico collegato: da ora si aggiorna da solo');
+  }catch(e){
+    if(e && e.name!=='AbortError')toast('Collegamento al file non riuscito');
+  }
+}
+async function writeBackupNow(){
+  if(!backupHandle)return;
+  try{
+    const perm=await backupHandle.queryPermission({mode:'readwrite'});
+    if(perm!=='granted'){updateBackupUI('reconnect');return}
+    const writable=await backupHandle.createWritable();
+    await writable.write(JSON.stringify({v:1,exported:new Date().toISOString(),players,games},null,2));
+    await writable.close();
+  }catch(e){
+    updateBackupUI('reconnect');
+  }
+}
+function scheduleBackup(){
+  if(!backupHandle)return;
+  clearTimeout(backupTimer);
+  backupTimer=setTimeout(writeBackupNow,900);
+}
+$('#btnBackup').addEventListener('click',connectBackup);
+
 /* ---------- calendario ---------- */
 const GKEY='taccuino_calendar_v1';
 let memGames=null;
 function loadGames(){try{const r=localStorage.getItem(GKEY);return r?JSON.parse(r):null}catch(e){return memGames}}
-function saveGames(){memGames=games;try{localStorage.setItem(GKEY,JSON.stringify(games))}catch(e){}}
+function saveGames(){memGames=games;try{localStorage.setItem(GKEY,JSON.stringify(games))}catch(e){} scheduleBackup();}
 let games=loadGames()||[];
 
 function todayStr(){return new Date().toISOString().slice(0,10)}
@@ -1511,7 +1610,7 @@ function paintRosterTable(){
         <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
       </tr>`).join('');
   }else{
-    const hideAgenzia=/euroleg|eurocup/i.test(d.lega||'');
+    const hideAgenzia=/euroleague|eurolega|eurocup/i.test(d.lega||'');
     head='<th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th>'+(hideAgenzia?'':'<th>Agenzia</th>')+'<th></th>';
     rows=(sq.roster||[]).map((g,i)=>`
       <tr>
@@ -1528,7 +1627,7 @@ function paintRosterTable(){
         <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
       </tr>`).join('');
   }
-  const nonNcaaCols=/euroleg|eurocup/i.test(d.lega||'')?10:11;
+  const nonNcaaCols=/euroleague|eurolega|eurocup/i.test(d.lega||'')?10:11;
   const span=isNcaa?9:nonNcaaCols;
   box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:${isNcaa?720:1050}px">
     <thead><tr>${head}</tr></thead>
@@ -1804,6 +1903,7 @@ function toast(msg){
 render();
 $('#playersToolbar').style.display='none';
 renderHome();
+initBackup();
 })();
 </script>
 </body>
