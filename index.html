@@ -310,7 +310,9 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;
   letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--brand);
   margin:1.3rem 0 .5rem;padding-bottom:.15rem;
+  break-after:avoid;page-break-after:avoid;
 }
+.rep-stat,.rep-obs,.adv-cell{break-inside:avoid;page-break-inside:avoid}
 .rep-stats{display:flex;flex-wrap:wrap;gap:.45rem}
 .rep-stat{
   background:var(--paper);border:1px solid var(--line);border-radius:8px;
@@ -616,6 +618,7 @@ Evan Boisdur	So	6-1	82	98	22
 
 <div id="reportView">
   <div class="rep-toolbar">
+    <button class="btn btn-primary" id="repPdf">⬇ Esporta PDF</button>
     <button class="btn" id="repPrint">🖨 Stampa / PDF</button>
     <button class="btn" id="repClose">Chiudi</button>
   </div>
@@ -624,6 +627,7 @@ Evan Boisdur	So	6-1	82	98	22
 
 <div id="toast" role="status"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 (function(){
 'use strict';
@@ -1717,6 +1721,31 @@ function openReport(id){
 $('#btnReport').addEventListener('click',()=>{
   const id=save();
   if(id)openReport(id);
+});
+function slugify(s){
+  return (s||'report').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase()||'report';
+}
+$('#repPdf').addEventListener('click',()=>{
+  const p=players.find(x=>x.id===editingId);
+  if(typeof html2pdf==='undefined'){
+    toast('Libreria PDF non disponibile offline: uso Stampa del browser');
+    window.print();
+    return;
+  }
+  const btn=$('#repPdf');
+  const label=btn.textContent;
+  btn.textContent='Genero il PDF…';btn.disabled=true;
+  html2pdf().set({
+    margin:0,
+    filename:'scouting-'+slugify(p?.nome)+'.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+    pagebreak:{mode:['css','avoid-all']}
+  }).from($('#repPage')).save().finally(()=>{
+    btn.textContent=label;btn.disabled=false;
+  });
 });
 $('#repClose').addEventListener('click',()=>$('#reportView').classList.remove('open'));
 $('#repPrint').addEventListener('click',()=>window.print());
