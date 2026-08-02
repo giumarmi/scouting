@@ -381,6 +381,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   <select id="fRuolo" aria-label="Filtra per ruolo">
     <option value="">Tutti i ruoli</option>
   </select>
+  <select id="fCls" aria-label="Filtra per classe"><option value="">Tutte le classi</option></select>
   <select id="fVerdetto" aria-label="Filtra per verdetto">
     <option value="">Tutti i verdetti</option>
     <option value="sign">Sign</option>
@@ -388,6 +389,21 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
     <option value="pass">Pass</option>
     <option value="none">Senza verdetto</option>
   </select>
+  <select id="fConf" aria-label="Filtra per confidenza">
+    <option value="">Tutte le confidenze</option>
+    <option value="none">Senza confidenza</option>
+    <option value="1">● Bassa</option>
+    <option value="2">●● Media</option>
+    <option value="3">●●● Alta</option>
+  </select>
+  <select id="fObs" aria-label="Filtra per ultima osservazione">
+    <option value="">Ultima osservazione: tutte</option>
+    <option value="7">Osservato negli ultimi 7 giorni</option>
+    <option value="30">Osservato negli ultimi 30 giorni</option>
+    <option value="90">Osservato negli ultimi 90 giorni</option>
+    <option value="mai">Mai osservato</option>
+  </select>
+  <button class="btn" id="btnResetFiltri" type="button">Azzera filtri</button>
   <span class="count-chip" id="count"></span>
   <button class="btn" id="btnRoster">Incolla roster</button>
 </div>
@@ -696,16 +712,33 @@ function verdictStamp(p){
   return `<span class="stamp ${p.verdetto}">${label}</span>${dots}`;
 }
 function fmt(v){return (v===null||v===undefined||v==='')?'—':v}
+function lastObsDate(p){
+  if(!p.obs||!p.obs.length)return null;
+  return p.obs.reduce((m,o)=>(o.d&&o.d>m)?o.d:m,p.obs[0].d||'');
+}
 
 function applyFilters(list){
   const q=$('#q').value.trim().toLowerCase();
   const fl=fLega.value,fr=$('#fRuolo').value,fv=$('#fVerdetto').value;
+  const fc=$('#fCls').value,fconf=$('#fConf').value,fobs=$('#fObs').value;
   return list.filter(p=>{
     if(q && !(p.nome.toLowerCase().includes(q)||(p.squadra||'').toLowerCase().includes(q)))return false;
     if(fl && p.lega!==fl)return false;
     if(fr && p.ruolo!==fr)return false;
+    if(fc && p.cls!==fc)return false;
     if(fv==='none'&&p.verdetto)return false;
     if(fv&&fv!=='none'&&p.verdetto!==fv)return false;
+    if(fconf==='none'&&p.conf)return false;
+    if(fconf&&fconf!=='none'&&String(p.conf||'')!==fconf)return false;
+    if(fobs){
+      const last=lastObsDate(p);
+      if(fobs==='mai'){if(last)return false}
+      else{
+        if(!last)return false;
+        const cutoff=new Date(Date.now()-(+fobs)*86400000).toISOString().slice(0,10);
+        if(last<cutoff)return false;
+      }
+    }
     return true;
   });
 }
@@ -732,6 +765,10 @@ function render(){
   const curR=$('#fRuolo').value;
   $('#fRuolo').innerHTML='<option value="">Tutti i ruoli</option>'+allRoles().map(r=>
     `<option${r===curR?' selected':''}>${esc(r)}</option>`).join('');
+  const curCls=$('#fCls').value;
+  const classi=[...new Set(players.map(p=>p.cls).filter(Boolean))].sort();
+  $('#fCls').innerHTML='<option value="">Tutte le classi</option>'+classi.map(c=>
+    `<option${c===curCls?' selected':''}>${esc(c)}</option>`).join('');
 
   const list=sorted(applyFilters(players));
   rows.innerHTML=list.map(p=>`
@@ -1076,8 +1113,12 @@ rows.addEventListener('click',e=>{
 rows.addEventListener('keydown',e=>{
   if(e.key==='Enter'){const tr=e.target.closest('tr[data-id]');if(tr)openModal(tr.dataset.id)}
 });
-['q','fLega','fRuolo','fVerdetto'].forEach(id=>{
+['q','fLega','fRuolo','fCls','fVerdetto','fConf','fObs'].forEach(id=>{
   document.getElementById(id).addEventListener('input',render);
+});
+$('#btnResetFiltri').addEventListener('click',()=>{
+  ['q','fLega','fRuolo','fCls','fVerdetto','fConf','fObs'].forEach(id=>{document.getElementById(id).value=''});
+  render();
 });
 document.querySelectorAll('th').forEach(th=>{
   th.addEventListener('click',()=>{
