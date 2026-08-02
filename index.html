@@ -497,11 +497,12 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
   <div id="viewAgenti" hidden>
     <div class="cal-form">
       <div class="kg-head" style="margin-top:0">🧑‍💼 Archivio agenti FIBA</div>
-      <div class="cal-hint" style="margin-bottom:.6rem">Vive in <b>data/agenti-fiba.json</b>, uguale su ogni dispositivo. Per aggiungere o aggiornare nominativi usa l'editor in fondo e ricarica il file su GitHub.</div>
+      <div class="cal-hint" style="margin-bottom:.6rem">Le modifiche restano salvate su questo browser anche dopo un refresh. Per portarle su GitHub (e sugli altri dispositivi) scarica il JSON dall'editor in fondo e ricaricalo in <b>data/agenti-fiba.json</b>. Se hai già aggiornato il file su GitHub da un altro dispositivo, usa "Risincronizza da GitHub" per allinearti.</div>
       <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
         <input type="search" id="agentiSearch" placeholder="Cerca per cognome, nome o agenzia…" style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem;background:var(--paper)">
         <select id="agentiNaz" aria-label="Filtra per nazionalità"><option value="">Tutte le nazionalità</option></select>
         <span class="count-chip" id="agentiCount"></span>
+        <button class="btn" id="agentiResync" type="button">🔄 Risincronizza da GitHub</button>
         <button class="btn btn-dark" id="agentiNew" type="button">+ Nuovo agente</button>
       </div>
     </div>
@@ -1768,13 +1769,30 @@ $('#edDownload').addEventListener('click',()=>{
   toast(rosterSel.file+' scaricato: caricalo in data/ su GitHub');
 });
 
-/* ---------- archivio agenti FIBA (data/agenti-fiba.json) ---------- */
+/* ---------- archivio agenti FIBA (data/agenti-fiba.json + cache locale) ---------- */
+const AGKEY='taccuino_agenti_v1';
 let agentiData=[];          // array di record agente
 let agentiLoaded=false;
 let agentiFetchTried=false;
-async function loadAgentiOnce(){
-  if(agentiLoaded)return true;
-  if(agentiFetchTried&&!agentiLoaded)return false; // già provato e fallito in questa sessione
+function loadAgentiLocal(){
+  try{const r=localStorage.getItem(AGKEY);return r?JSON.parse(r):null}catch(e){return null}
+}
+function saveAgentiLocal(){
+  try{localStorage.setItem(AGKEY,JSON.stringify(agentiData))}catch(e){/* ambiente senza storage */}
+  scheduleBackup();
+}
+async function loadAgentiOnce(force){
+  if(agentiLoaded&&!force)return true;
+  if(!force){
+    const local=loadAgentiLocal();
+    if(local){
+      agentiData=local;
+      agentiData.forEach(a=>{if(!a.id)a.id=uid();});
+      agentiLoaded=true;
+      return true;
+    }
+  }
+  if(agentiFetchTried&&!force)return agentiLoaded; // già provato e fallito in questa sessione
   agentiFetchTried=true;
   try{
     const r=await fetch('data/agenti-fiba.json',{cache:'no-store'});
@@ -1783,8 +1801,9 @@ async function loadAgentiOnce(){
     agentiData=Array.isArray(j)?j:(j.agenti||[]);
     agentiData.forEach(a=>{if(!a.id)a.id=uid();});
     agentiLoaded=true;
+    saveAgentiLocal();
     return true;
-  }catch(e){return false}
+  }catch(e){return agentiLoaded}
 }
 async function initAgenti(){
   const ok=await loadAgentiOnce();
@@ -1870,6 +1889,7 @@ $('#agentiApply').addEventListener('click',()=>{
     }
   });
   agentiLoaded=true;
+  saveAgentiLocal();
   paintAgenti();
   $('#agentiPaste').value='';
   toast(`Aggiunti ${added}, aggiornati ${updated}`+(skipped?(`, ${skipped} righe scartate`):''));
@@ -1941,11 +1961,19 @@ async function saveAgent(){
     agentiData.push({id:uid(),...data});
   }
   agentiLoaded=true;
+  saveAgentiLocal();
   paintAgenti();
   agentModal.close();
-  toast('Scheda agente salvata — scarica il JSON per rendere la modifica definitiva');
+  toast('Scheda agente salvata — resta salvata su questo browser, scarica il JSON per portarla anche su GitHub/altri dispositivi');
 }
 $('#agentiNew').addEventListener('click',()=>openAgentModal(null));
+$('#agentiResync').addEventListener('click',async()=>{
+  if(!confirm('Ricaricare l\'archivio dal file agenti-fiba.json pubblicato su GitHub? Le modifiche fatte qui e non ancora scaricate andranno perse.'))return;
+  const ok=await loadAgentiOnce(true);
+  if(!ok){toast('Impossibile raggiungere data/agenti-fiba.json: serve il sito online');return}
+  paintAgenti();
+  toast('Archivio risincronizzato dal file pubblicato su GitHub');
+});
 $('#agentMClose').addEventListener('click',()=>agentModal.close());
 $('#agentBtnCancel').addEventListener('click',()=>agentModal.close());
 $('#agentBtnSave').addEventListener('click',saveAgent);
@@ -1955,9 +1983,10 @@ $('#agentBtnDelete').addEventListener('click',()=>{
   if(!a)return;
   if(confirm(`Eliminare ${[a.nome,a.cognome].filter(Boolean).join(' ')} dall'archivio agenti?`)){
     agentiData=agentiData.filter(x=>x.id!==editingAgentId);
+    saveAgentiLocal();
     paintAgenti();
     agentModal.close();
-    toast('Agente eliminato — scarica il JSON per rendere la modifica definitiva');
+    toast('Agente eliminato — scarica il JSON per rendere la modifica definitiva anche su GitHub');
   }
 });
 
