@@ -567,9 +567,12 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
 
     <div class="section-label">Contatti</div>
     <div class="adat-grid">
-      <div><label for="iAgenteNome">Agente</label><input id="iAgenteNome" placeholder="Nome agenzia/agente"></div>
-      <div><label for="iAgenteContatto">Contatto agente</label><input id="iAgenteContatto" placeholder="Email o telefono"></div>
+      <div><label for="iAgenteNome">Nome agente</label><input id="iAgenteNome" placeholder="Nome cognome"></div>
+      <div><label for="iAgenzia">Agenzia</label><input id="iAgenzia" placeholder="Nome agenzia"></div>
+      <div><label for="iAgenteEmail">Email agente</label><input id="iAgenteEmail" type="email" placeholder="nome@agenzia.com"></div>
+      <div><label for="iAgenteTel">Telefono agente</label><input id="iAgenteTel" type="tel" placeholder="+39 …"></div>
       <div><label for="iContattiVerificato">Verificato il</label><input id="iContattiVerificato" type="date"></div>
+      <div></div>
       <div><label for="iClubRefNome">Referente club/staff</label><input id="iClubRefNome" placeholder="Nome cognome"></div>
       <div><label for="iClubRefRuolo">Ruolo</label><input id="iClubRefRuolo" placeholder="Head coach, DS…"></div>
       <div><label for="iClubRefContatto">Contatto referente</label><input id="iClubRefContatto" placeholder="Email o telefono"></div>
@@ -832,7 +835,9 @@ function openModal(id){
   $('#iRuoloReale').value=p?.ruoloReale||'';
   $('#iRischio').value=p?.rischio||'';
   $('#iAgenteNome').value=p?.agenteNome||'';
-  $('#iAgenteContatto').value=p?.agenteContatto||'';
+  $('#iAgenzia').value=p?.agenzia||'';
+  $('#iAgenteEmail').value=p?.agenteEmail||'';
+  $('#iAgenteTel').value=p?.agenteTel||'';
   $('#iContattiVerificato').value=p?.contattiVerificato||'';
   $('#iClubRefNome').value=p?.clubRefNome||'';
   $('#iClubRefRuolo').value=p?.clubRefRuolo||'';
@@ -880,7 +885,8 @@ function save(){
     tre:numOrNull($('#iTre').value),ts:numOrNull($('#iTs').value),usg:numOrNull($('#iUsg').value),min:numOrNull($('#iMin').value),
     verdetto:currentVerdict,conf:$('#iConf').value,why:$('#iWhy').value.trim(),
     fit:$('#iFit').value.trim(),ruoloReale:$('#iRuoloReale').value.trim(),rischio:$('#iRischio').value.trim(),
-    agenteNome:$('#iAgenteNome').value.trim(),agenteContatto:$('#iAgenteContatto').value.trim(),
+    agenteNome:$('#iAgenteNome').value.trim(),agenzia:$('#iAgenzia').value.trim(),
+    agenteEmail:$('#iAgenteEmail').value.trim(),agenteTel:$('#iAgenteTel').value.trim(),
     contattiVerificato:$('#iContattiVerificato').value,
     clubRefNome:$('#iClubRefNome').value.trim(),clubRefRuolo:$('#iClubRefRuolo').value.trim(),clubRefContatto:$('#iClubRefContatto').value.trim(),
     fw1:$('#iFw1').value.trim(),fw2:$('#iFw2').value.trim(),fw3:$('#iFw3').value.trim(),
@@ -1803,6 +1809,10 @@ function contactLink(v){
   if(!v)return '';
   return /@/.test(v)?`<a href="mailto:${esc(v)}">${esc(v)}</a>`:esc(v);
 }
+function telLink(v){
+  if(!v)return '';
+  return `<a href="tel:${esc(v.replace(/[^\d+]/g,''))}">${esc(v)}</a>`;
+}
 function openReport(id){
   const p=players.find(x=>x.id===id);
   if(!p)return;
@@ -1844,8 +1854,8 @@ function openReport(id){
       <div class="rep-src">Fonte dati avanzati: ${srcName}, aggiornati al ${esc(p.hs.d)}. Percentili di lega dove disponibili.</div>`:''}
     ${fw.map(([t,txt])=>`<div class="rep-sec">${esc(t)}</div><div class="rep-text">${esc(txt)}</div>`).join('')}
     ${adat?`<div class="rep-sec">Adattabilità Europa / Serie A</div><div class="rep-adat">${adat}</div>`:''}
-    ${(p.agenteNome||p.agenteContatto||p.clubRefNome||p.clubRefContatto)?`<div class="rep-sec">Contatti</div><div class="rep-adat">
-      ${(p.agenteNome||p.agenteContatto)?`<p><b>Agente:</b> ${esc(p.agenteNome||'—')}${p.agenteContatto?' · '+contactLink(p.agenteContatto):''}</p>`:''}
+    ${(p.agenteNome||p.agenzia||p.agenteEmail||p.agenteTel||p.clubRefNome||p.clubRefContatto)?`<div class="rep-sec">Contatti</div><div class="rep-adat">
+      ${(p.agenteNome||p.agenzia||p.agenteEmail||p.agenteTel)?`<p><b>Agente:</b> ${esc(p.agenteNome||'—')}${p.agenzia?' · '+esc(p.agenzia):''}${p.agenteEmail?' · '+contactLink(p.agenteEmail):''}${p.agenteTel?' · '+telLink(p.agenteTel):''}</p>`:''}
       ${(p.clubRefNome||p.clubRefContatto)?`<p><b>Referente club:</b> ${esc(p.clubRefNome||'—')}${p.clubRefRuolo?' ('+esc(p.clubRefRuolo)+')':''}${p.clubRefContatto?' · '+contactLink(p.clubRefContatto):''}</p>`:''}
       ${p.contattiVerificato?`<p><b>Verificato il:</b> ${esc(p.contattiVerificato)}</p>`:''}
     </div>`:''}
