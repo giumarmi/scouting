@@ -374,6 +374,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   <button class="tab" data-view="players">Giocatori</button>
   <button class="tab" data-view="cal">Calendario</button>
   <button class="tab" data-view="roster">Roster</button>
+  <button class="tab" data-view="agenti">Agenti</button>
 </nav>
 
 <div class="toolbar" id="playersToolbar">
@@ -493,6 +494,31 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
     </div>
   </div><!-- /viewRoster -->
 
+  <div id="viewAgenti" hidden>
+    <div class="cal-form">
+      <div class="kg-head" style="margin-top:0">🧑‍💼 Archivio agenti FIBA</div>
+      <div class="cal-hint" style="margin-bottom:.6rem">Vive in <b>data/agenti-fiba.json</b>, uguale su ogni dispositivo. Per aggiungere o aggiornare nominativi usa l'editor in fondo e ricarica il file su GitHub.</div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+        <input type="search" id="agentiSearch" placeholder="Cerca per cognome, nome o agenzia…" style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem;background:var(--paper)">
+        <select id="agentiNaz" aria-label="Filtra per nazionalità"><option value="">Tutte le nazionalità</option></select>
+        <span class="count-chip" id="agentiCount"></span>
+      </div>
+    </div>
+    <div id="agentiTable"></div>
+    <div class="cal-form" id="agentiEditor">
+      <div class="section-label" style="margin-top:0">Aggiungi o aggiorna agenti</div>
+      <div class="cal-hint" style="margin-bottom:.5rem">Un agente per riga, campi separati da <code>;</code>. La licenza è la chiave: se coincide con un agente già presente ne aggiorna solo i campi compilati, altrimenti lo crea.<br>
+      <b>Cognome;Nome;Licenza;Nazionalità;Agenzia;Indirizzo;Telefono;Email;Sito</b><br>
+      Esempio: <i>Rossi;Marco;202400123;ITA;Players Group;Via Roma 1, Milano;+39 333 1234567;marco@playersgroup.it;</i></div>
+      <textarea class="hs-paste" id="agentiPaste" style="min-height:110px" placeholder="Cognome;Nome;Licenza;Nazionalità;Agenzia;Indirizzo;Telefono;Email;Sito"></textarea>
+      <div class="cal-actions">
+        <button class="btn" id="agentiApply" type="button">Aggiungi/aggiorna</button>
+        <button class="btn btn-primary" id="agentiDownload" type="button">Scarica JSON aggiornato</button>
+        <span class="cal-hint">Poi carica il file scaricato come data/agenti-fiba.json su GitHub, sovrascrivendo il vecchio.</span>
+      </div>
+    </div>
+  </div><!-- /viewAgenti -->
+
 </main>
 
 <!-- ============ MODAL SCHEDA GIOCATORE ============ -->
@@ -579,7 +605,8 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
     </div>
     <div class="cal-actions" style="margin-top:.5rem">
       <button class="btn" id="btnContattiRoster" type="button">📋 Recupera staff da Roster</button>
-      <span class="cal-hint">Cerca lo staff della squadra indicata in Anagrafica nell'archivio roster (richiede il sito online).</span>
+      <button class="btn" id="btnContattiAgente" type="button">🔍 Cerca in Agenti FIBA</button>
+      <span class="cal-hint">Cerca lo staff/agente indicati sopra negli archivi (richiede il sito online).</span>
     </div>
 
     <div class="section-label">Framework sei livelli (alimenta il report)</div>
@@ -1475,9 +1502,11 @@ document.querySelectorAll('.tab').forEach(t=>{
     $('#playersToolbar').style.display=v==='players'?'':'none';
     $('#viewCal').hidden=v!=='cal';
     $('#viewRoster').hidden=v!=='roster';
+    $('#viewAgenti').hidden=v!=='agenti';
     if(v==='home')renderHome();
     if(v==='cal')renderCal();
     if(v==='roster')initRoster();
+    if(v==='agenti')initAgenti();
   });
 });
 
@@ -1707,6 +1736,129 @@ $('#edDownload').addEventListener('click',()=>{
   a.href=URL.createObjectURL(blob);a.download=rosterSel.file;a.click();
   URL.revokeObjectURL(a.href);
   toast(rosterSel.file+' scaricato: caricalo in data/ su GitHub');
+});
+
+/* ---------- archivio agenti FIBA (data/agenti-fiba.json) ---------- */
+let agentiData=[];          // array di record agente
+let agentiLoaded=false;
+let agentiFetchTried=false;
+async function loadAgentiOnce(){
+  if(agentiLoaded)return true;
+  if(agentiFetchTried&&!agentiLoaded)return false; // già provato e fallito in questa sessione
+  agentiFetchTried=true;
+  try{
+    const r=await fetch('data/agenti-fiba.json',{cache:'no-store'});
+    if(!r.ok)throw 0;
+    const j=await r.json();
+    agentiData=Array.isArray(j)?j:(j.agenti||[]);
+    agentiLoaded=true;
+    return true;
+  }catch(e){return false}
+}
+async function initAgenti(){
+  const ok=await loadAgentiOnce();
+  if(!ok){
+    $('#agentiTable').innerHTML='<div class="cal-empty">Archivio non trovato: carica <b>data/agenti-fiba.json</b> nel repository accanto a index.html. Nota: serve il sito online, non funziona aprendo il file in locale.</div>';
+    return;
+  }
+  paintAgenti();
+}
+function paintAgentiNaz(){
+  const cur=$('#agentiNaz').value;
+  const nazioni=[...new Set(agentiData.map(a=>a.nazionalita).filter(Boolean))].sort();
+  $('#agentiNaz').innerHTML='<option value="">Tutte le nazionalità</option>'+nazioni.map(n=>
+    `<option${n===cur?' selected':''}>${esc(n)}</option>`).join('');
+}
+function agentContactCell(a){
+  const parts=[];
+  if(a.email)parts.push(`<a href="mailto:${esc(a.email)}">${esc(a.email)}</a>`);
+  if(a.telefono)parts.push(`<a href="tel:${esc(a.telefono.replace(/[^\d+]/g,''))}">${esc(a.telefono)}</a>`);
+  return parts.join('<br>')||'—';
+}
+function paintAgenti(){
+  paintAgentiNaz();
+  const q=$('#agentiSearch').value.trim().toLowerCase();
+  const naz=$('#agentiNaz').value;
+  const list=agentiData.filter(a=>{
+    if(naz&&a.nazionalita!==naz)return false;
+    if(q&&!((a.cognome||'').toLowerCase().includes(q)||(a.nome||'').toLowerCase().includes(q)||(a.agenzia||'').toLowerCase().includes(q)))return false;
+    return true;
+  }).sort((a,b)=>(a.cognome||'').localeCompare(b.cognome||''));
+  $('#agentiCount').textContent=list.length+' / '+agentiData.length+' agenti';
+  $('#agentiTable').innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:900px">
+    <thead><tr><th>Cognome</th><th>Nome</th><th>Agenzia</th><th>Naz.</th><th>Contatti</th><th>Licenza</th></tr></thead>
+    <tbody>${list.map(a=>`
+      <tr>
+        <td class="player-name">${esc(a.cognome||'')}</td>
+        <td>${esc(a.nome||'')}</td>
+        <td>${esc(a.agenzia||'—')}</td>
+        <td>${esc(a.nazionalita||'—')}</td>
+        <td>${agentContactCell(a)}</td>
+        <td class="num">${esc(a.licenza||'')}</td>
+      </tr>`).join('')||'<tr><td colspan="6" class="cal-empty" style="padding:1rem">Nessun agente trovato.</td></tr>'}</tbody>
+  </table></div>`;
+}
+$('#agentiSearch').addEventListener('input',paintAgenti);
+$('#agentiNaz').addEventListener('input',paintAgenti);
+function parseAgentiLine(line){
+  const f=line.split(';').map(s=>s.trim());
+  if(!f[0]||!f[2])return null; // servono almeno cognome e licenza
+  return {
+    cognome:f[0]||'',nome:f[1]||'',licenza:f[2]||'',nazionalita:f[3]||'',
+    agenzia:f[4]||'',indirizzo:f[5]||'',telefono:f[6]||'',email:f[7]||'',sito:f[8]||''
+  };
+}
+$('#agentiApply').addEventListener('click',()=>{
+  const lines=$('#agentiPaste').value.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  if(!lines.length){toast('Nessuna riga valida');return}
+  const oggi=new Date().toISOString().slice(0,10);
+  let added=0,updated=0,skipped=0;
+  lines.forEach(line=>{
+    const rec=parseAgentiLine(line);
+    if(!rec){skipped++;return}
+    const ex=agentiData.find(a=>a.licenza===rec.licenza);
+    if(ex){
+      Object.keys(rec).forEach(k=>{if(rec[k])ex[k]=rec[k]});
+      ex.aggiornato=oggi;
+      updated++;
+    }else{
+      rec.aggiornato=oggi;
+      agentiData.push(rec);
+      added++;
+    }
+  });
+  agentiLoaded=true;
+  paintAgenti();
+  $('#agentiPaste').value='';
+  toast(`Aggiunti ${added}, aggiornati ${updated}`+(skipped?(`, ${skipped} righe scartate`):''));
+});
+$('#agentiDownload').addEventListener('click',()=>{
+  if(!agentiData.length){toast('Nessun dato da scaricare');return}
+  const out={aggiornato:new Date().toISOString().slice(0,10),agenti:agentiData};
+  const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='agenti-fiba.json';a.click();
+  URL.revokeObjectURL(a.href);
+  toast('agenti-fiba.json scaricato: caricalo in data/ su GitHub');
+});
+$('#btnContattiAgente').addEventListener('click',async()=>{
+  const agenzia=$('#iAgenzia').value.trim();
+  const nomeAgente=$('#iAgenteNome').value.trim();
+  if(!agenzia&&!nomeAgente){toast('Inserisci prima un\'agenzia o un nome agente da cercare');return}
+  const ok=await loadAgentiOnce();
+  if(!ok){toast('Archivio agenti non raggiungibile: serve il sito online');return}
+  let hit=null;
+  if(agenzia)hit=agentiData.find(a=>(a.agenzia||'').toLowerCase()===agenzia.toLowerCase());
+  if(!hit&&nomeAgente){
+    const q=nomeAgente.toLowerCase();
+    hit=agentiData.find(a=>`${a.nome} ${a.cognome}`.toLowerCase().includes(q)||`${a.cognome} ${a.nome}`.toLowerCase().includes(q));
+  }
+  if(!hit){toast('Nessun agente trovato nell\'archivio per questi dati');return}
+  $('#iAgenteNome').value=[hit.nome,hit.cognome].filter(Boolean).join(' ');
+  if(hit.agenzia)$('#iAgenzia').value=hit.agenzia;
+  if(hit.email)$('#iAgenteEmail').value=hit.email;
+  if(hit.telefono)$('#iAgenteTel').value=hit.telefono;
+  toast('Contatto importato dall\'archivio Agenti FIBA');
 });
 
 /* ---------- import match-notes ---------- */
