@@ -162,8 +162,9 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 @media(min-width:560px){.adat-grid{grid-template-columns:1fr 1fr 1fr}}
 
 /* observations */
-.obs-form{display:flex;gap:.5rem;margin-bottom:.8rem}
-.obs-form input{flex:1;border:1px solid var(--line);border-radius:8px;padding:.55rem .7rem;background:var(--paper)}
+.obs-form{display:flex;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap}
+.obs-form input{flex:1;min-width:140px;border:1px solid var(--line);border-radius:8px;padding:.55rem .7rem;background:var(--paper)}
+.obs-form input#obsUrl{flex:0 1 220px}
 .obs-item{
   border-left:3px solid var(--brand);padding:.4rem .8rem;margin-bottom:.5rem;
   background:var(--paper);border-radius:0 8px 8px 0;
@@ -171,6 +172,12 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 }
 .obs-date{font-size:.72rem;color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
 .obs-text{flex:1;font-size:.9rem}
+.obs-link{
+  flex-shrink:0;color:var(--brand);text-decoration:none;font-size:.72rem;font-weight:700;
+  border:1px solid var(--brand);border-radius:6px;padding:.1rem .45rem;letter-spacing:.02em;
+  white-space:nowrap;
+}
+.obs-link:hover{background:var(--brand-soft)}
 .obs-del{background:none;border:none;color:var(--ink-soft);font-size:.9rem;padding:0 .2rem}
 .obs-del:hover{color:var(--pass)}
 .obs-empty{font-size:.85rem;color:var(--ink-soft);font-style:italic}
@@ -318,6 +325,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .rep-adat b{font-weight:700}
 .rep-obs{font-size:.85rem;margin:.25rem 0;padding-left:.8rem;border-left:3px solid var(--brand-soft)}
 .rep-obs .d{color:var(--ink-soft);font-size:.72rem;font-variant-numeric:tabular-nums;margin-right:.4rem}
+.rep-obs .lnk{color:var(--brand-deep);font-size:.8rem;margin-left:.4rem}
 .rep-foot{
   margin-top:1.8rem;padding-top:.7rem;border-top:1px solid var(--line);
   display:flex;align-items:baseline;gap:1rem;font-size:.8rem;color:var(--ink-soft);
@@ -551,6 +559,7 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
     <div class="section-label">Osservazioni</div>
     <div class="obs-form">
       <input id="obsInput" placeholder="Cosa hai visto — appunto rapido datato…">
+      <input id="obsUrl" type="url" placeholder="Link highlight (opzionale)">
       <button class="btn" id="obsAdd" type="button">Aggiungi</button>
     </div>
     <div id="obsList"></div>
@@ -768,6 +777,7 @@ function openModal(id){
   currentObs=p?structuredClone(p.obs||[]):[];
   currentHs=p?.hs?structuredClone(p.hs):null;
   $('#hsPaste').value='';
+  $('#obsUrl').value='';
   paintVerdict();paintObs();paintHs();
   $('#btnDelete').style.display=p?'':'none';
   modal.showModal();
@@ -782,10 +792,17 @@ function paintObs(){
   if(!currentObs.length){box.innerHTML='<div class="obs-empty">Nessuna osservazione registrata.</div>';return}
   box.innerHTML=[...currentObs].reverse().map((o,i)=>{
     const realIdx=currentObs.length-1-i;
-    return `<div class="obs-item"><span class="obs-date">${esc(o.d)}</span><span class="obs-text">${esc(o.t)}</span><button class="obs-del" data-i="${realIdx}" aria-label="Elimina nota">×</button></div>`;
+    const link=o.url?`<a class="obs-link" href="${esc(o.url)}" target="_blank" rel="noopener noreferrer" title="Apri highlight">▶ clip</a>`:'';
+    return `<div class="obs-item"><span class="obs-date">${esc(o.d)}</span><span class="obs-text">${esc(o.t)}</span>${link}<button class="obs-del" data-i="${realIdx}" aria-label="Elimina nota">×</button></div>`;
   }).join('');
 }
 function numOrNull(v){return v===''?null:+v}
+function normalizeUrl(u){
+  u=(u||'').trim();
+  if(!u)return '';
+  if(!/^https?:\/\//i.test(u))u='https://'+u;
+  return u;
+}
 function save(){
   const nome=$('#iNome').value.trim();
   if(!nome){toast('Il nome è obbligatorio');$('#iNome').focus();return null}
@@ -997,11 +1014,15 @@ $('#hsParse').addEventListener('click',()=>{
 
 $('#obsAdd').addEventListener('click',addObs);
 $('#obsInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addObs()}});
+$('#obsUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addObs()}});
 function addObs(){
   const t=$('#obsInput').value.trim();
+  const url=normalizeUrl($('#obsUrl').value);
   if(!t)return;
-  currentObs.push({d:new Date().toISOString().slice(0,10),t});
-  $('#obsInput').value='';paintObs();
+  const entry={d:new Date().toISOString().slice(0,10),t};
+  if(url)entry.url=url;
+  currentObs.push(entry);
+  $('#obsInput').value='';$('#obsUrl').value='';paintObs();
 }
 $('#obsList').addEventListener('click',e=>{
   const btn=e.target.closest('.obs-del');
@@ -1511,7 +1532,9 @@ function importMatchNotes(data){
     if(n.tags&&n.tags.length)parts.push(n.tags.join(', '));
     if(n.rating)parts.push(n.rating);
     if(n.text)parts.push(n.text);
-    p.obs.push({d,t:parts.join(' · ')});
+    const entry={d,t:parts.join(' · ')};
+    if(n.url)entry.url=normalizeUrl(n.url);
+    p.obs.push(entry);
     added++;
   });
   saveAll(players);render();
@@ -1627,7 +1650,7 @@ function openReport(id){
     ${fw.map(([t,txt])=>`<div class="rep-sec">${esc(t)}</div><div class="rep-text">${esc(txt)}</div>`).join('')}
     ${adat?`<div class="rep-sec">Adattabilità Europa / Serie A</div><div class="rep-adat">${adat}</div>`:''}
     ${p.obs&&p.obs.length?`<div class="rep-sec">Osservazioni dal campo</div>${
-      [...p.obs].slice(-10).reverse().map(o=>`<div class="rep-obs"><span class="d">${esc(o.d)}</span>${esc(o.t)}</div>`).join('')}`:''}
+      [...p.obs].slice(-10).reverse().map(o=>`<div class="rep-obs"><span class="d">${esc(o.d)}</span>${esc(o.t)}${o.url?` <a class="lnk" href="${esc(o.url)}">▶ clip</a>`:''}</div>`).join('')}`:''}
     <div class="rep-foot">
       <span class="rep-firma" contenteditable="true" id="repFirma">${esc(getFirma())}</span>
       <span class="gen">Generato il ${oggi} · Taccuino Scouting di Giuseppe Marmina</span>
