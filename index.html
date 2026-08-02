@@ -546,6 +546,20 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
       <div><label for="iRischio">Rischio principale</label><input id="iRischio" placeholder="Es. efficienza al ferro contro fisicità europea"></div>
     </div>
 
+    <div class="section-label">Contatti</div>
+    <div class="adat-grid">
+      <div><label for="iAgenteNome">Agente</label><input id="iAgenteNome" placeholder="Nome agenzia/agente"></div>
+      <div><label for="iAgenteContatto">Contatto agente</label><input id="iAgenteContatto" placeholder="Email o telefono"></div>
+      <div><label for="iContattiVerificato">Verificato il</label><input id="iContattiVerificato" type="date"></div>
+      <div><label for="iClubRefNome">Referente club/staff</label><input id="iClubRefNome" placeholder="Nome cognome"></div>
+      <div><label for="iClubRefRuolo">Ruolo</label><input id="iClubRefRuolo" placeholder="Head coach, DS…"></div>
+      <div><label for="iClubRefContatto">Contatto referente</label><input id="iClubRefContatto" placeholder="Email o telefono"></div>
+    </div>
+    <div class="cal-actions" style="margin-top:.5rem">
+      <button class="btn" id="btnContattiRoster" type="button">📋 Recupera staff da Roster</button>
+      <span class="cal-hint">Cerca lo staff della squadra indicata in Anagrafica nell'archivio roster (richiede il sito online).</span>
+    </div>
+
     <div class="section-label">Framework sei livelli (alimenta il report)</div>
     <div class="fw-grid">
       <div><label for="iFw1">1 · Attributi fisici e storia infortuni</label><textarea id="iFw1"></textarea></div>
@@ -773,6 +787,12 @@ function openModal(id){
   $('#iFit').value=p?.fit||'';
   $('#iRuoloReale').value=p?.ruoloReale||'';
   $('#iRischio').value=p?.rischio||'';
+  $('#iAgenteNome').value=p?.agenteNome||'';
+  $('#iAgenteContatto').value=p?.agenteContatto||'';
+  $('#iContattiVerificato').value=p?.contattiVerificato||'';
+  $('#iClubRefNome').value=p?.clubRefNome||'';
+  $('#iClubRefRuolo').value=p?.clubRefRuolo||'';
+  $('#iClubRefContatto').value=p?.clubRefContatto||'';
   for(let i=1;i<=6;i++)document.getElementById('iFw'+i).value=p?.['fw'+i]||'';
   currentObs=p?structuredClone(p.obs||[]):[];
   currentHs=p?.hs?structuredClone(p.hs):null;
@@ -816,6 +836,9 @@ function save(){
     tre:numOrNull($('#iTre').value),ts:numOrNull($('#iTs').value),usg:numOrNull($('#iUsg').value),min:numOrNull($('#iMin').value),
     verdetto:currentVerdict,conf:$('#iConf').value,why:$('#iWhy').value.trim(),
     fit:$('#iFit').value.trim(),ruoloReale:$('#iRuoloReale').value.trim(),rischio:$('#iRischio').value.trim(),
+    agenteNome:$('#iAgenteNome').value.trim(),agenteContatto:$('#iAgenteContatto').value.trim(),
+    contattiVerificato:$('#iContattiVerificato').value,
+    clubRefNome:$('#iClubRefNome').value.trim(),clubRefRuolo:$('#iClubRefRuolo').value.trim(),clubRefContatto:$('#iClubRefContatto').value.trim(),
     fw1:$('#iFw1').value.trim(),fw2:$('#iFw2').value.trim(),fw3:$('#iFw3').value.trim(),
     fw4:$('#iFw4').value.trim(),fw5:$('#iFw5').value.trim(),fw6:$('#iFw6').value.trim(),
     obs:currentObs,hs:currentHs
@@ -1012,6 +1035,20 @@ $('#hsParse').addEventListener('click',()=>{
   toast(stats.length+" statistiche importate da Hackastat");
 });
 
+$('#btnContattiRoster').addEventListener('click',async()=>{
+  const team=$('#iSquadra').value.trim();
+  if(!team){toast('Inserisci prima la squadra in Anagrafica');return}
+  const ok=await loadRosterOnce();
+  if(!ok){toast('Archivio roster non raggiungibile: serve il sito online');return}
+  const entry=staffData[team];
+  if(!entry||!entry.staff?.length){toast('Nessuno staff trovato per «'+team+'» in archivio');return}
+  const isHC=r=>/head coach|^hc$/i.test(r||'');
+  const hc=entry.staff.find(s=>isHC(s.ruolo))||entry.staff[0];
+  $('#iClubRefNome').value=[hc.nome,hc.cognome].filter(Boolean).join(' ');
+  $('#iClubRefRuolo').value=hc.ruolo||'';
+  $('#iClubRefContatto').value=hc.email||'';
+  toast('Contatto importato dall\'archivio roster');
+});
 $('#obsAdd').addEventListener('click',addObs);
 $('#obsInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addObs()}});
 $('#obsUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addObs()}});
@@ -1337,8 +1374,8 @@ let rosterData={};        // file -> json
 let staffData={};         // nome-breve-squadra -> {nome_ufficiale, conference, staff:[...]}
 let rosterSel={file:null,team:null};
 let rosterLoaded=false;
-async function initRoster(){
-  if(rosterLoaded){paintRosterAll();return}
+async function loadRosterOnce(){
+  if(rosterLoaded)return true;
   try{
     const r=await fetch('data/index.json',{cache:'no-store'});
     if(!r.ok)throw 0;
@@ -1357,10 +1394,18 @@ async function initRoster(){
     }catch(e){}
     rosterLoaded=true;
     if(rosterFiles.length&&!rosterSel.file)rosterSel.file=rosterFiles[0].file;
-    paintRosterAll();
+    return true;
   }catch(e){
-    $('#rosterLeagues').innerHTML='<span class="cal-hint">Archivio non trovato: carica la cartella <b>data/</b> (index.json + file leghe) nel repository accanto a index.html. Nota: aprendo il file in locale l\u2019archivio non è raggiungibile, serve il sito online.</span>';
+    return false;
   }
+}
+async function initRoster(){
+  const ok=await loadRosterOnce();
+  if(!ok){
+    $('#rosterLeagues').innerHTML='<span class="cal-hint">Archivio non trovato: carica la cartella <b>data/</b> (index.json + file leghe) nel repository accanto a index.html. Nota: aprendo il file in locale l\u2019archivio non è raggiungibile, serve il sito online.</span>';
+    return;
+  }
+  paintRosterAll();
 }
 function paintRosterAll(){paintRosterLeagues();paintRosterTeams();paintRosterTable();paintRosterStaff();}
 function paintRosterLeagues(){
@@ -1608,6 +1653,10 @@ function getFirma(){try{return localStorage.getItem(FKEY)||''}catch(e){return ''
 function setFirma(v){try{localStorage.setItem(FKEY,v)}catch(e){}}
 const VLAB={sign:'Sign',monitor:'Monitor',pass:'Pass'};
 function repStat(l,v){return (v===null||v===undefined||v==='')?'':`<div class="rep-stat"><div class="l">${l}</div><div class="v">${v}</div></div>`}
+function contactLink(v){
+  if(!v)return '';
+  return /@/.test(v)?`<a href="mailto:${esc(v)}">${esc(v)}</a>`:esc(v);
+}
 function openReport(id){
   const p=players.find(x=>x.id===id);
   if(!p)return;
@@ -1649,6 +1698,11 @@ function openReport(id){
       <div class="rep-src">Fonte dati avanzati: ${srcName}, aggiornati al ${esc(p.hs.d)}. Percentili di lega dove disponibili.</div>`:''}
     ${fw.map(([t,txt])=>`<div class="rep-sec">${esc(t)}</div><div class="rep-text">${esc(txt)}</div>`).join('')}
     ${adat?`<div class="rep-sec">Adattabilità Europa / Serie A</div><div class="rep-adat">${adat}</div>`:''}
+    ${(p.agenteNome||p.agenteContatto||p.clubRefNome||p.clubRefContatto)?`<div class="rep-sec">Contatti</div><div class="rep-adat">
+      ${(p.agenteNome||p.agenteContatto)?`<p><b>Agente:</b> ${esc(p.agenteNome||'—')}${p.agenteContatto?' · '+contactLink(p.agenteContatto):''}</p>`:''}
+      ${(p.clubRefNome||p.clubRefContatto)?`<p><b>Referente club:</b> ${esc(p.clubRefNome||'—')}${p.clubRefRuolo?' ('+esc(p.clubRefRuolo)+')':''}${p.clubRefContatto?' · '+contactLink(p.clubRefContatto):''}</p>`:''}
+      ${p.contattiVerificato?`<p><b>Verificato il:</b> ${esc(p.contattiVerificato)}</p>`:''}
+    </div>`:''}
     ${p.obs&&p.obs.length?`<div class="rep-sec">Osservazioni dal campo</div>${
       [...p.obs].slice(-10).reverse().map(o=>`<div class="rep-obs"><span class="d">${esc(o.d)}</span>${esc(o.t)}${o.url?` <a class="lnk" href="${esc(o.url)}">▶ clip</a>`:''}</div>`).join('')}`:''}
     <div class="rep-foot">
