@@ -162,8 +162,9 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 @media(min-width:560px){.adat-grid{grid-template-columns:1fr 1fr 1fr}}
 
 /* observations */
-.obs-form{display:flex;gap:.5rem;margin-bottom:.8rem}
-.obs-form input{flex:1;border:1px solid var(--line);border-radius:8px;padding:.55rem .7rem;background:var(--paper)}
+.obs-form{display:flex;gap:.5rem;margin-bottom:.8rem;flex-wrap:wrap}
+.obs-form input{flex:1;min-width:140px;border:1px solid var(--line);border-radius:8px;padding:.55rem .7rem;background:var(--paper)}
+.obs-form input#obsUrl{flex:0 1 220px}
 .obs-item{
   border-left:3px solid var(--brand);padding:.4rem .8rem;margin-bottom:.5rem;
   background:var(--paper);border-radius:0 8px 8px 0;
@@ -171,6 +172,12 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 }
 .obs-date{font-size:.72rem;color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
 .obs-text{flex:1;font-size:.9rem}
+.obs-link{
+  flex-shrink:0;color:var(--brand);text-decoration:none;font-size:.72rem;font-weight:700;
+  border:1px solid var(--brand);border-radius:6px;padding:.1rem .45rem;letter-spacing:.02em;
+  white-space:nowrap;
+}
+.obs-link:hover{background:var(--brand-soft)}
 .obs-del{background:none;border:none;color:var(--ink-soft);font-size:.9rem;padding:0 .2rem}
 .obs-del:hover{color:var(--pass)}
 .obs-empty{font-size:.85rem;color:var(--ink-soft);font-style:italic}
@@ -303,7 +310,9 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1rem;
   letter-spacing:.08em;text-transform:uppercase;border-bottom:2px solid var(--brand);
   margin:1.3rem 0 .5rem;padding-bottom:.15rem;
+  break-after:avoid;page-break-after:avoid;
 }
+.rep-stat,.rep-obs,.adv-cell{break-inside:avoid;page-break-inside:avoid}
 .rep-stats{display:flex;flex-wrap:wrap;gap:.45rem}
 .rep-stat{
   background:var(--paper);border:1px solid var(--line);border-radius:8px;
@@ -318,6 +327,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .rep-adat b{font-weight:700}
 .rep-obs{font-size:.85rem;margin:.25rem 0;padding-left:.8rem;border-left:3px solid var(--brand-soft)}
 .rep-obs .d{color:var(--ink-soft);font-size:.72rem;font-variant-numeric:tabular-nums;margin-right:.4rem}
+.rep-obs .lnk{color:var(--brand-deep);font-size:.8rem;margin-left:.4rem}
 .rep-foot{
   margin-top:1.8rem;padding-top:.7rem;border-top:1px solid var(--line);
   display:flex;align-items:baseline;gap:1rem;font-size:.8rem;color:var(--ink-soft);
@@ -351,6 +361,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 <header>
   <div class="brand">Taccuino Scouting di Giuseppe Marmina<small>Player Tracker</small></div>
   <div class="header-actions">
+    <button class="btn btn-ghost" id="btnBackup" type="button">🔗 Collega backup automatico</button>
     <button class="btn btn-ghost" id="btnExport">Esporta JSON</button>
     <button class="btn btn-ghost" id="btnImport">Importa JSON</button>
     <input type="file" id="fileImport" accept=".json" hidden>
@@ -363,7 +374,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   <button class="tab" data-view="players">Giocatori</button>
   <button class="tab" data-view="cal">Calendario</button>
   <button class="tab" data-view="roster">Roster</button>
-  <button class="tab" data-view="arch">Archetipi</button>
+  <button class="tab" data-view="agenti">Agenti</button>
 </nav>
 
 <div class="toolbar" id="playersToolbar">
@@ -372,6 +383,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   <select id="fRuolo" aria-label="Filtra per ruolo">
     <option value="">Tutti i ruoli</option>
   </select>
+  <select id="fCls" aria-label="Filtra per classe"><option value="">Tutte le classi</option></select>
   <select id="fVerdetto" aria-label="Filtra per verdetto">
     <option value="">Tutti i verdetti</option>
     <option value="sign">Sign</option>
@@ -379,6 +391,21 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
     <option value="pass">Pass</option>
     <option value="none">Senza verdetto</option>
   </select>
+  <select id="fConf" aria-label="Filtra per livello di affidabilità">
+    <option value="">Tutti i livelli di affidabilità</option>
+    <option value="none">Senza affidabilità</option>
+    <option value="1">● Bassa</option>
+    <option value="2">●● Media</option>
+    <option value="3">●●● Alta</option>
+  </select>
+  <select id="fObs" aria-label="Filtra per ultima osservazione">
+    <option value="">Ultima osservazione: tutte</option>
+    <option value="7">Osservato negli ultimi 7 giorni</option>
+    <option value="30">Osservato negli ultimi 30 giorni</option>
+    <option value="90">Osservato negli ultimi 90 giorni</option>
+    <option value="mai">Mai osservato</option>
+  </select>
+  <button class="btn" id="btnResetFiltri" type="button">Azzera filtri</button>
   <span class="count-chip" id="count"></span>
   <button class="btn" id="btnRoster">Incolla roster</button>
 </div>
@@ -452,6 +479,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
       <div id="rosterSearchResults"></div>
     </div>
     <div id="rosterTeams" class="adv-grid" style="grid-template-columns:repeat(auto-fill,minmax(200px,1fr))"></div>
+    <div id="rosterStaff"></div>
     <div id="rosterTable"></div>
     <div class="cal-form" id="rosterEditor" hidden>
       <div class="section-label" style="margin-top:0">Aggiorna roster · <span id="edTeamName"></span></div>
@@ -466,15 +494,32 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
     </div>
   </div><!-- /viewRoster -->
 
-  <div id="viewArch" hidden>
+  <div id="viewAgenti" hidden>
     <div class="cal-form">
-      <div class="kg-head" style="margin-top:0">🎯 Dashboard Archetipi</div>
-      <div class="cal-hint">Profili con percentili di lega e badge, da Hackastat. <span id="archStats"></span></div>
-      <input type="search" id="archSearch" placeholder="Cerca un giocatore…" style="width:100%;margin-top:.6rem;border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem;background:var(--paper)">
+      <div class="kg-head" style="margin-top:0">🧑‍💼 Archivio agenti</div>
+      <div class="cal-hint" style="margin-bottom:.6rem">Le modifiche restano salvate su questo browser anche dopo un refresh. Per portarle su GitHub (e sugli altri dispositivi) scarica il JSON dall'editor in fondo e ricaricalo in <b>data/agenti-fiba.json</b>. Se hai già aggiornato il file su GitHub da un altro dispositivo, usa "Risincronizza da GitHub" per allinearti.</div>
+      <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
+        <input type="search" id="agentiSearch" placeholder="Cerca per cognome, nome o agenzia…" style="flex:1;min-width:200px;border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem;background:var(--paper)">
+        <select id="agentiNaz" aria-label="Filtra per nazionalità"><option value="">Tutte le nazionalità</option></select>
+        <span class="count-chip" id="agentiCount"></span>
+        <button class="btn" id="agentiResync" type="button">🔄 Risincronizza da GitHub</button>
+        <button class="btn btn-dark" id="agentiNew" type="button">+ Nuovo agente</button>
+      </div>
     </div>
-    <div id="archList"></div>
-    <div id="archProfile"></div>
-  </div><!-- /viewArch -->
+    <div id="agentiTable"></div>
+    <div class="cal-form" id="agentiEditor">
+      <div class="section-label" style="margin-top:0">Aggiungi o aggiorna agenti</div>
+      <div class="cal-hint" style="margin-bottom:.5rem">Un agente per riga, campi separati da <code>;</code>. Agenzia + Nome fanno da chiave: se coincidono con un agente già presente ne aggiorna solo i campi compilati, altrimenti lo crea.<br>
+      <b>Cognome;Nome;Nazionalità;Agenzia;Indirizzo;Telefono;Email;Sito;Referente italiano</b><br>
+      Esempio: <i>Rossi;Marco;ITA;Players Group;Via Roma 1, Milano;+39 333 1234567;marco@playersgroup.it;;</i></div>
+      <textarea class="hs-paste" id="agentiPaste" style="min-height:110px" placeholder="Cognome;Nome;Nazionalità;Agenzia;Indirizzo;Telefono;Email;Sito;Referente italiano"></textarea>
+      <div class="cal-actions">
+        <button class="btn" id="agentiApply" type="button">Aggiungi/aggiorna</button>
+        <button class="btn btn-primary" id="agentiDownload" type="button">Scarica JSON aggiornato</button>
+        <span class="cal-hint">Poi carica il file scaricato come data/agenti-fiba.json su GitHub, sovrascrivendo il vecchio.</span>
+      </div>
+    </div>
+  </div><!-- /viewAgenti -->
 
 </main>
 
@@ -532,8 +577,8 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
       <button type="button" class="verdict-btn sign" data-v="sign">✓ Sign</button>
       <button type="button" class="verdict-btn monitor" data-v="monitor">◉ Monitor</button>
       <button type="button" class="verdict-btn pass" data-v="pass">✕ Pass</button>
-      <select class="conf-select" id="iConf" aria-label="Confidenza">
-        <option value="">Confidenza…</option>
+      <select class="conf-select" id="iConf" aria-label="Affidabilità">
+        <option value="">Affidabilità…</option>
         <option value="1">● Bassa</option>
         <option value="2">●● Media</option>
         <option value="3">●●● Alta</option>
@@ -546,6 +591,24 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
       <div><label for="iFit">Fit</label><input id="iFit" placeholder="Es. secondo violino in un attacco PnR-heavy"></div>
       <div><label for="iRuoloReale">Ruolo realistico</label><input id="iRuoloReale" placeholder="Es. sesto uomo, 22-24 min"></div>
       <div><label for="iRischio">Rischio principale</label><input id="iRischio" placeholder="Es. efficienza al ferro contro fisicità europea"></div>
+    </div>
+
+    <div class="section-label">Contatti</div>
+    <div class="adat-grid">
+      <div><label for="iAgenteNome">Nome agente</label><input id="iAgenteNome" placeholder="Nome cognome"></div>
+      <div><label for="iAgenzia">Agenzia</label><input id="iAgenzia" placeholder="Nome agenzia"></div>
+      <div><label for="iAgenteEmail">Email agente</label><input id="iAgenteEmail" type="email" placeholder="nome@agenzia.com"></div>
+      <div><label for="iAgenteTel">Telefono agente</label><input id="iAgenteTel" type="tel" placeholder="+39 …"></div>
+      <div><label for="iContattiVerificato">Verificato il</label><input id="iContattiVerificato" type="date"></div>
+      <div></div>
+      <div><label for="iClubRefNome">Referente club/staff</label><input id="iClubRefNome" placeholder="Nome cognome"></div>
+      <div><label for="iClubRefRuolo">Ruolo</label><input id="iClubRefRuolo" placeholder="Head coach, DS…"></div>
+      <div><label for="iClubRefContatto">Contatto referente</label><input id="iClubRefContatto" placeholder="Email o telefono"></div>
+    </div>
+    <div class="cal-actions" style="margin-top:.5rem">
+      <button class="btn" id="btnContattiRoster" type="button">📋 Recupera staff da Roster</button>
+      <button class="btn" id="btnContattiAgente" type="button">🔍 Cerca in Agenti FIBA</button>
+      <span class="cal-hint">Cerca lo staff/agente indicati sopra negli archivi (richiede il sito online).</span>
     </div>
 
     <div class="section-label">Framework sei livelli (alimenta il report)</div>
@@ -561,6 +624,7 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
     <div class="section-label">Osservazioni</div>
     <div class="obs-form">
       <input id="obsInput" placeholder="Cosa hai visto — appunto rapido datato…">
+      <input id="obsUrl" type="url" placeholder="Link highlight (opzionale)">
       <button class="btn" id="obsAdd" type="button">Aggiungi</button>
     </div>
     <div id="obsList"></div>
@@ -601,8 +665,39 @@ Evan Boisdur	So	6-1	82	98	22
   </div>
 </dialog>
 
+<dialog id="agentModal">
+  <div class="modal-head">
+    <div>
+      <h2 id="agentMTitle">Nuovo agente</h2>
+      <div class="meta" id="agentMMeta"></div>
+    </div>
+    <button class="close-x" id="agentMClose" aria-label="Chiudi">×</button>
+  </div>
+  <div class="modal-body">
+    <div class="form-grid">
+      <div class="span2"><label for="agCognome">Cognome</label><input id="agCognome"></div>
+      <div class="span2"><label for="agNome">Nome</label><input id="agNome" placeholder="O nome completo del referente"></div>
+      <div><label for="agNaz">Nazionalità</label><input id="agNaz" placeholder="ITA"></div>
+      <div><label for="agRefIta">Referente italiano</label><input id="agRefIta" placeholder="Agenzia/persona italiana di riferimento"></div>
+      <div class="span2"><label for="agAgenzia">Agenzia</label><input id="agAgenzia" placeholder="Nome agenzia"></div>
+      <div class="span2"><label for="agIndirizzo">Indirizzo</label><input id="agIndirizzo"></div>
+      <div><label for="agTelefono">Telefono</label><input id="agTelefono" type="tel" placeholder="+39 …"></div>
+      <div><label for="agEmail">Email</label><input id="agEmail" type="email"></div>
+      <div class="span2"><label for="agSito">Sito web</label><input id="agSito" type="url" placeholder="https://…"></div>
+    </div>
+    <div class="cal-hint" style="margin-top:.3rem">* almeno uno tra Agenzia, Cognome o Nome è necessario per salvare.</div>
+    <div class="modal-footer">
+      <button class="btn btn-danger" id="agentBtnDelete" type="button">Elimina agente</button>
+      <span class="spacer"></span>
+      <button class="btn" id="agentBtnCancel" type="button">Annulla</button>
+      <button class="btn btn-primary" id="agentBtnSave" type="button">Salva scheda</button>
+    </div>
+  </div>
+</dialog>
+
 <div id="reportView">
   <div class="rep-toolbar">
+    <button class="btn btn-primary" id="repPdf">⬇ Esporta PDF</button>
     <button class="btn" id="repPrint">🖨 Stampa / PDF</button>
     <button class="btn" id="repClose">Chiudi</button>
   </div>
@@ -611,6 +706,7 @@ Evan Boisdur	So	6-1	82	98	22
 
 <div id="toast" role="status"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 (function(){
 'use strict';
@@ -618,6 +714,7 @@ Evan Boisdur	So	6-1	82	98	22
 /* ---------- storage: localStorage con fallback in memoria ---------- */
 const KEY='taccuino_scouting_v1';
 let memStore=null;
+let backupHandle=null,backupTimer=null;
 function loadAll(){
   try{const raw=localStorage.getItem(KEY);return raw?JSON.parse(raw):null}
   catch(e){return memStore}
@@ -626,6 +723,7 @@ function saveAll(data){
   memStore=data;
   try{localStorage.setItem(KEY,JSON.stringify(data))}
   catch(e){/* ambiente senza storage: resta in memoria */}
+  scheduleBackup();
 }
 
 /* ---------- stato ---------- */
@@ -679,16 +777,33 @@ function verdictStamp(p){
   return `<span class="stamp ${p.verdetto}">${label}</span>${dots}`;
 }
 function fmt(v){return (v===null||v===undefined||v==='')?'—':v}
+function lastObsDate(p){
+  if(!p.obs||!p.obs.length)return null;
+  return p.obs.reduce((m,o)=>(o.d&&o.d>m)?o.d:m,p.obs[0].d||'');
+}
 
 function applyFilters(list){
   const q=$('#q').value.trim().toLowerCase();
   const fl=fLega.value,fr=$('#fRuolo').value,fv=$('#fVerdetto').value;
+  const fc=$('#fCls').value,fconf=$('#fConf').value,fobs=$('#fObs').value;
   return list.filter(p=>{
     if(q && !(p.nome.toLowerCase().includes(q)||(p.squadra||'').toLowerCase().includes(q)))return false;
     if(fl && p.lega!==fl)return false;
     if(fr && p.ruolo!==fr)return false;
+    if(fc && p.cls!==fc)return false;
     if(fv==='none'&&p.verdetto)return false;
     if(fv&&fv!=='none'&&p.verdetto!==fv)return false;
+    if(fconf==='none'&&p.conf)return false;
+    if(fconf&&fconf!=='none'&&String(p.conf||'')!==fconf)return false;
+    if(fobs){
+      const last=lastObsDate(p);
+      if(fobs==='mai'){if(last)return false}
+      else{
+        if(!last)return false;
+        const cutoff=new Date(Date.now()-(+fobs)*86400000).toISOString().slice(0,10);
+        if(last<cutoff)return false;
+      }
+    }
     return true;
   });
 }
@@ -715,6 +830,10 @@ function render(){
   const curR=$('#fRuolo').value;
   $('#fRuolo').innerHTML='<option value="">Tutti i ruoli</option>'+allRoles().map(r=>
     `<option${r===curR?' selected':''}>${esc(r)}</option>`).join('');
+  const curCls=$('#fCls').value;
+  const classi=[...new Set(players.map(p=>p.cls).filter(Boolean))].sort();
+  $('#fCls').innerHTML='<option value="">Tutte le classi</option>'+classi.map(c=>
+    `<option${c===curCls?' selected':''}>${esc(c)}</option>`).join('');
 
   const list=sorted(applyFilters(players));
   rows.innerHTML=list.map(p=>`
@@ -732,7 +851,7 @@ function render(){
   empty.hidden=list.length>0;
   count.textContent=list.length+' / '+players.length+' giocatori';
   // frecce ordinamento
-  document.querySelectorAll('th').forEach(th=>{
+  document.querySelectorAll('#tbl th').forEach(th=>{
     th.querySelector('.arrow').textContent=th.dataset.k===sortKey?(sortDir===1?'▲':'▼'):'';
   });
 }
@@ -774,10 +893,19 @@ function openModal(id){
   $('#iFit').value=p?.fit||'';
   $('#iRuoloReale').value=p?.ruoloReale||'';
   $('#iRischio').value=p?.rischio||'';
+  $('#iAgenteNome').value=p?.agenteNome||'';
+  $('#iAgenzia').value=p?.agenzia||'';
+  $('#iAgenteEmail').value=p?.agenteEmail||'';
+  $('#iAgenteTel').value=p?.agenteTel||'';
+  $('#iContattiVerificato').value=p?.contattiVerificato||'';
+  $('#iClubRefNome').value=p?.clubRefNome||'';
+  $('#iClubRefRuolo').value=p?.clubRefRuolo||'';
+  $('#iClubRefContatto').value=p?.clubRefContatto||'';
   for(let i=1;i<=6;i++)document.getElementById('iFw'+i).value=p?.['fw'+i]||'';
   currentObs=p?structuredClone(p.obs||[]):[];
   currentHs=p?.hs?structuredClone(p.hs):null;
   $('#hsPaste').value='';
+  $('#obsUrl').value='';
   paintVerdict();paintObs();paintHs();
   $('#btnDelete').style.display=p?'':'none';
   modal.showModal();
@@ -792,10 +920,17 @@ function paintObs(){
   if(!currentObs.length){box.innerHTML='<div class="obs-empty">Nessuna osservazione registrata.</div>';return}
   box.innerHTML=[...currentObs].reverse().map((o,i)=>{
     const realIdx=currentObs.length-1-i;
-    return `<div class="obs-item"><span class="obs-date">${esc(o.d)}</span><span class="obs-text">${esc(o.t)}</span><button class="obs-del" data-i="${realIdx}" aria-label="Elimina nota">×</button></div>`;
+    const link=o.url?`<a class="obs-link" href="${esc(o.url)}" target="_blank" rel="noopener noreferrer" title="Apri highlight">▶ clip</a>`:'';
+    return `<div class="obs-item"><span class="obs-date">${esc(o.d)}</span><span class="obs-text">${esc(o.t)}</span>${link}<button class="obs-del" data-i="${realIdx}" aria-label="Elimina nota">×</button></div>`;
   }).join('');
 }
 function numOrNull(v){return v===''?null:+v}
+function normalizeUrl(u){
+  u=(u||'').trim();
+  if(!u)return '';
+  if(!/^https?:\/\//i.test(u))u='https://'+u;
+  return u;
+}
 function save(){
   const nome=$('#iNome').value.trim();
   if(!nome){toast('Il nome è obbligatorio');$('#iNome').focus();return null}
@@ -809,6 +944,10 @@ function save(){
     tre:numOrNull($('#iTre').value),ts:numOrNull($('#iTs').value),usg:numOrNull($('#iUsg').value),min:numOrNull($('#iMin').value),
     verdetto:currentVerdict,conf:$('#iConf').value,why:$('#iWhy').value.trim(),
     fit:$('#iFit').value.trim(),ruoloReale:$('#iRuoloReale').value.trim(),rischio:$('#iRischio').value.trim(),
+    agenteNome:$('#iAgenteNome').value.trim(),agenzia:$('#iAgenzia').value.trim(),
+    agenteEmail:$('#iAgenteEmail').value.trim(),agenteTel:$('#iAgenteTel').value.trim(),
+    contattiVerificato:$('#iContattiVerificato').value,
+    clubRefNome:$('#iClubRefNome').value.trim(),clubRefRuolo:$('#iClubRefRuolo').value.trim(),clubRefContatto:$('#iClubRefContatto').value.trim(),
     fw1:$('#iFw1').value.trim(),fw2:$('#iFw2').value.trim(),fw3:$('#iFw3').value.trim(),
     fw4:$('#iFw4').value.trim(),fw5:$('#iFw5').value.trim(),fw6:$('#iFw6').value.trim(),
     obs:currentObs,hs:currentHs
@@ -1005,13 +1144,31 @@ $('#hsParse').addEventListener('click',()=>{
   toast(stats.length+" statistiche importate da Hackastat");
 });
 
+$('#btnContattiRoster').addEventListener('click',async()=>{
+  const team=$('#iSquadra').value.trim();
+  if(!team){toast('Inserisci prima la squadra in Anagrafica');return}
+  const ok=await loadRosterOnce();
+  if(!ok){toast('Archivio roster non raggiungibile: serve il sito online');return}
+  const entry=staffData[team];
+  if(!entry||!entry.staff?.length){toast('Nessuno staff trovato per «'+team+'» in archivio');return}
+  const isHC=r=>/head coach|^hc$/i.test(r||'');
+  const hc=entry.staff.find(s=>isHC(s.ruolo))||entry.staff[0];
+  $('#iClubRefNome').value=[hc.nome,hc.cognome].filter(Boolean).join(' ');
+  $('#iClubRefRuolo').value=hc.ruolo||'';
+  $('#iClubRefContatto').value=hc.email||'';
+  toast('Contatto importato dall\'archivio roster');
+});
 $('#obsAdd').addEventListener('click',addObs);
 $('#obsInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addObs()}});
+$('#obsUrl').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();addObs()}});
 function addObs(){
   const t=$('#obsInput').value.trim();
+  const url=normalizeUrl($('#obsUrl').value);
   if(!t)return;
-  currentObs.push({d:new Date().toISOString().slice(0,10),t});
-  $('#obsInput').value='';paintObs();
+  const entry={d:new Date().toISOString().slice(0,10),t};
+  if(url)entry.url=url;
+  currentObs.push(entry);
+  $('#obsInput').value='';$('#obsUrl').value='';paintObs();
 }
 $('#obsList').addEventListener('click',e=>{
   const btn=e.target.closest('.obs-del');
@@ -1024,10 +1181,14 @@ rows.addEventListener('click',e=>{
 rows.addEventListener('keydown',e=>{
   if(e.key==='Enter'){const tr=e.target.closest('tr[data-id]');if(tr)openModal(tr.dataset.id)}
 });
-['q','fLega','fRuolo','fVerdetto'].forEach(id=>{
+['q','fLega','fRuolo','fCls','fVerdetto','fConf','fObs'].forEach(id=>{
   document.getElementById(id).addEventListener('input',render);
 });
-document.querySelectorAll('th').forEach(th=>{
+$('#btnResetFiltri').addEventListener('click',()=>{
+  ['q','fLega','fRuolo','fCls','fVerdetto','fConf','fObs'].forEach(id=>{document.getElementById(id).value=''});
+  render();
+});
+document.querySelectorAll('#tbl th').forEach(th=>{
   th.addEventListener('click',()=>{
     const k=th.dataset.k;
     if(sortKey===k)sortDir*=-1;else{sortKey=k;sortDir=1}
@@ -1079,11 +1240,107 @@ $('#fileImport').addEventListener('change',e=>{
   r.readAsText(f);
 });
 
+/* ---------- backup automatico su file locale (File System Access API) ---------- */
+const BACKUP_DB='taccuino_backup_db',BACKUP_STORE='handles',BACKUP_KEY='backupFile';
+function idbOpen(){
+  return new Promise((res,rej)=>{
+    const req=indexedDB.open(BACKUP_DB,1);
+    req.onupgradeneeded=()=>req.result.createObjectStore(BACKUP_STORE);
+    req.onsuccess=()=>res(req.result);
+    req.onerror=()=>rej(req.error);
+  });
+}
+async function idbGet(key){
+  try{
+    const db=await idbOpen();
+    return await new Promise((res,rej)=>{
+      const tx=db.transaction(BACKUP_STORE,'readonly');
+      const rq=tx.objectStore(BACKUP_STORE).get(key);
+      rq.onsuccess=()=>res(rq.result||null);
+      rq.onerror=()=>rej(rq.error);
+    });
+  }catch(e){return null}
+}
+async function idbSet(key,val){
+  try{
+    const db=await idbOpen();
+    return await new Promise((res,rej)=>{
+      const tx=db.transaction(BACKUP_STORE,'readwrite');
+      tx.objectStore(BACKUP_STORE).put(val,key);
+      tx.oncomplete=()=>res(true);
+      tx.onerror=()=>rej(tx.error);
+    });
+  }catch(e){return false}
+}
+function backupSupported(){return 'showSaveFilePicker' in window}
+function updateBackupUI(state){
+  const b=$('#btnBackup');
+  if(!b)return;
+  if(state==='on'){b.textContent='🟢 Backup collegato';b.title='Salvataggio automatico attivo sul file locale scelto'}
+  else if(state==='reconnect'){b.textContent='🟠 Riattiva backup';b.title='Il browser ha bisogno di un clic per confermare di nuovo l\u2019accesso al file'}
+  else{b.textContent='🔗 Collega backup automatico';b.title='Collega un file locale che si aggiorna da solo a ogni modifica'}
+}
+async function initBackup(){
+  if(!backupSupported()){updateBackupUI('off');return}
+  const h=await idbGet(BACKUP_KEY);
+  if(!h){updateBackupUI('off');return}
+  try{
+    const perm=await h.queryPermission({mode:'readwrite'});
+    backupHandle=h;
+    updateBackupUI(perm==='granted'?'on':'reconnect');
+  }catch(e){updateBackupUI('off')}
+}
+async function connectBackup(){
+  if(!backupSupported()){
+    toast('Backup automatico non supportato: serve Chrome o Edge su desktop');
+    return;
+  }
+  if(backupHandle){
+    try{
+      const perm=await backupHandle.requestPermission({mode:'readwrite'});
+      if(perm==='granted'){updateBackupUI('on');await writeBackupNow();toast('Backup riattivato');return}
+    }catch(e){}
+  }
+  try{
+    const handle=await window.showSaveFilePicker({
+      suggestedName:'taccuino-scouting-backup.json',
+      types:[{description:'JSON',accept:{'application/json':['.json']}}]
+    });
+    const perm=await handle.requestPermission({mode:'readwrite'});
+    if(perm!=='granted')throw new Error('permesso negato');
+    backupHandle=handle;
+    await idbSet(BACKUP_KEY,handle);
+    updateBackupUI('on');
+    await writeBackupNow();
+    toast('Backup automatico collegato: da ora si aggiorna da solo');
+  }catch(e){
+    if(e && e.name!=='AbortError')toast('Collegamento al file non riuscito');
+  }
+}
+async function writeBackupNow(){
+  if(!backupHandle)return;
+  try{
+    const perm=await backupHandle.queryPermission({mode:'readwrite'});
+    if(perm!=='granted'){updateBackupUI('reconnect');return}
+    const writable=await backupHandle.createWritable();
+    await writable.write(JSON.stringify({v:1,exported:new Date().toISOString(),players,games},null,2));
+    await writable.close();
+  }catch(e){
+    updateBackupUI('reconnect');
+  }
+}
+function scheduleBackup(){
+  if(!backupHandle)return;
+  clearTimeout(backupTimer);
+  backupTimer=setTimeout(writeBackupNow,900);
+}
+$('#btnBackup').addEventListener('click',connectBackup);
+
 /* ---------- calendario ---------- */
 const GKEY='taccuino_calendar_v1';
 let memGames=null;
 function loadGames(){try{const r=localStorage.getItem(GKEY);return r?JSON.parse(r):null}catch(e){return memGames}}
-function saveGames(){memGames=games;try{localStorage.setItem(GKEY,JSON.stringify(games))}catch(e){}}
+function saveGames(){memGames=games;try{localStorage.setItem(GKEY,JSON.stringify(games))}catch(e){} scheduleBackup();}
 let games=loadGames()||[];
 
 function todayStr(){return new Date().toISOString().slice(0,10)}
@@ -1267,100 +1524,6 @@ document.addEventListener('click',e=>{
   const x=hits[+b.dataset.gs];
   addRosterPlayerToTracker(x.g,x.team,x.lega);
 });
-/* ---------- dashboard archetipi ---------- */
-let archData=null, archLoaded=false, archAll=[];
-async function initArch(){
-  if(archLoaded){paintArchList('');return}
-  try{
-    const r=await fetch('data/archetypes-lba.json',{cache:'no-store'});
-    if(!r.ok)throw 0;
-    archData=await r.json();
-    archAll=[];
-    archData.squadre.forEach(s=>(s.players||[]).forEach(p=>archAll.push({...p,team:s.nome})));
-    archLoaded=true;
-    $('#archStats').textContent=archData.lega+' '+archData.stagione+' · '+archAll.length+' giocatori · '+archData.squadre.length+' squadre';
-    paintArchList('');
-  }catch(e){
-    $('#archList').innerHTML='<div class="cal-empty">Archivio archetipi non trovato. Carica data/archetypes-lba.json nel repository (funziona solo col sito online).</div>';
-  }
-}
-function pctCls(p){return (p===undefined||p===null)?'':p>=67?'hi':p>=34?'mid':'lo'}
-function badgesFor(p){
-  // deriva badge dai percentili + archetipo Hackastat
-  const b=[];const pc=p.pct||{};
-  if(pc['3P%']>=80||pc['TS%']>=85)b.push({n:'Sniper',c:'hi'});
-  if(pc['AST%']>=85)b.push({n:'Floor General',c:'hi'});
-  if(pc['USG%']>=80)b.push({n:'High Usage',c:'mid'});
-  if(pc['ORB%']>=80||pc['DRB%']>=85)b.push({n:'Rebounder',c:'hi'});
-  if(pc['BLK%']>=85)b.push({n:'Rim Protector',c:'hi'});
-  if(pc['ST%']>=85)b.push({n:'Ball Hawk',c:'hi'});
-  if(pc['TOV%']!==undefined&&pc['TOV%']<=15)b.push({n:'Low TO',c:'mid'});
-  return b;
-}
-function paintArchList(q){
-  q=(q||'').toLowerCase();
-  const list=archAll.filter(p=>!q||p.name.toLowerCase().includes(q));
-  $('#archProfile').innerHTML='';
-  if(!list.length){$('#archList').innerHTML='<div class="cal-empty">Nessun giocatore.</div>';return}
-  $('#archList').innerHTML='<div class="table-wrap"><table style="min-width:560px"><thead><tr><th>Giocatore</th><th>Squadra</th><th>Ruolo</th><th>Archetipo</th><th></th></tr></thead><tbody>'+
-    list.map((p,i)=>`<tr>
-      <td><span class="player-name">${esc(p.name)}</span>${verdictBadge(verdictOf(p.name))}</td>
-      <td>${esc(p.team)}</td><td>${esc(p.pos||'')}</td>
-      <td style="font-size:.8rem">${esc((p.archetype||'').split('|')[0].trim())}</td>
-      <td><button class="btn" data-arch="${i}" style="padding:.2rem .6rem;font-size:.75rem">Profilo</button></td>
-    </tr>`).join('')+'</tbody></table></div>';
-  $('#archList')._list=list;
-}
-const ARCH_STATS=[['PTS','Punti'],['TS%','TS%'],['3P%','3P%'],['USG%','USG%'],['AST','Assist'],['AST%','AST%'],['TOV%','TOV%'],['ORB%','ORB%'],['DRB%','DRB%'],['ST%','ST%'],['BLK%','BLK%'],['TM NET RTG','Net Rtg']];
-function paintArchProfile(p){
-  const badges=badgesFor(p);
-  const cells=ARCH_STATS.map(([k,lbl])=>{
-    const val=p.stats?.[k]??'—';const pc=p.pct?.[k];
-    return `<div class="adv-cell"><span class="adv-label">${esc(lbl)}</span><span class="adv-val">${esc(val)}</span>${pc!==undefined?`<span class="pct ${pctCls(pc)}">${pc}</span>`:''}</div>`;
-  }).join('');
-  // simili: stesso ruolo, distanza euclidea su percentili chiave
-  const keys=['TS%','3P%','USG%','AST%','TOV%','ORB%','DRB%','BLK%'];
-  const sims=archAll.filter(x=>x.name!==p.name).map(x=>{
-    let d=0,n=0;keys.forEach(k=>{if(p.pct?.[k]!==undefined&&x.pct?.[k]!==undefined){d+=Math.pow(p.pct[k]-x.pct[k],2);n++}});
-    return {x,score:n?Math.round(100-Math.sqrt(d/n)):0};
-  }).filter(s=>s.score>0).sort((a,b)=>b.score-a.score).slice(0,6);
-  $('#archProfile').innerHTML=`
-    <div class="cal-form" style="margin-top:1rem">
-      <div style="display:flex;align-items:baseline;gap:.6rem;flex-wrap:wrap">
-        <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem">${esc(p.name)}</span>
-        <span class="cal-hint">${esc(p.team)} · ${esc(p.pos||'')}</span>
-        ${verdictBadge(verdictOf(p.name))}
-      </div>
-      <div style="margin:.4rem 0"><span style="font-weight:700;color:var(--brand-deep)">${esc(p.archetype||'—')}</span></div>
-      ${badges.length?`<div style="display:flex;gap:.4rem;flex-wrap:wrap;margin:.5rem 0">${badges.map(bd=>`<span class="g-badge" style="background:${bd.c==='hi'?'var(--sign-bg)':'var(--monitor-bg)'};color:${bd.c==='hi'?'var(--sign)':'var(--monitor)'};border:1px solid currentColor">${bd.n}</span>`).join('')}</div>`:''}
-      <div class="adv-grid" style="margin-top:.6rem">${cells}</div>
-      <div class="cal-hint" style="margin-top:.3rem">Percentili di lega Hackastat: verde ≥67 · ocra 34-66 · rosso <34</div>
-      <div class="section-label" style="margin-top:1rem">Profili simili</div>
-      <div style="display:flex;flex-wrap:wrap;gap:.4rem">${sims.map(s=>`<button class="st-btn" data-simname="${esc(s.x.name)}" style="font-size:.78rem">${esc(s.x.name)} · ${s.score}%</button>`).join('')||'<span class="cal-hint">—</span>'}</div>
-      <div style="margin-top:.8rem"><button class="btn btn-primary" data-archadd="${esc(p.name)}" style="font-size:.8rem">→ Aggiungi al taccuino</button></div>
-    </div>`;
-}
-document.addEventListener('input',e=>{if(e.target.id==='archSearch')paintArchList(e.target.value)});
-document.addEventListener('click',e=>{
-  const pf=e.target.closest('[data-arch]');
-  const sim=e.target.closest('[data-simname]');
-  const add=e.target.closest('[data-archadd]');
-  if(pf){const p=$('#archList')._list[+pf.dataset.arch];if(p){paintArchProfile(p);$('#archProfile').scrollIntoView({behavior:'smooth',block:'start'})}return}
-  if(sim){const p=archAll.find(x=>x.name===sim.dataset.simname);if(p){paintArchProfile(p);$('#archProfile').scrollIntoView({behavior:'smooth',block:'start'})}return}
-  if(add){
-    const p=archAll.find(x=>x.name===add.dataset.archadd);if(!p)return;
-    if(players.some(x=>x.nome.toLowerCase()===p.name.toLowerCase())){toast(p.name+' è già nel taccuino');return}
-    const num=v=>{if(v===undefined||v===null||v==='—')return null;const n=parseFloat(String(v).replace('%',''));return isNaN(n)?null:n};
-    players.push({id:uid(),nome:p.name,squadra:p.team,lega:archData.lega||'LBA',ruolo:p.pos||'',naz:'',cls:'',
-      eta:null,altezza:null,cotonou:'',
-      ppg:num(p.stats?.['PTS']),rpg:null,apg:num(p.stats?.['AST']),tre:num(p.stats?.['3P%']),ts:num(p.stats?.['TS%']),usg:num(p.stats?.['USG%']),min:num(p.stats?.['MIN']),
-      verdetto:'',conf:'',why:'',fit:'',ruoloReale:'',rischio:'',
-      fw1:'',fw2:'',fw3:'',fw4:'',fw5:'',fw6:'',obs:[],
-      hs:{d:archData.aggiornato||'',src:'hackastat',stats:Object.entries(p.stats||{}).map(([k,v])=>({k,raw:v,v:num(v),pct:p.pct?.[k]??null}))}});
-    saveAll(players);render();toast(p.name+' aggiunto con dati Hackastat');
-  }
-});
-
 /* ---------- tabs ---------- */
 document.querySelectorAll('.tab').forEach(t=>{
   t.addEventListener('click',()=>{
@@ -1371,11 +1534,11 @@ document.querySelectorAll('.tab').forEach(t=>{
     $('#playersToolbar').style.display=v==='players'?'':'none';
     $('#viewCal').hidden=v!=='cal';
     $('#viewRoster').hidden=v!=='roster';
-    $('#viewArch').hidden=v!=='arch';
+    $('#viewAgenti').hidden=v!=='agenti';
     if(v==='home')renderHome();
     if(v==='cal')renderCal();
     if(v==='roster')initRoster();
-    if(v==='arch')initArch();
+    if(v==='agenti')initAgenti();
   });
 });
 
@@ -1419,10 +1582,11 @@ document.addEventListener('click',e=>{
 /* ---------- archivio roster (data/*.json) ---------- */
 let rosterFiles=[];       // [{file,lega}]
 let rosterData={};        // file -> json
+let staffData={};         // nome-breve-squadra -> {nome_ufficiale, conference, staff:[...]}
 let rosterSel={file:null,team:null};
 let rosterLoaded=false;
-async function initRoster(){
-  if(rosterLoaded){paintRosterAll();return}
+async function loadRosterOnce(){
+  if(rosterLoaded)return true;
   try{
     const r=await fetch('data/index.json',{cache:'no-store'});
     if(!r.ok)throw 0;
@@ -1434,14 +1598,27 @@ async function initRoster(){
         if(rr.ok)rosterData[f.file]=await rr.json();
       }catch(e){}
     }
+    // staff NCAA: dataset a parte, indipendente dall'elenco leghe in index.json
+    try{
+      const sr=await fetch('data/ncaa-staff.json',{cache:'no-store'});
+      if(sr.ok)staffData=await sr.json();
+    }catch(e){}
     rosterLoaded=true;
     if(rosterFiles.length&&!rosterSel.file)rosterSel.file=rosterFiles[0].file;
-    paintRosterAll();
+    return true;
   }catch(e){
-    $('#rosterLeagues').innerHTML='<span class="cal-hint">Archivio non trovato: carica la cartella <b>data/</b> (index.json + file leghe) nel repository accanto a index.html. Nota: aprendo il file in locale l\u2019archivio non è raggiungibile, serve il sito online.</span>';
+    return false;
   }
 }
-function paintRosterAll(){paintRosterLeagues();paintRosterTeams();paintRosterTable();}
+async function initRoster(){
+  const ok=await loadRosterOnce();
+  if(!ok){
+    $('#rosterLeagues').innerHTML='<span class="cal-hint">Archivio non trovato: carica la cartella <b>data/</b> (index.json + file leghe) nel repository accanto a index.html. Nota: aprendo il file in locale l\u2019archivio non è raggiungibile, serve il sito online.</span>';
+    return;
+  }
+  paintRosterAll();
+}
+function paintRosterAll(){paintRosterLeagues();paintRosterTeams();paintRosterTable();paintRosterStaff();}
 function paintRosterLeagues(){
   $('#rosterLeagues').innerHTML=rosterFiles.map(f=>{
     const d=rosterData[f.file];
@@ -1457,6 +1634,21 @@ function paintRosterTeams(){
       <span class="adv-label" style="text-transform:none;font-size:.85rem">${esc(s.nome)}</span>
       <span class="pct ${((s.roster||[]).length)?'hi':'lo'}">${(s.roster||[]).length}</span>
     </button>`).join('');
+}
+function paintRosterStaff(){
+  const box=$('#rosterStaff');
+  if(!rosterSel.team){box.innerHTML='';return}
+  const entry=staffData[rosterSel.team];
+  if(!entry||!entry.staff?.length){box.innerHTML='';return}
+  const isHC=r=>/head coach|^hc$/i.test(r||'');
+  const sortedStaff=[...entry.staff].sort((a,b)=>(isHC(b.ruolo)?1:0)-(isHC(a.ruolo)?1:0));
+  box.innerHTML=`<div class="cal-form" style="margin-top:.8rem">
+    <div class="section-label" style="margin-top:0">Staff · ${esc(rosterSel.team)}</div>
+    ${sortedStaff.map(s=>`<div style="display:flex;justify-content:space-between;gap:.6rem;padding:.3rem 0;border-bottom:1px solid var(--line)">
+      <span>${esc(s.nome)} ${esc(s.cognome)} <span class="cal-hint">${esc(s.ruolo||'')}</span></span>
+      <a href="mailto:${esc(s.email)}" style="color:var(--brand-deep);font-weight:600">${esc(s.email)}</a>
+    </div>`).join('')}
+  </div>`;
 }
 function paintRosterTable(){
   const d=rosterData[rosterSel.file];
@@ -1485,7 +1677,8 @@ function paintRosterTable(){
         <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
       </tr>`).join('');
   }else{
-    head='<th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th><th>Agenzia</th><th></th>';
+    const hideAgenzia=/euroleague|eurolega|eurocup/i.test(d.lega||'');
+    head='<th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Squadra 25-26</th><th>FA</th>'+(hideAgenzia?'':'<th>Agenzia</th>')+'<th></th>';
     rows=(sq.roster||[]).map((g,i)=>`
       <tr>
         <td><span class="player-name">${esc(g.nome)}</span>${verdictBadge(verdictOf(g.nome))}</td>
@@ -1497,11 +1690,12 @@ function paintRosterTable(){
         <td>${esc(g.pre_draft||'')}</td>
         <td>${esc(g.squadra_2025_26||'')}</td>
         <td class="num">${esc(g.fa_year||'')}</td>
-        <td>${esc(g.agenzia||'—')}</td>
+        ${hideAgenzia?'':'<td>'+esc(g.agenzia||'—')+'</td>'}
         <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
       </tr>`).join('');
   }
-  const span=isNcaa?9:11;
+  const nonNcaaCols=/euroleague|eurolega|eurocup/i.test(d.lega||'')?10:11;
+  const span=isNcaa?9:nonNcaaCols;
   box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:${isNcaa?720:1050}px">
     <thead><tr>${head}</tr></thead>
     <tbody>${rows||'<tr><td colspan="'+span+'" class="cal-empty" style="padding:1rem">Roster vuoto.</td></tr>'}</tbody>
@@ -1576,6 +1770,235 @@ $('#edDownload').addEventListener('click',()=>{
   toast(rosterSel.file+' scaricato: caricalo in data/ su GitHub');
 });
 
+/* ---------- archivio agenti FIBA (data/agenti-fiba.json + cache locale) ---------- */
+const AGKEY='taccuino_agenti_v1';
+let agentiData=[];          // array di record agente
+let agentiLoaded=false;
+let agentiFetchTried=false;
+function loadAgentiLocal(){
+  try{const r=localStorage.getItem(AGKEY);return r?JSON.parse(r):null}catch(e){return null}
+}
+function saveAgentiLocal(){
+  try{localStorage.setItem(AGKEY,JSON.stringify(agentiData))}catch(e){/* ambiente senza storage */}
+  scheduleBackup();
+}
+async function loadAgentiOnce(force){
+  if(agentiLoaded&&!force)return true;
+  if(!force){
+    const local=loadAgentiLocal();
+    if(local){
+      agentiData=local;
+      agentiData.forEach(a=>{if(!a.id)a.id=uid();});
+      agentiLoaded=true;
+      return true;
+    }
+  }
+  if(agentiFetchTried&&!force)return agentiLoaded; // già provato e fallito in questa sessione
+  agentiFetchTried=true;
+  try{
+    const r=await fetch('data/agenti-fiba.json',{cache:'no-store'});
+    if(!r.ok)throw 0;
+    const j=await r.json();
+    agentiData=Array.isArray(j)?j:(j.agenti||[]);
+    agentiData.forEach(a=>{if(!a.id)a.id=uid();});
+    agentiLoaded=true;
+    saveAgentiLocal();
+    return true;
+  }catch(e){return agentiLoaded}
+}
+async function initAgenti(){
+  const ok=await loadAgentiOnce();
+  if(!ok){
+    $('#agentiTable').innerHTML='<div class="cal-empty">Archivio non trovato: carica <b>data/agenti-fiba.json</b> nel repository accanto a index.html. Nota: serve il sito online, non funziona aprendo il file in locale.</div>';
+    return;
+  }
+  paintAgenti();
+}
+function paintAgentiNaz(){
+  const cur=$('#agentiNaz').value;
+  const nazioni=[...new Set(agentiData.map(a=>a.nazionalita).filter(Boolean))].sort();
+  $('#agentiNaz').innerHTML='<option value="">Tutte le nazionalità</option>'+nazioni.map(n=>
+    `<option${n===cur?' selected':''}>${esc(n)}</option>`).join('');
+}
+function agentContactCell(a){
+  const parts=[];
+  if(a.email)parts.push(`<a href="mailto:${esc(a.email)}">${esc(a.email)}</a>`);
+  if(a.telefono)parts.push(`<a href="tel:${esc(a.telefono.replace(/[^\d+]/g,''))}">${esc(a.telefono)}</a>`);
+  return parts.join('<br>')||'—';
+}
+function paintAgenti(){
+  paintAgentiNaz();
+  const q=$('#agentiSearch').value.trim().toLowerCase();
+  const naz=$('#agentiNaz').value;
+  const list=agentiData.filter(a=>{
+    if(naz&&a.nazionalita!==naz)return false;
+    if(q&&!((a.cognome||'').toLowerCase().includes(q)||(a.nome||'').toLowerCase().includes(q)||(a.agenzia||'').toLowerCase().includes(q)||(a.referente_italiano||'').toLowerCase().includes(q)))return false;
+    return true;
+  }).sort((a,b)=>(a.cognome||a.agenzia||a.nome||'').localeCompare(b.cognome||b.agenzia||b.nome||''));
+  $('#agentiCount').textContent=list.length+' / '+agentiData.length+' agenti';
+  $('#agentiTable').innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:960px">
+    <thead><tr><th>Cognome</th><th>Nome</th><th>Agenzia</th><th>Naz.</th><th>Contatti</th><th>Referente italiano</th></tr></thead>
+    <tbody>${list.map(a=>`
+      <tr data-agent-id="${esc(a.id)}" tabindex="0" aria-label="Apri scheda ${esc(a.cognome||a.agenzia||a.nome||'')}">
+        <td class="player-name">${esc(a.cognome||(!a.nome&&a.agenzia?a.agenzia:'')||'')}</td>
+        <td>${esc(a.nome||'')}</td>
+        <td>${esc(a.agenzia||'—')}</td>
+        <td>${esc(a.nazionalita||'—')}</td>
+        <td>${agentContactCell(a)}</td>
+        <td>${esc(a.referente_italiano||'—')}</td>
+      </tr>`).join('')||'<tr><td colspan="6" class="cal-empty" style="padding:1rem">Nessun agente trovato.</td></tr>'}</tbody>
+  </table></div>`;
+}
+$('#agentiTable').addEventListener('click',e=>{
+  if(e.target.closest('a'))return; // non aprire la scheda se si clicca su email/telefono
+  const tr=e.target.closest('tr[data-agent-id]');
+  if(tr)openAgentModal(tr.dataset.agentId);
+});
+$('#agentiTable').addEventListener('keydown',e=>{
+  if(e.key!=='Enter')return;
+  const tr=e.target.closest('tr[data-agent-id]');
+  if(tr)openAgentModal(tr.dataset.agentId);
+});
+$('#agentiSearch').addEventListener('input',paintAgenti);
+$('#agentiNaz').addEventListener('input',paintAgenti);
+function parseAgentiLine(line){
+  const f=line.split(';').map(s=>s.trim());
+  if(!f[0]&&!f[1]&&!f[3])return null; // serve almeno cognome, nome o agenzia
+  return {
+    cognome:f[0]||'',nome:f[1]||'',nazionalita:f[2]||'',
+    agenzia:f[3]||'',indirizzo:f[4]||'',telefono:f[5]||'',email:f[6]||'',sito:f[7]||'',
+    referente_italiano:f[8]||''
+  };
+}
+function agentMatchKey(a){
+  const k=(a.agenzia||'').toLowerCase()+'|'+(a.nome||'').toLowerCase();
+  return k==='|'?null:k;
+}
+$('#agentiApply').addEventListener('click',()=>{
+  const lines=$('#agentiPaste').value.split(/\r?\n/).map(l=>l.trim()).filter(Boolean);
+  if(!lines.length){toast('Nessuna riga valida');return}
+  const oggi=new Date().toISOString().slice(0,10);
+  let added=0,updated=0,skipped=0;
+  lines.forEach(line=>{
+    const rec=parseAgentiLine(line);
+    if(!rec){skipped++;return}
+    const key=agentMatchKey(rec);
+    const ex=key?agentiData.find(a=>agentMatchKey(a)===key):null;
+    if(ex){
+      Object.keys(rec).forEach(k=>{if(rec[k])ex[k]=rec[k]});
+      ex.aggiornato=oggi;
+      updated++;
+    }else{
+      rec.aggiornato=oggi;
+      rec.id=uid();
+      agentiData.push(rec);
+      added++;
+    }
+  });
+  agentiLoaded=true;
+  saveAgentiLocal();
+  paintAgenti();
+  $('#agentiPaste').value='';
+  toast(`Aggiunti ${added}, aggiornati ${updated}`+(skipped?(`, ${skipped} righe scartate`):''));
+});
+$('#agentiDownload').addEventListener('click',()=>{
+  if(!agentiData.length){toast('Nessun dato da scaricare');return}
+  const out={aggiornato:new Date().toISOString().slice(0,10),agenti:agentiData};
+  const blob=new Blob([JSON.stringify(out,null,2)],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);a.download='agenti-fiba.json';a.click();
+  URL.revokeObjectURL(a.href);
+  toast('agenti-fiba.json scaricato: caricalo in data/ su GitHub');
+});
+$('#btnContattiAgente').addEventListener('click',async()=>{
+  const agenzia=$('#iAgenzia').value.trim();
+  const nomeAgente=$('#iAgenteNome').value.trim();
+  if(!agenzia&&!nomeAgente){toast('Inserisci prima un\'agenzia o un nome agente da cercare');return}
+  const ok=await loadAgentiOnce();
+  if(!ok){toast('Archivio agenti non raggiungibile: serve il sito online');return}
+  let hit=null;
+  if(agenzia)hit=agentiData.find(a=>(a.agenzia||'').toLowerCase()===agenzia.toLowerCase());
+  if(!hit&&nomeAgente){
+    const q=nomeAgente.toLowerCase();
+    hit=agentiData.find(a=>`${a.nome} ${a.cognome}`.toLowerCase().includes(q)||`${a.cognome} ${a.nome}`.toLowerCase().includes(q));
+  }
+  if(!hit){toast('Nessun agente trovato nell\'archivio per questi dati');return}
+  $('#iAgenteNome').value=[hit.nome,hit.cognome].filter(Boolean).join(' ');
+  if(hit.agenzia)$('#iAgenzia').value=hit.agenzia;
+  if(hit.email)$('#iAgenteEmail').value=hit.email;
+  if(hit.telefono)$('#iAgenteTel').value=hit.telefono;
+  toast('Contatto importato dall\'archivio Agenti FIBA');
+});
+
+/* ---------- scheda agente (apri con click, modifica, salva, elimina) ---------- */
+const agentModal=$('#agentModal');
+let editingAgentId=null;
+function openAgentModal(id){
+  editingAgentId=id;
+  const a=id?agentiData.find(x=>x.id===id):null;
+  $('#agentMTitle').textContent=a?[a.cognome,a.nome].filter(Boolean).join(' ')||a.agenzia||'Agente':'Nuovo agente';
+  $('#agentMMeta').textContent=a?[a.agenzia,a.nazionalita].filter(Boolean).join(' · '):'';
+  $('#agCognome').value=a?.cognome||'';
+  $('#agNome').value=a?.nome||'';
+  $('#agNaz').value=a?.nazionalita||'';
+  $('#agRefIta').value=a?.referente_italiano||'';
+  $('#agAgenzia').value=a?.agenzia||'';
+  $('#agIndirizzo').value=a?.indirizzo||'';
+  $('#agTelefono').value=a?.telefono||'';
+  $('#agEmail').value=a?.email||'';
+  $('#agSito').value=a?.sito||'';
+  $('#agentBtnDelete').style.display=a?'':'none';
+  agentModal.showModal();
+}
+async function saveAgent(){
+  const cognome=$('#agCognome').value.trim();
+  const nome=$('#agNome').value.trim();
+  const agenzia=$('#agAgenzia').value.trim();
+  if(!cognome&&!nome&&!agenzia){toast('Serve almeno Cognome, Nome o Agenzia');$('#agAgenzia').focus();return}
+  await loadAgentiOnce(); // assicura che l'archivio base sia già caricato prima di aggiungere/modificare
+  const data={
+    cognome,nome,nazionalita:$('#agNaz').value.trim(),
+    referente_italiano:$('#agRefIta').value.trim(),agenzia,
+    indirizzo:$('#agIndirizzo').value.trim(),telefono:$('#agTelefono').value.trim(),
+    email:$('#agEmail').value.trim(),sito:$('#agSito').value.trim(),
+    aggiornato:new Date().toISOString().slice(0,10)
+  };
+  if(editingAgentId){
+    const i=agentiData.findIndex(x=>x.id===editingAgentId);
+    if(i>-1)agentiData[i]={...agentiData[i],...data};
+  }else{
+    agentiData.push({id:uid(),...data});
+  }
+  agentiLoaded=true;
+  saveAgentiLocal();
+  paintAgenti();
+  agentModal.close();
+  toast('Scheda agente salvata — resta salvata su questo browser, scarica il JSON per portarla anche su GitHub/altri dispositivi');
+}
+$('#agentiNew').addEventListener('click',()=>openAgentModal(null));
+$('#agentiResync').addEventListener('click',async()=>{
+  if(!confirm('Ricaricare l\'archivio dal file agenti-fiba.json pubblicato su GitHub? Le modifiche fatte qui e non ancora scaricate andranno perse.'))return;
+  const ok=await loadAgentiOnce(true);
+  if(!ok){toast('Impossibile raggiungere data/agenti-fiba.json: serve il sito online');return}
+  paintAgenti();
+  toast('Archivio risincronizzato dal file pubblicato su GitHub');
+});
+$('#agentMClose').addEventListener('click',()=>agentModal.close());
+$('#agentBtnCancel').addEventListener('click',()=>agentModal.close());
+$('#agentBtnSave').addEventListener('click',saveAgent);
+$('#agentBtnDelete').addEventListener('click',()=>{
+  if(!editingAgentId)return;
+  const a=agentiData.find(x=>x.id===editingAgentId);
+  if(!a)return;
+  if(confirm(`Eliminare ${[a.nome,a.cognome].filter(Boolean).join(' ')} dall'archivio agenti?`)){
+    agentiData=agentiData.filter(x=>x.id!==editingAgentId);
+    saveAgentiLocal();
+    paintAgenti();
+    agentModal.close();
+    toast('Agente eliminato — scarica il JSON per rendere la modifica definitiva anche su GitHub');
+  }
+});
+
 /* ---------- import match-notes ---------- */
 function importMatchNotes(data){
   const label=[data.match?.casa,data.match?.ospite].filter(Boolean).join('–');
@@ -1596,7 +2019,9 @@ function importMatchNotes(data){
     if(n.tags&&n.tags.length)parts.push(n.tags.join(', '));
     if(n.rating)parts.push(n.rating);
     if(n.text)parts.push(n.text);
-    p.obs.push({d,t:parts.join(' · ')});
+    const entry={d,t:parts.join(' · ')};
+    if(n.url)entry.url=normalizeUrl(n.url);
+    p.obs.push(entry);
     added++;
   });
   saveAll(players);render();
@@ -1670,6 +2095,14 @@ function getFirma(){try{return localStorage.getItem(FKEY)||''}catch(e){return ''
 function setFirma(v){try{localStorage.setItem(FKEY,v)}catch(e){}}
 const VLAB={sign:'Sign',monitor:'Monitor',pass:'Pass'};
 function repStat(l,v){return (v===null||v===undefined||v==='')?'':`<div class="rep-stat"><div class="l">${l}</div><div class="v">${v}</div></div>`}
+function contactLink(v){
+  if(!v)return '';
+  return /@/.test(v)?`<a href="mailto:${esc(v)}">${esc(v)}</a>`:esc(v);
+}
+function telLink(v){
+  if(!v)return '';
+  return `<a href="tel:${esc(v.replace(/[^\d+]/g,''))}">${esc(v)}</a>`;
+}
 function openReport(id){
   const p=players.find(x=>x.id===id);
   if(!p)return;
@@ -1711,8 +2144,13 @@ function openReport(id){
       <div class="rep-src">Fonte dati avanzati: ${srcName}, aggiornati al ${esc(p.hs.d)}. Percentili di lega dove disponibili.</div>`:''}
     ${fw.map(([t,txt])=>`<div class="rep-sec">${esc(t)}</div><div class="rep-text">${esc(txt)}</div>`).join('')}
     ${adat?`<div class="rep-sec">Adattabilità Europa / Serie A</div><div class="rep-adat">${adat}</div>`:''}
+    ${(p.agenteNome||p.agenzia||p.agenteEmail||p.agenteTel||p.clubRefNome||p.clubRefContatto)?`<div class="rep-sec">Contatti</div><div class="rep-adat">
+      ${(p.agenteNome||p.agenzia||p.agenteEmail||p.agenteTel)?`<p><b>Agente:</b> ${esc(p.agenteNome||'—')}${p.agenzia?' · '+esc(p.agenzia):''}${p.agenteEmail?' · '+contactLink(p.agenteEmail):''}${p.agenteTel?' · '+telLink(p.agenteTel):''}</p>`:''}
+      ${(p.clubRefNome||p.clubRefContatto)?`<p><b>Referente club:</b> ${esc(p.clubRefNome||'—')}${p.clubRefRuolo?' ('+esc(p.clubRefRuolo)+')':''}${p.clubRefContatto?' · '+contactLink(p.clubRefContatto):''}</p>`:''}
+      ${p.contattiVerificato?`<p><b>Verificato il:</b> ${esc(p.contattiVerificato)}</p>`:''}
+    </div>`:''}
     ${p.obs&&p.obs.length?`<div class="rep-sec">Osservazioni dal campo</div>${
-      [...p.obs].slice(-10).reverse().map(o=>`<div class="rep-obs"><span class="d">${esc(o.d)}</span>${esc(o.t)}</div>`).join('')}`:''}
+      [...p.obs].slice(-10).reverse().map(o=>`<div class="rep-obs"><span class="d">${esc(o.d)}</span>${esc(o.t)}${o.url?` <a class="lnk" href="${esc(o.url)}">▶ clip</a>`:''}</div>`).join('')}`:''}
     <div class="rep-foot">
       <span class="rep-firma" contenteditable="true" id="repFirma">${esc(getFirma())}</span>
       <span class="gen">Generato il ${oggi} · Taccuino Scouting di Giuseppe Marmina</span>
@@ -1723,6 +2161,31 @@ function openReport(id){
 $('#btnReport').addEventListener('click',()=>{
   const id=save();
   if(id)openReport(id);
+});
+function slugify(s){
+  return (s||'report').normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+    .replace(/[^a-zA-Z0-9]+/g,'-').replace(/^-+|-+$/g,'').toLowerCase()||'report';
+}
+$('#repPdf').addEventListener('click',()=>{
+  const p=players.find(x=>x.id===editingId);
+  if(typeof html2pdf==='undefined'){
+    toast('Libreria PDF non disponibile offline: uso Stampa del browser');
+    window.print();
+    return;
+  }
+  const btn=$('#repPdf');
+  const label=btn.textContent;
+  btn.textContent='Genero il PDF…';btn.disabled=true;
+  html2pdf().set({
+    margin:0,
+    filename:'scouting-'+slugify(p?.nome)+'.pdf',
+    image:{type:'jpeg',quality:0.98},
+    html2canvas:{scale:2,useCORS:true,backgroundColor:'#ffffff'},
+    jsPDF:{unit:'mm',format:'a4',orientation:'portrait'},
+    pagebreak:{mode:['css','avoid-all']}
+  }).from($('#repPage')).save().finally(()=>{
+    btn.textContent=label;btn.disabled=false;
+  });
 });
 $('#repClose').addEventListener('click',()=>$('#reportView').classList.remove('open'));
 $('#repPrint').addEventListener('click',()=>window.print());
@@ -1740,6 +2203,7 @@ function toast(msg){
 render();
 $('#playersToolbar').style.display='none';
 renderHome();
+initBackup();
 })();
 </script>
 </body>
