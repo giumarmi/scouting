@@ -363,7 +363,6 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   <button class="tab" data-view="players">Giocatori</button>
   <button class="tab" data-view="cal">Calendario</button>
   <button class="tab" data-view="roster">Roster</button>
-  <button class="tab" data-view="sln">SLN</button>
 </nav>
 
 <div class="toolbar" id="playersToolbar">
@@ -468,22 +467,6 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
     </div>
   </div><!-- /viewRoster -->
 
-  <div id="viewSln" hidden>
-    <div class="cal-form">
-      <div class="kg-head" style="margin-top:0">🤝 Sportlab Network · Scuderia</div>
-      <div class="cal-hint" id="slnStats">Riservato — assistiti SLN.</div>
-      <div style="display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.6rem;align-items:center">
-        <input type="search" id="slnSearch" placeholder="Cerca un assistito…" style="flex:1;min-width:180px;border:1px solid var(--line);border-radius:8px;padding:.5rem .7rem;background:var(--paper)">
-        <select id="slnRole" style="border:1px solid var(--line);border-radius:8px;padding:.5rem;background:var(--paper)">
-          <option value="">Tutti i ruoli</option>
-          <option>Pure PG</option><option>Scoring PG</option><option>Combo G</option>
-          <option>Wing G</option><option>Wing F</option><option>Stretch 4</option>
-          <option>PF/CF</option><option>Center</option>
-        </select>
-      </div>
-    </div>
-    <div id="slnContent"></div>
-  </div><!-- /viewSln -->
 
 
 </main>
@@ -1305,54 +1288,6 @@ function renderAgencies(){
     }</tbody></table></div>`).join('');
 }
 
-/* ---------- SLN · scuderia riservata ---------- */
-let slnData=null, slnLoaded=false;
-async function initSln(){
-  if(slnLoaded){renderSln();return}
-  try{
-    const r=await fetch('data/sln.json',{cache:'no-store'});
-    if(!r.ok)throw 0;
-    slnData=await r.json();slnLoaded=true;
-    renderSln();
-  }catch(e){
-    $('#slnContent').innerHTML='<div class="cal-empty">Archivio SLN non trovato. Carica data/sln.json nel repository (funziona solo col sito online).</div>';
-  }
-}
-function renderSln(){
-  if(!slnData)return;
-  const q=($('#slnSearch').value||'').toLowerCase();
-  const role=$('#slnRole').value||'';
-  let list=slnData.players.filter(p=>
-    (!q||p.nome.toLowerCase().includes(q)||(p.squadra_2025_26||'').toLowerCase().includes(q)) &&
-    (!role||p.ruolo===role));
-  $('#slnStats').textContent=`Riservato · ${slnData.players.length} assistiti Sportlab Network`+(list.length!==slnData.players.length?` · ${list.length} filtrati`:'');
-  if(!list.length){$('#slnContent').innerHTML='<div class="cal-empty">Nessun assistito trovato.</div>';return}
-  $('#slnContent').innerHTML='<div class="table-wrap"><table style="min-width:620px"><thead><tr><th>Giocatore</th><th>Ruolo</th><th>Alt.</th><th>Età</th><th>Naz</th><th>Squadra</th><th></th></tr></thead><tbody>'+
-    list.map((p,i)=>`<tr>
-      <td><span class="player-name">${esc(p.nome)}</span>${verdictBadge(verdictOf(p.nome))}</td>
-      <td>${esc(p.ruolo||p.posizione||'—')}</td>
-      <td class="num">${p.altezza_cm||'—'}</td>
-      <td class="num">${p.eta||'—'}</td>
-      <td>${esc(p.nazionalita||'')}</td>
-      <td>${esc(p.squadra_2025_26||'')}</td>
-      <td><button class="btn" data-slnadd="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
-    </tr>`).join('')+'</tbody></table></div>';
-  $('#slnContent')._list=list;
-}
-document.addEventListener('input',e=>{if(e.target.id==='slnSearch')renderSln()});
-document.addEventListener('change',e=>{if(e.target.id==='slnRole')renderSln()});
-document.addEventListener('click',e=>{
-  const b=e.target.closest('[data-slnadd]');if(!b)return;
-  const p=$('#slnContent')._list[+b.dataset.slnadd];if(!p)return;
-  if(players.some(x=>x.nome.toLowerCase()===p.nome.toLowerCase())){toast(p.nome+' è già nel taccuino');return}
-  players.push({id:uid(),nome:p.nome,squadra:p.squadra_2025_26||'',lega:'SLN',ruolo:p.ruolo||p.posizione||'',
-    naz:p.nazionalita||'',cls:'',eta:p.eta||null,altezza:p.altezza_cm||null,cotonou:'',
-    ppg:null,rpg:null,apg:null,tre:null,ts:null,usg:null,min:null,
-    verdetto:'',conf:'',why:'',fit:'',ruoloReale:'',rischio:'',
-    fw1:'',fw2:'',fw3:'',fw4:'',fw5:'',fw6:'',obs:[],hs:null});
-  saveAll(players);render();toast(p.nome+' aggiunto al taccuino');
-});
-
 /* ---------- tabs ---------- */
 document.querySelectorAll('.tab').forEach(t=>{
   t.addEventListener('click',()=>{
@@ -1363,11 +1298,9 @@ document.querySelectorAll('.tab').forEach(t=>{
     $('#playersToolbar').style.display=v==='players'?'':'none';
     $('#viewCal').hidden=v!=='cal';
     $('#viewRoster').hidden=v!=='roster';
-    $('#viewSln').hidden=v!=='sln';
     if(v==='home')renderHome();
     if(v==='cal')renderCal();
     if(v==='roster')initRoster();
-    if(v==='sln')initSln();
   });
 });
 
