@@ -421,9 +421,9 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
   </select>
   <select id="fVerdetto" aria-label="Filtra per verdetto">
     <option value="">Tutti i verdetti</option>
-    <option value="sign">Sign</option>
-    <option value="monitor">Monitor</option>
-    <option value="pass">Pass</option>
+    <option value="sign">Consigliato</option>
+    <option value="monitor">Da seguire</option>
+    <option value="pass">Scarta</option>
     <option value="none">Senza verdetto</option>
   </select>
   <span class="count-chip" id="count"></span>
@@ -569,11 +569,11 @@ Sostituisce l'intero roster della squadra selezionata."></textarea>
 
     <div class="section-label">Verdetto</div>
     <div class="verdict-row">
-      <button type="button" class="verdict-btn sign" data-v="sign">✓ Sign</button>
-      <button type="button" class="verdict-btn monitor" data-v="monitor">◉ Monitor</button>
-      <button type="button" class="verdict-btn pass" data-v="pass">✕ Pass</button>
-      <select class="conf-select" id="iConf" aria-label="Confidenza">
-        <option value="">Confidenza…</option>
+      <button type="button" class="verdict-btn sign" data-v="sign">✓ Consigliato</button>
+      <button type="button" class="verdict-btn monitor" data-v="monitor">◉ Da seguire</button>
+      <button type="button" class="verdict-btn pass" data-v="pass">✕ Scarta</button>
+      <select class="conf-select" id="iConf" aria-label="Attendibilità">
+        <option value="">Attendibilità…</option>
         <option value="1">● Bassa</option>
         <option value="2">●● Media</option>
         <option value="3">●●● Alta</option>
@@ -714,7 +714,7 @@ const fLega=$('#fLega');
 /* ---------- render tabella ---------- */
 function verdictStamp(p){
   if(!p.verdetto)return '<span class="stamp none">—</span>';
-  const label={sign:'Sign',monitor:'Monitor',pass:'Pass'}[p.verdetto];
+  const label={sign:'Consigliato',monitor:'Da seguire',pass:'Scarta'}[p.verdetto];
   const dots=p.conf?'<span class="conf-dots">'+'●'.repeat(+p.conf)+'</span>':'';
   return `<span class="stamp ${p.verdetto}">${label}</span>${dots}`;
 }
@@ -1262,7 +1262,7 @@ function verdictOf(nome){
 }
 function verdictBadge(v){
   if(!v)return '';
-  const lab={sign:'Sign',monitor:'Monitor',pass:'Pass'}[v];
+  const lab={sign:'Consigliato',monitor:'Da seguire',pass:'Scarta'}[v];
   return `<span class="stamp ${v}" style="font-size:.68rem;padding:.05rem .4rem;margin-left:.4rem">${lab}</span>`;
 }
 function allRosterPlayers(){
@@ -1363,15 +1363,15 @@ function renderHome(){
   const stats=`
     <div class="stat-row">
       <div class="stat"><div class="stat-num">${players.length}</div><div class="stat-lbl">In taccuino</div></div>
-      <div class="stat sign"><div class="stat-num">${signs.length}</div><div class="stat-lbl">Sign attivi</div></div>
+      <div class="stat sign"><div class="stat-num">${signs.length}</div><div class="stat-lbl">Consigliati</div></div>
       <div class="stat monitor"><div class="stat-num">${monitors.length}</div><div class="stat-lbl">In monitoraggio</div></div>
       <div class="stat accent"><div class="stat-num">${kg.length}</div><div class="stat-lbl">Key games 7gg</div></div>
     </div>`;
   const cards=[
-    homeCard('Giocatori da valutare',noVerdict.length,'Assegna un verdetto Sign / Monitor / Pass',noVerdict.slice(0,6),'players'),
+    homeCard('Giocatori da valutare',noVerdict.length,'Assegna un verdetto Consigliato / Da seguire / Scarta',noVerdict.slice(0,6),'players'),
     homeCard('Report da scrivere',noReport.length,'Hanno un verdetto ma il framework è vuoto',noReport.slice(0,6),'players'),
     homeCard('Key games entro 7 giorni',kg.length,'Partite con 2+ giocatori seguiti',kg.map(g=>({nome:g.casa+' – '+g.ospite+' ('+g.data+')'})),'cal'),
-    homeCard('Verdetti Sign attivi',signs.length,'I tuoi consigliati',signs.slice(0,6),'players'),
+    homeCard('Consigliati attivi',signs.length,'I tuoi consigliati',signs.slice(0,6),'players'),
   ];
   $('#homeContent').innerHTML=stats+
     `<div class="home-h">Do next</div>
@@ -1665,7 +1665,7 @@ $('#rosterGo').addEventListener('click',()=>{
 const FKEY='taccuino_firma_v1';
 function getFirma(){try{return localStorage.getItem(FKEY)||''}catch(e){return ''}}
 function setFirma(v){try{localStorage.setItem(FKEY,v)}catch(e){}}
-const VLAB={sign:'Sign',monitor:'Monitor',pass:'Pass'};
+const VLAB={sign:'Consigliato',monitor:'Da seguire',pass:'Scarta'};
 function repStat(l,v){return (v===null||v===undefined||v==='')?'':`<div class="rep-stat"><div class="l">${l}</div><div class="v">${v}</div></div>`}
 function openReport(id){
   const p=players.find(x=>x.id===id);
