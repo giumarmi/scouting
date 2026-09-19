@@ -1460,9 +1460,27 @@ function paintRosterTable(){
   ed.hidden=false;
   $('#edTeamName').textContent=sq.nome;
   const isNcaa=(d.lega||'').startsWith('NCAA')||(sq.roster||[]).some(g=>g.ppg!==undefined&&g.ppg!==null||g.mpg!==undefined&&g.mpg!==null);
+  const isNba=(d.lega||'')==='NBA';
   const fmt=v=>(v===null||v===undefined||v==='')?'—':v;
   let head,rows;
-  if(isNcaa){
+  if(isNba){
+    head='<th>Giocatore</th><th>N.</th><th>Ruolo</th><th>Alt.</th><th>Età</th><th>Naz</th><th>Pre-draft</th><th>Contratto</th><th>FA</th><th>Salario 26-27</th><th>Palmarès</th><th></th>';
+    rows=(sq.roster||[]).map((g,i)=>`
+      <tr>
+        <td><span class="player-name">${esc(g.nome)}</span>${verdictBadge(verdictOf(g.nome))}</td>
+        <td class="num">${esc(g.numero||'')}</td>
+        <td>${esc(g.posizione||g.ruolo||'—')}</td>
+        <td class="num">${g.altezza_cm||(g.altezza?esc(g.altezza):'—')}</td>
+        <td class="num">${esc(g.eta||'')}</td>
+        <td>${esc(g.nazionalita||'—')}</td>
+        <td>${esc(g.pre_draft||'')}</td>
+        <td>${esc(g.contratto||'')}</td>
+        <td class="num">${esc(g.fa_year||'')}</td>
+        <td class="num">${esc(g.salario||'')}</td>
+        <td style="font-size:.78rem">${esc(g.palmares||'')}</td>
+        <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
+      </tr>`).join('');
+  }else if(isNcaa){
     head='<th>Giocatore</th><th>Ruolo</th><th>Alt.</th><th>Classe</th><th>PPG</th><th>RPG</th><th>APG</th><th>MPG</th><th></th>';
     rows=(sq.roster||[]).map((g,i)=>`
       <tr>
@@ -1493,8 +1511,8 @@ function paintRosterTable(){
         <td><button class="btn" data-add="${i}" style="padding:.2rem .6rem;font-size:.75rem">→ Taccuino</button></td>
       </tr>`).join('');
   }
-  const span=isNcaa?9:11;
-  box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:${isNcaa?720:1050}px">
+  const span=isNba?12:isNcaa?9:11;
+  box.innerHTML=`<div class="table-wrap" style="margin-top:.8rem"><table style="min-width:${isNba?1150:isNcaa?720:1050}px">
     <thead><tr>${head}</tr></thead>
     <tbody>${rows||'<tr><td colspan="'+span+'" class="cal-empty" style="padding:1rem">Roster vuoto.</td></tr>'}</tbody>
   </table></div>`;
