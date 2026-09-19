@@ -8,21 +8,30 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#F4F5F7;
+  --paper:#EEF0F4;
+  --paper-2:#F7F8FA;
   --card:#FFFFFF;
-  --ink:#1A2230;
-  --ink-soft:#5A6472;
-  --line:#E2E5EA;
+  --ink:#141A24;
+  --ink-soft:#5B6472;
+  --line:#E1E5EC;
+  --line-soft:#EDEFF3;
+  --navy:#151C2C;
+  --navy-2:#1F2A40;
   --brand:#2F6F8F;
-  --brand-deep:#235267;
+  --brand-deep:#214F66;
   --brand-soft:#E4EFF4;
-  --sign:#1E8A5A;
-  --sign-bg:#E3F4EC;
-  --monitor:#C98A1E;
-  --monitor-bg:#FBF0DA;
-  --pass:#C4453A;
-  --pass-bg:#FBE7E4;
+  --accent:#E0722E;
+  --accent-deep:#C25E20;
+  --accent-soft:#FBEADC;
+  --sign:#1C8659;
+  --sign-bg:#E1F3EA;
+  --monitor:#C0851A;
+  --monitor-bg:#FAEFD6;
+  --pass:#C24135;
+  --pass-bg:#FAE5E2;
   --focus:#2F6F8F;
+  --shadow:0 1px 2px rgba(20,26,36,.04),0 4px 16px rgba(20,26,36,.06);
+  --shadow-lg:0 2px 8px rgba(20,26,36,.08),0 12px 32px rgba(20,26,36,.10);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px}
@@ -32,6 +41,7 @@ body{
   font-family:'Public Sans',system-ui,-apple-system,sans-serif;
   line-height:1.45;
   min-height:100vh;
+  -webkit-font-smoothing:antialiased;
 }
 button{font-family:inherit;cursor:pointer}
 input,select,textarea{font-family:inherit;font-size:0.95rem;color:var(--ink)}
@@ -39,29 +49,40 @@ input,select,textarea{font-family:inherit;font-size:0.95rem;color:var(--ink)}
 
 /* ---------- header ---------- */
 header{
-  background:linear-gradient(120deg,#1A2230 0%,#243447 55%,#2F6F8F 140%);
-  color:#FAF5EC;
-  padding:1.1rem 1.4rem 1rem;
-  display:flex;align-items:baseline;gap:1rem;flex-wrap:wrap;
-  border-bottom:3px solid var(--brand);
+  background:radial-gradient(120% 180% at 0% 0%,#20293D 0%,#151C2C 55%,#101623 100%);
+  color:#F4F6FA;
+  padding:1.15rem 1.5rem 1.05rem;
+  display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
+  border-bottom:3px solid var(--accent);
+  position:relative;
+}
+.brand-mark{
+  width:42px;height:42px;flex:0 0 auto;border-radius:11px;
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent-deep) 100%);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.5rem;
+  color:#fff;box-shadow:0 4px 14px rgba(224,114,46,.35);letter-spacing:-.02em;
 }
 .brand{
   font-family:'Barlow Condensed',sans-serif;
-  font-weight:700;font-size:1.7rem;letter-spacing:.04em;text-transform:uppercase;
+  font-weight:700;font-size:1.7rem;letter-spacing:.03em;text-transform:uppercase;line-height:1;
 }
 .brand small{
-  display:block;font-family:'Public Sans',sans-serif;font-weight:400;
-  font-size:.72rem;letter-spacing:.12em;color:#8FC4DB;text-transform:uppercase;margin-top:.1rem;
+  display:block;font-family:'Public Sans',sans-serif;font-weight:500;
+  font-size:.68rem;letter-spacing:.22em;color:var(--accent);text-transform:uppercase;margin-top:.28rem;
 }
 .header-actions{margin-left:auto;display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
 .btn{
   border:1px solid var(--line);background:var(--card);color:var(--ink);
-  border-radius:8px;padding:.5rem .9rem;font-size:.85rem;font-weight:600;
+  border-radius:9px;padding:.5rem .9rem;font-size:.85rem;font-weight:600;
+  transition:background .12s,border-color .12s,transform .05s;
 }
-.btn:hover{background:var(--brand-soft)}
-.btn-dark{background:#FAF5EC;color:var(--ink);border-color:transparent}
-.btn-ghost{background:transparent;color:#FAF5EC;border:1px solid rgba(250,245,236,.35)}
-.btn-ghost:hover{background:rgba(250,245,236,.14)}
+.btn:hover{background:var(--brand-soft);border-color:var(--brand-soft)}
+.btn:active{transform:translateY(1px)}
+.btn-dark{background:var(--accent);color:#fff;border-color:transparent;box-shadow:0 2px 10px rgba(224,114,46,.3)}
+.btn-dark:hover{background:var(--accent-deep)}
+.btn-ghost{background:rgba(255,255,255,.06);color:#E7ECF3;border:1px solid rgba(231,236,243,.22)}
+.btn-ghost:hover{background:rgba(255,255,255,.14)}
 .btn-primary{background:var(--brand);color:#fff;border-color:var(--brand)}
 .btn-primary:hover{background:var(--brand-deep)}
 .btn-danger{color:var(--pass);border-color:var(--pass)}
@@ -81,19 +102,21 @@ header{
 .count-chip{font-size:.8rem;color:var(--ink-soft);white-space:nowrap}
 
 /* ---------- table ---------- */
-main{padding:1.2rem 1.4rem 3rem;max-width:1200px;margin:0 auto}
-.table-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:12px}
+main{padding:1.4rem 1.4rem 3rem;max-width:1200px;margin:0 auto}
+.table-wrap{overflow-x:auto;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow)}
 table{width:100%;border-collapse:collapse;min-width:760px}
 th{
   font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;font-size:.8rem;color:var(--ink-soft);
-  text-align:left;padding:.7rem .8rem;border-bottom:2px solid var(--brand);
-  cursor:pointer;user-select:none;white-space:nowrap;
+  text-transform:uppercase;font-size:.82rem;color:var(--ink-soft);
+  text-align:left;padding:.8rem .85rem;border-bottom:2px solid var(--line);
+  cursor:pointer;user-select:none;white-space:nowrap;background:var(--paper-2);
 }
-th .arrow{font-size:.7rem;margin-left:.2rem}
-td{padding:.65rem .8rem;border-bottom:1px solid var(--line);font-size:.92rem;vertical-align:middle}
-tbody tr{cursor:pointer}
-tbody tr:hover{background:#EEF4F7}
+th:first-child{border-top-left-radius:14px}
+th:last-child{border-top-right-radius:14px}
+th .arrow{font-size:.7rem;margin-left:.2rem;color:var(--accent)}
+td{padding:.7rem .85rem;border-bottom:1px solid var(--line-soft);font-size:.92rem;vertical-align:middle}
+tbody tr{cursor:pointer;transition:background .1s}
+tbody tr:hover{background:var(--brand-soft)}
 tbody tr:last-child td{border-bottom:none}
 .player-name{font-weight:700}
 .player-sub{font-size:.78rem;color:var(--ink-soft)}
@@ -110,7 +133,7 @@ tbody tr:last-child td{border-bottom:none}
 .stamp.monitor{color:var(--monitor);background:var(--monitor-bg)}
 .stamp.pass{color:var(--pass);background:var(--pass-bg)}
 .stamp.none{color:var(--ink-soft);border-style:dashed;background:transparent;transform:none;font-weight:600}
-.conf-dots{font-size:.7rem;letter-spacing:.15em;margin-left:.3rem;color:var(--ink-soft)}
+.conf-dots{font-size:.7rem;letter-spacing:.15em;margin-left:.3rem;color:var(--accent)}
 
 /* ---------- empty state ---------- */
 .empty{
@@ -134,6 +157,28 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .close-x{margin-left:auto;background:transparent;border:none;color:#F2F4F1;font-size:1.4rem;line-height:1;padding:.2rem .4rem;border-radius:6px}
 .close-x:hover{background:rgba(242,244,241,.15)}
 .modal-body{padding:1.2rem 1.3rem 1.5rem;overflow-y:auto;max-height:calc(90vh - 90px)}
+/* ---------- dashboard stat cards ---------- */
+.stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem;margin:.3rem 0 1.6rem}
+.stat{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem;
+  box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.stat::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--brand)}
+.stat.accent::before{background:var(--accent)}
+.stat.sign::before{background:var(--sign)}
+.stat.monitor::before{background:var(--monitor)}
+.stat-num{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:2.6rem;line-height:1;color:var(--ink);letter-spacing:-.01em}
+.stat-lbl{font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);font-weight:600;margin-top:.35rem}
+.home-h{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.35rem;text-transform:uppercase;letter-spacing:.06em;margin:.2rem 0 .8rem;color:var(--ink)}
+.action-card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.05rem 1.1rem;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;transition:box-shadow .15s,transform .1s;
+}
+.action-card:hover{box-shadow:var(--shadow-lg);transform:translateY(-2px)}
+.action-head{display:flex;align-items:center;gap:.55rem;margin-bottom:.15rem}
+.action-n{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.75rem;line-height:1;color:var(--accent-deep);min-width:1.5em}
+.action-title{font-weight:700;font-size:.98rem}
+
 .section-label{
   font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.1em;
   text-transform:uppercase;font-size:.82rem;color:var(--brand-deep);
@@ -211,13 +256,15 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 .pct.lo{background:var(--pass-bg);color:var(--pass)}
 
 /* tabs */
-.tabs{display:flex;gap:0;background:#1A2230;padding:0 1.4rem}
+.tabs{display:flex;gap:0;background:#101623;padding:0 1.5rem;overflow-x:auto}
 .tab{
-  font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.08em;
-  text-transform:uppercase;font-size:.95rem;color:rgba(250,245,236,.6);
-  background:transparent;border:none;padding:.6rem 1rem;border-bottom:3px solid transparent;
+  font-family:'Barlow Condensed',sans-serif;font-weight:600;letter-spacing:.09em;
+  text-transform:uppercase;font-size:.98rem;color:rgba(231,236,243,.55);
+  background:transparent;border:none;padding:.7rem 1.05rem;border-bottom:3px solid transparent;
+  white-space:nowrap;transition:color .12s;
 }
-.tab.active{color:#9FD0E4;border-bottom-color:var(--brand)}
+.tab:hover{color:rgba(231,236,243,.85)}
+.tab.active{color:#fff;border-bottom-color:var(--accent)}
 
 /* calendario */
 .cal-form{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:1rem;margin-bottom:1rem}
@@ -349,6 +396,7 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 <body>
 
 <header>
+  <div class="brand-mark">GM</div>
   <div class="brand">Taccuino Scouting di Giuseppe Marmina<small>Player Tracker</small></div>
   <div class="header-actions">
     <button class="btn btn-ghost" id="btnExport">Esporta JSON</button>
@@ -384,7 +432,6 @@ dialog::backdrop{background:rgba(20,33,43,.5)}
 
 <main>
   <div id="viewHome">
-    <div class="kg-head" style="margin-top:.5rem">👋 Do next</div>
     <div id="homeContent"></div>
   </div>
 
@@ -1310,29 +1357,36 @@ function renderHome(){
   const signs=players.filter(p=>p.verdetto==='sign');
   const monitors=players.filter(p=>p.verdetto==='monitor');
   const noReport=players.filter(p=>p.verdetto&&!p.fw1&&!p.fw2&&!p.fw3&&!p.fw4&&!p.fw5&&!p.fw6);
-  // key games nei prossimi 7 giorni
   const today=todayStr();
   const in7=new Date(Date.now()+7*86400000).toISOString().slice(0,10);
   const kg=games.filter(g=>g.data>=today&&g.data<=in7&&trackedIn(g).tot>=2);
-  const cards=[];
-  cards.push(homeCard('Giocatori da valutare',noVerdict.length,'Assegna un verdetto Sign / Monitor / Pass',noVerdict.slice(0,6),'players'));
-  cards.push(homeCard('Report da scrivere',noReport.length,'Hanno un verdetto ma il framework è vuoto',noReport.slice(0,6),'players'));
-  cards.push(homeCard('Key games entro 7 giorni',kg.length,'Partite con 2+ giocatori seguiti',kg.map(g=>({nome:g.casa+' – '+g.ospite+' ('+g.data+')'})),'cal'));
-  cards.push(homeCard('Verdetti Sign attivi',signs.length,'I tuoi consigliati',signs.slice(0,6),'players'));
-  $('#homeContent').innerHTML=`
-    <div class="cal-hint" style="margin:.2rem 0 1rem">${players.length} giocatori in taccuino · ${monitors.length} in monitoraggio · ${signs.length} da firmare</div>
-    <div class="adv-grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">${cards.join('')}</div>`;
+  const stats=`
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num">${players.length}</div><div class="stat-lbl">In taccuino</div></div>
+      <div class="stat sign"><div class="stat-num">${signs.length}</div><div class="stat-lbl">Sign attivi</div></div>
+      <div class="stat monitor"><div class="stat-num">${monitors.length}</div><div class="stat-lbl">In monitoraggio</div></div>
+      <div class="stat accent"><div class="stat-num">${kg.length}</div><div class="stat-lbl">Key games 7gg</div></div>
+    </div>`;
+  const cards=[
+    homeCard('Giocatori da valutare',noVerdict.length,'Assegna un verdetto Sign / Monitor / Pass',noVerdict.slice(0,6),'players'),
+    homeCard('Report da scrivere',noReport.length,'Hanno un verdetto ma il framework è vuoto',noReport.slice(0,6),'players'),
+    homeCard('Key games entro 7 giorni',kg.length,'Partite con 2+ giocatori seguiti',kg.map(g=>({nome:g.casa+' – '+g.ospite+' ('+g.data+')'})),'cal'),
+    homeCard('Verdetti Sign attivi',signs.length,'I tuoi consigliati',signs.slice(0,6),'players'),
+  ];
+  $('#homeContent').innerHTML=stats+
+    `<div class="home-h">Do next</div>
+     <div class="adv-grid" style="grid-template-columns:repeat(auto-fill,minmax(240px,1fr))">${cards.join('')}</div>`;
 }
 function homeCard(titolo,n,sub,items,goView){
-  const list=items.length?('<div style="margin-top:.5rem">'+items.map(x=>`<div style="font-size:.82rem;padding:.15rem 0;border-top:1px solid var(--line)">${esc(x.nome)}</div>`).join('')+'</div>'):'<div class="cal-hint" style="margin-top:.4rem">Niente in coda 👍</div>';
-  return `<div class="cal-form" style="margin:0">
-    <div style="display:flex;align-items:baseline;gap:.5rem">
-      <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:1.6rem;color:var(--brand-deep)">${n}</span>
-      <span style="font-weight:700">${esc(titolo)}</span>
+  const list=items.length?('<div style="margin-top:.55rem">'+items.map(x=>`<div style="font-size:.82rem;padding:.2rem 0;border-top:1px solid var(--line-soft)">${esc(x.nome)}</div>`).join('')+'</div>'):'<div class="cal-hint" style="margin-top:.4rem">Niente in coda 👍</div>';
+  return `<div class="action-card">
+    <div class="action-head">
+      <span class="action-n">${n}</span>
+      <span class="action-title">${esc(titolo)}</span>
     </div>
     <div class="cal-hint">${esc(sub)}</div>
     ${list}
-    <button class="st-btn" data-goto="${goView}" style="margin-top:.6rem;font-size:.78rem">Vai →</button>
+    <button class="st-btn" data-goto="${goView}" style="margin-top:.7rem;font-size:.78rem;align-self:flex-start">Vai →</button>
   </div>`;
 }
 document.addEventListener('click',e=>{
